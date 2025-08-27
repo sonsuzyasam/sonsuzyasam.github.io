@@ -3,55 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sonsuz Yaşam projeleri: Taksi hesaplama, Bingo PDF oluşturma ve daha fazlası. Mobil uyumlu, hızlı ve ücretsiz araçlar.">
+  <meta name="keywords" content="taksi hesaplama, bingo kartı, pdf oluştur, ücretsiz araçlar, github pages, sonsuz yaşam">
+  <meta name="author" content="Sonsuz Yaşam">
 <meta name="google-adsense-account" content="ca-pub-7309845525285029">
-  <title>sonsuz yaşam | Uygulama Portalı</title>
+  <title>Sonsuz Yaşam | Ücretsiz Web Uygulamaları</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
       margin: 0;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
       color: #333;
     }
-    .projects {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 30px;
+    header {
+      background-color: #0077cc;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
     }
     .card {
       background: white;
       border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       padding: 20px;
-      width: 300px;
-      text-align: center;
+      margin-bottom: 20px;
+    }
+    .card h2 {
+      margin-top: 0;
     }
     .card a {
-      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
       color: #0077cc;
+      text-decoration: none;
       font-weight: bold;
     }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #777;
+    }
+    @media (max-width: 600px) {
+      .card {
+        padding: 15px;
+      }
+    }
   </style>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P41MV1GV2Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-P41MV1GV2Y');
+</script>
 </head>
 <body>
-  <h1>sonsuz yaşam uygulamaları</h1>
-  <div class="projects">
+  <header>
+    <h1>Sonsuz Yaşam Web Uygulamaları</h1>
+    <p>Basit, hızlı ve ücretsiz araçlar</p>
+  </header>
+
+  <div class="container">
     <div class="card">
       <h2>Taksi Hesaplama</h2>
-      <p>Gerçek zamanlı taksimetre uygulaması</p>
+      <p>Gerçek zamanlı taksimetre simülasyonu ile mesafe ve ücret hesaplama.</p>
       <a href="https://sonsuzyasam.github.io/taksi-hesaplama/">Uygulamayı Aç</a>
     </div>
+
     <div class="card">
-      <h2>90-Ball Bingo</h2>
-      <p>PDF ile bingo kartı oluştur</p>
+      <h2>90-Ball Bingo PDF Oluştur</h2>
+      <p>PDF formatında bingo kartları oluşturun ve yazdırın. Eğlenceli ve pratik!</p>
       <a href="https://sonsuzyasam.github.io/Bingo/">Uygulamayı Aç</a>
     </div>
+
     <!-- Yeni projeleri buraya ekleyebilirsin -->
   </div>
+
+  <footer>
+    &copy; 2025 Sonsuz Yaşam | Tüm hakları saklıdır.
+  </footer>
 </body>
 </html>
