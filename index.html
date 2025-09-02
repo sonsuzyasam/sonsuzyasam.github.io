@@ -1,15 +1,19 @@
+---
+layout: default
+title: Sonsuz Yaşam Web Uygulamaları
+description: Sonsuz Yaşam projeleri: Taksi hesaplama, Bingo PDF oluşturma ve daha fazlası. Mobil uyumlu, hızlı ve ücretsiz araçlar.
+---
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7309845525285029"
-     crossorigin="anonymous"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Sonsuz Yaşam projeleri: Taksi hesaplama, Bingo PDF oluşturma ve daha fazlası. Mobil uyumlu, hızlı ve ücretsiz araçlar.">
   <meta name="keywords" content="taksi hesaplama, bingo kartı,ingilizce etkinlikleri,pdf oluştur, ücretsiz araçlar, github pages, sonsuz yaşam">
   <meta name="author" content="Sonsuz Yaşam">
-<meta name="google-adsense-account" content="ca-pub-7309845525285029">
-  <title>Sonsuz Yaşam | Ücretsiz Web Uygulamaları</title>
+  <meta name="google-adsense-account" content="ca-pub-7309845525285029">
+  <title>{{ page.title }}</title>
   <style>
     body {
       margin: 0;
@@ -45,6 +49,30 @@
       text-decoration: none;
       font-weight: bold;
     }
+    .blog-list {
+      margin-top: 40px;
+    }
+    .blog-list h2 {
+      margin-bottom: 20px;
+    }
+    .blog-post {
+      background: #eef6ff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .blog-post-title {
+      font-size: 1.2em;
+      margin-bottom: 8px;
+    }
+    .blog-post-excerpt {
+      color: #222;
+      margin-bottom: 4px;
+    }
+    .blog-post-date {
+      color: #888;
+      font-size: 0.9em;
+    }
     footer {
       text-align: center;
       padding: 20px;
@@ -58,14 +86,15 @@
     }
   </style>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-P41MV1GV2Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-P41MV1GV2Y');
-</script>
+  <script async src="https://www.googletagmanager.com/pagead/js/adsbygoogle.js?client=ca-pub-7309845525285029"
+     crossorigin="anonymous"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P41MV1GV2Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P41MV1GV2Y');
+  </script>
 </head>
 <body>
   <header>
@@ -96,8 +125,7 @@
       <a href="https://sonsuzyasam.github.io/Bingo/">Uygulamayı Aç</a>
     </div>
 
-    <!-- Yeni projeleri buraya ekleyebilirsin -->
-     <div class="card">
+    <div class="card">
       <h2>WORD-BingoBala - Dijital Bingo ve Çekiliş Uygulaması</h2>
       <p>Klasik bingo oyununu 6.sınıf öğrencileri için ünite kelimeleri ile hazırladık. Aynı zamanda oyun için rastgele kartlar üretir ve PDF formatında indirmenizi sağlar. Okul etkinlikleri, aile oyun geceleri için eğlenceli, eğitici ve pratik bir çözümdür.</p>
       <p><strong>Nasıl kullanılır?</strong><br>
@@ -107,6 +135,28 @@
       - Kartları yazdırarak ya da telefondan işaretleyerek oyuna başlayabilirsiniz</p>
       <p>BingoBala, klasik tombala ve bingo oyununu dijitalleştirerek, kelime çekilişi için modern bir çözüm sunar. Kelime çekme, sesli okuma (TTS), PDF kelime kartı üretimi ve çekiliş takibi gibi özelliklerle hem eğlenceli hem de pratik bir deneyim sağlar.</p>
       <a href="https://sonsuzyasam.github.io/Word-BingoBala/">Uygulamayı Aç</a>
+    </div>
+
+    <!-- Blog yazıları buradan listelenir -->
+    <div class="blog-list">
+      <h2>Son Blog Yazıları</h2>
+      {% for post in site.posts %}
+        <div class="blog-post">
+          <div class="blog-post-title">
+            <a href="{{ post.url }}">{{ post.title }}</a>
+          </div>
+          <div class="blog-post-excerpt">
+            {{ post.excerpt | strip_html | truncate: 120 }}
+          </div>
+          <div class="blog-post-date">
+            {{ post.date | date: "%d %B %Y" }}
+          </div>
+        </div>
+      {% endfor %}
+      {% if site.posts == empty %}
+        <p>Henüz blog yazısı eklenmedi.</p>
+      {% endif %}
+    </div>
   </div>
 
   <footer>
@@ -114,5 +164,3 @@
   </footer>
 </body>
 </html>
-
-Copilot'a ileti gönderin
