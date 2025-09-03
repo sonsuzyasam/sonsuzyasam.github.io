@@ -3,169 +3,135 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sonsuz Yaşam Web Uygulamaları</title>
   <meta name="description" content="Sonsuz Yaşam projeleri: Taksi hesaplama, Bingo PDF oluşturma ve daha fazlası. Mobil uyumlu, hızlı ve ücretsiz araçlar.">
-  <meta name="keywords" content="taksi hesaplama, bingo kartı,ingilizce etkinlikleri,pdf oluştur, ücretsiz araçlar, github pages, sonsuz yaşam">
   <meta name="author" content="Sonsuz Yaşam">
   <meta name="google-adsense-account" content="ca-pub-7309845525285029">
-  <title></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
-    }
-    header {
-      background-color: #0077cc;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 20px;
-    }
-    .card {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-    .card h2 {
-      margin-top: 0;
-    }
-    .card a {
-      display: inline-block;
-      margin-top: 10px;
-      color: #0077cc;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .blog-list {
-      margin-top: 40px;
-    }
-    .blog-list h2 {
-      margin-bottom: 20px;
-    }
-    .blog-post {
-      background: #eef6ff;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-    }
-    .blog-post-title {
-      font-size: 1.2em;
-      margin-bottom: 8px;
-    }
-    .blog-post-excerpt {
-      color: #222;
-      margin-bottom: 4px;
-    }
-    .blog-post-date {
-      color: #888;
-      font-size: 0.9em;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9em;
-      color: #777;
-    }
-    @media (max-width: 600px) {
-      .card {
-        padding: 15px;
-      }
-    }
+    body { background-color: #f9f9f9; }
+    .card { border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); margin-bottom: 24px; }
+    .blog-list { margin-top: 40px; }
+    .blog-post { background: #eef6ff; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+    footer { background: #f8f9fa; padding: 24px 0 0 0; margin-top: 48px; font-size: 0.95em; color: #888; }
   </style>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/pagead/js/adsbygoogle.js?client=ca-pub-7309845525285029"
-     crossorigin="anonymous"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P41MV1GV2Y"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-P41MV1GV2Y');
-  </script>
 </head>
 <body>
-  <header>
-    <h1>Sonsuz Yaşam Web Uygulamaları</h1>
-    <p>Basit, hızlı ve ücretsiz araçlar</p>
-  </header>
-
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4 sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="/">Sonsuz Yaşam</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Menüyü Aç">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="/">Ana Sayfa</a></li>
+          <li class="nav-item"><a class="nav-link" href="#uygulamalar">Uygulamalar</a></li>
+          <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="#hakkinda">Hakkında</a></li>
+          <li class="nav-item"><a class="nav-link" href="#iletisim">İletişim</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
   <div class="container">
-    <div class="card">
-      <h2>Taksimetre Hesaplama</h2>
-      <p>Gerçek zamanlı taksimetre simülasyonu ile mesafe ve ücret hesaplama aracı. Türkiye'deki şehir içi taksi tarifelerine göre çalışır. Kullanıcılar başlangıç ücreti, kilometre başı ücret ve bekleme süresi gibi verileri girerek yaklaşık ücret bilgisi alabilir.</p>
-      <p><strong>Nasıl kullanılır?</strong><br>
-      - Mesafe (km) ve bekleme süresi girin<br>
-      - Şehir seçimi yapın<br>
-      - “Hesapla” butonuna tıklayın<br>
-      - Tahmini ücret ekranda görüntülenir</p>
-      <a href="https://sonsuzyasam.github.io/taksi-hesaplama/">Uygulamayı Aç</a>
-    </div>
-
-     <div class="card">
-      <h2>90-Ball Bingo PDF Oluşturucu</h2>
-      <p>Klasik bingo oyunları için rastgele kartlar üretir ve PDF formatında indirmenizi sağlar. Okul etkinlikleri, aile oyun geceleri veya sosyal organizasyonlar için eğlenceli ve pratik bir çözümdür.</p>
-      <p><strong>Nasıl kullanılır?</strong><br>
-      - Kart sayısını seçin<br>
-      - “Oluştur” butonuna tıklayın<br>
-      - PDF dosyası otomatik olarak indirilir<br>
-      - Kartları yazdırarak oyuna başlayabilirsiniz</p>
-      <a href="https://sonsuzyasam.github.io/Bingo/">Uygulamayı Aç</a>
-    </div>
-
-    <div class="card">
-      <h2>WORD-BingoBala - Dijital Bingo ve Çekiliş Uygulaması</h2>
-      <p>Klasik bingo oyununu 6.sınıf öğrencileri için ünite kelimeleri ile hazırladık. Aynı zamanda oyun için rastgele kartlar üretir ve PDF formatında indirmenizi sağlar. Okul etkinlikleri, aile oyun geceleri için eğlenceli, eğitici ve pratik bir çözümdür.</p>
-      <p><strong>Nasıl kullanılır?</strong><br>
-      - Kart sayısını seçin<br>
-      - “Oluştur” butonuna tıklayın<br>
-      - PDF dosyası otomatik olarak indirilir<br>
-      - Kartları yazdırarak ya da telefondan işaretleyerek oyuna başlayabilirsiniz</p>
-      <p>BingoBala, klasik tombala ve bingo oyununu dijitalleştirerek, kelime çekilişi için modern bir çözüm sunar. Kelime çekme, sesli okuma (TTS), PDF kelime kartı üretimi ve çekiliş takibi gibi özelliklerle hem eğlenceli hem de pratik bir deneyim sağlar.</p>
-      <a href="https://sonsuzyasam.github.io/Word-BingoBala/">Uygulamayı Aç</a>
-    </div>
-
-    <!-- Blog yazıları buradan listelenir -->
-    <div class="blog-list">
-      <h2>Son Blog Yazıları</h2>
-      
-        <div class="blog-post">
-          <div class="blog-post-title">
-            <a href="/2025/09/03/neden-sonsuzyasam.html">Neden Sonsuz Yaşam Web Sitesini Açtım?</a>
+    <div class="container py-4" style="background: linear-gradient(135deg, #e3f0ff 0%, #f9f9f9 100%); min-height: 80vh;">
+  <div class="row g-4 mb-4">
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-2">
+            <span class="fs-2 text-primary me-2"><i class="bi bi-taxi-front"></i></span>
+            <h5 class="card-title mb-0">Taksimetre Hesaplama</h5>
           </div>
-          <div class="blog-post-excerpt">
-            Sonsuz Yaşam web sitesinin kuruluş amacı, eğitici ve pratik dijital uygulamalar sunmak, topluma fayda sağlamak ve dij...
-          </div>
-          <div class="blog-post-date">
-            03 September 2025
-          </div>
+          <p class="card-text">Gerçek zamanlı taksimetre simülasyonu ile mesafe ve ücret hesaplama aracı. Türkiye'deki şehir içi taksi tarifelerine göre çalışır.</p>
+          <ul class="small mb-2">
+            <li>Mesafe (km) ve bekleme süresi girin</li>
+            <li>Şehir seçimi yapın</li>
+            <li>“Hesapla” butonuna tıklayın</li>
+            <li>Tahmini ücret ekranda görüntülenir</li>
+          </ul>
+          <a href="https://sonsuzyasam.github.io/taksi-hesaplama/" class="btn btn-outline-primary w-100">Uygulamayı Aç</a>
         </div>
-      
-        <div class="blog-post">
-          <div class="blog-post-title">
-            <a href="/oyunlar/2025/09/02/word_bingo_nedir.html">Word Bingo Nedir?</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-2">
+            <span class="fs-2 text-success me-2"><i class="bi bi-file-earmark-pdf"></i></span>
+            <h5 class="card-title mb-0">90-Ball Bingo PDF Oluşturucu</h5>
           </div>
-          <div class="blog-post-excerpt">
-            Word BingoBAla Nedir?
-
-          </div>
-          <div class="blog-post-date">
-            02 September 2025
-          </div>
+          <p class="card-text">Klasik bingo oyunları için rastgele kartlar üretir ve PDF formatında indirmenizi sağlar. Okul etkinlikleri, aile oyun geceleri için eğlenceli ve pratik bir çözümdür.</p>
+          <ul class="small mb-2">
+            <li>Kart sayısını seçin</li>
+            <li>“Oluştur” butonuna tıklayın</li>
+            <li>PDF dosyası otomatik olarak indirilir</li>
+            <li>Kartları yazdırarak oyuna başlayabilirsiniz</li>
+          </ul>
+          <a href="https://sonsuzyasam.github.io/Bingo/" class="btn btn-outline-success w-100">Uygulamayı Aç</a>
         </div>
-      
-      
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-2">
+            <span class="fs-2 text-warning me-2"><i class="bi bi-lightbulb"></i></span>
+            <h5 class="card-title mb-0">WORD-BingoBala - Dijital Bingo ve Çekiliş</h5>
+          </div>
+          <p class="card-text">Klasik bingo oyununu 6.sınıf öğrencileri için ünite kelimeleri ile hazırladık. PDF kart üretimi ve dijital çekiliş özellikleriyle modern bir deneyim sunar.</p>
+          <ul class="small mb-2">
+            <li>Kart sayısını seçin</li>
+            <li>“Oluştur” butonuna tıklayın</li>
+            <li>PDF dosyası otomatik olarak indirilir</li>
+            <li>Kartları yazdırarak ya da telefondan işaretleyerek oyuna başlayabilirsiniz</li>
+          </ul>
+          <a href="https://sonsuzyasam.github.io/Word-BingoBala/" class="btn btn-outline-warning w-100">Uygulamayı Aç</a>
+        </div>
+      </div>
     </div>
   </div>
 
-  <footer>
-    &copy; 2025 Sonsuz Yaşam | Tüm hakları saklıdır.
+  <!-- Blog yazıları buradan listelenir -->
+  <div class="blog-list bg-white rounded shadow-sm p-4 mb-4" id="blog">
+    <h3 class="mb-4 text-primary"><i class="bi bi-journal-text me-2"></i>Son Blog Yazıları</h3>
+    
+      <div class="blog-post mb-3 p-3 border rounded">
+        <div class="blog-post-title fw-bold">
+          <a href="/2025/09/03/neden-sonsuzyasam.html" class="text-decoration-none text-dark">Neden Sonsuz Yaşam Web Sitesini Açtım?</a>
+        </div>
+        <div class="blog-post-excerpt text-muted">
+          Sonsuz Yaşam web sitesinin kuruluş amacı, eğitici ve pratik dijital uygulamalar sunmak, topluma fayda sağlamak ve dij...
+        </div>
+        <div class="blog-post-date small text-secondary">
+          03 September 2025
+        </div>
+      </div>
+    
+      <div class="blog-post mb-3 p-3 border rounded">
+        <div class="blog-post-title fw-bold">
+          <a href="/oyunlar/2025/09/02/word_bingo_nedir.html" class="text-decoration-none text-dark">Word Bingo Nedir?</a>
+        </div>
+        <div class="blog-post-excerpt text-muted">
+          Word BingoBAla Nedir?
+
+        </div>
+        <div class="blog-post-date small text-secondary">
+          02 September 2025
+        </div>
+      </div>
+    
+    
+  </div>
+</div>
+  </div>
+  <footer class="mt-5">
+    <div class="container text-center">
+      <span>© 2025 Sonsuz Yaşam | Tüm hakları saklıdır.</span>
+    </div>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

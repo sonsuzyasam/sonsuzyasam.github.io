@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: "Word Bingo Nedir?"
 date: 2025-09-02 12:30:00 +0300
 categories: oyunlar
