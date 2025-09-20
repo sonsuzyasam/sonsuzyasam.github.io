@@ -14,3 +14,11 @@ seo:
   image: /assets/seo-banner.png
   locale: tr_TR
 future: true
+
+# AdSense configuration
+adsense:
+  enabled: true
+  auto_ads: true   # Enable Auto Ads (Google-managed placements)
+  client: ca-pub-7309845525285029
+  manual:
+    inarticle_slot: "7620333395"   # Provided in-article slot ID
