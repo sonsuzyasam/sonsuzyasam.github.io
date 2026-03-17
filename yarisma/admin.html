@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonsuz Yaşam - Admin Onay Paneli</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-strip">
+            <a href="/yarisma/">← Yarışma ekranına dön</a>
+            <span>Yalnızca yetkili admin hesapları erişebilir</span>
+        </div>
+
+        <header class="header">
+            <div class="header-content">
+                <h1>🛠️ Sonsuz Yaşam</h1>
+                <p>Admin Onay Paneli</p>
+            </div>
+            <div class="user-section">
+                <span id="userName">Admin Girişi</span>
+                <button id="loginBtn" class="btn-login">Giriş</button>
+            </div>
+        </header>
+
+        <main class="content">
+            <section class="page active">
+                <div class="card admin-summary">
+                    <div>
+                        <h2>Ödül Talepleri</h2>
+                        <p>Bu sayfa ana kullanıcı arayüzünde görünmez. Sadece yetkili e-posta ile açılan ayrı yönetim ekranıdır.</p>
+                    </div>
+                    <button id="refreshAdminQueueBtn" class="btn-secondary" type="button">Listeyi Yenile</button>
+                </div>
+
+                <div class="card admin-queue-card">
+                    <div id="adminAccessMessage" style="margin-bottom: 1rem; color: #7f8c8d;">Giriş yaptıktan sonra admin talepleri burada listelenecek.</div>
+                    <div id="adminQueueList" class="admin-queue-list">
+                        <p>Bekleyen veya işlenmiş talep bulunamadı.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2 id="authTitle">Giriş Yap</h2>
+            <p id="authHint">Yalnızca yetkili admin e-postası ile giriş yapabilirsiniz.</p>
+            <form id="loginForm" data-mode="login">
+                <input type="text" id="loginName" placeholder="Adınız Soyadınız" required>
+                <input type="email" id="loginEmail" placeholder="E-posta" required>
+                <input type="password" id="loginPassword" placeholder="Parola" required minlength="6">
+                <input type="password" id="loginPasswordConfirm" placeholder="Parola (Tekrar)">
+                <input type="tel" id="loginPhone" placeholder="Telefon Numarası" required>
+                <button type="submit" id="authSubmitBtn" class="btn-primary">Giriş Yap</button>
+                <button type="button" id="toggleAuthModeBtn" class="btn-secondary">Yeni Hesap Oluştur</button>
+                <button type="button" id="resendVerificationBtn" class="btn-secondary">Doğrulama Mailini Yeniden Gönder</button>
+                <button type="button" id="googleSignInBtn" class="btn-secondary">Google ile Giriş Yap</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="js/sheets-api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/rewards.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

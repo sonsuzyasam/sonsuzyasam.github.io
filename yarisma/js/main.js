@@ -90,28 +90,18 @@ class App {
     }
 
     updateUserUI() {
-        const adminNavBtn = document.getElementById('adminNavBtn');
-
         if (this.currentUser) {
             document.getElementById('userName').textContent = this.currentUser.name;
             document.getElementById('loginBtn').textContent = 'Çıkış Yap';
             document.getElementById('profileName').textContent = this.currentUser.name;
             document.getElementById('profileEmail').textContent = this.currentUser.email;
             document.getElementById('profilePhone').textContent = this.currentUser.phone;
-
-            if (adminNavBtn) {
-                adminNavBtn.style.display = this.isAdminUser() ? 'inline-block' : 'none';
-            }
         } else {
             document.getElementById('userName').textContent = 'Misafir';
             document.getElementById('loginBtn').textContent = 'Başla';
             document.getElementById('profileName').textContent = '-';
             document.getElementById('profileEmail').textContent = '-';
             document.getElementById('profilePhone').textContent = '-';
-
-            if (adminNavBtn) {
-                adminNavBtn.style.display = 'none';
-            }
         }
     }
 
@@ -138,13 +128,6 @@ class App {
             leaderboard.loadLeaderboard();
         } else if (pageName === 'rewards') {
             rewards.loadRewardHistory();
-        } else if (pageName === 'admin') {
-            if (!this.isAdminUser()) {
-                this.showNotification('Bu alan sadece admin hesaplar icindir.', 'error');
-                this.goToPage('dashboard');
-                return;
-            }
-            rewards.loadAdminQueue();
         } else if (pageName === 'dashboard') {
             this.updateDashboard();
         }
