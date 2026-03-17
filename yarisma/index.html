@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonsuz Yaşam - Sınav Hazırlık & Ödüllü Quiz Platformu</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-strip">
+            <a href="/">← Ana sayfaya dön</a>
+            <span>ÖSYM formatında deneme, aylık puan ve ödül sistemi</span>
+        </div>
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>📚 Sonsuz Yaşam</h1>
+                <p>Sınav Hazırlığı + Ödüllü Quiz</p>
+            </div>
+            <div class="user-section">
+                <span id="userName">Giriş Yap</span>
+                <button id="loginBtn" class="btn-login">Giriş</button>
+            </div>
+        </header>
+
+        <!-- Main Navigation -->
+        <nav class="main-nav">
+            <button class="nav-btn active" data-page="dashboard">Dashboard</button>
+            <button class="nav-btn" data-page="exams">Sınavlar</button>
+            <button class="nav-btn" data-page="leaderboard">Puan Tablosu</button>
+            <button class="nav-btn" data-page="rewards">Ödül Talebim</button>
+            <button class="nav-btn" data-page="my-rewards">Daha Fazla</button>
+        </nav>
+
+        <!-- Content Area -->
+        <main class="content">
+            <!-- Dashboard Page -->
+            <section id="dashboard" class="page active">
+                <div class="intro-banner card">
+                    <div>
+                        <p class="eyebrow">Bilgi Yarışması</p>
+                        <h2>Hazırlanırken puan biriktir</h2>
+                        <p class="intro-copy">TYT, AYT, KPSS ve benzeri sınavlarda barajı geçtiğinde aldığın puan hesabına işlenir. Ay sonunda puanlarını ödül talebine dönüştürebilirsin.</p>
+                    </div>
+                    <div class="intro-actions">
+                        <a class="btn-outline-link" href="/">Ana Sayfa</a>
+                        <button class="btn-primary" onclick="goToPage('exams')">Sınavlara Git</button>
+                    </div>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h2>Bu Ay Puanlarım</h2>
+                        <div class="big-number" id="monthPoints">0</div>
+                        <p class="subtitle">Bu ayın başında sıfırlansın mı?</p>
+                    </div>
+
+                    <div class="card">
+                        <h2>Ödül Değeri</h2>
+                        <div class="big-number" id="rewardValue" style="color: #27ae60;">₺0.00</div>
+                        <p class="subtitle">1 puan = 10 kuruş</p>
+                    </div>
+
+                    <div class="card">
+                        <h2>Çözdüğüm Sınavlar</h2>
+                        <div class="big-number" id="examsCompleted">0</div>
+                        <p class="subtitle">Bu ay</p>
+                    </div>
+
+                    <div class="card">
+                        <h2>Barajı Geçen</h2>
+                        <div class="big-number" id="passedExams" style="color: #2ecc71;">0</div>
+                        <p class="subtitle">Puan hesaplandı</p>
+                    </div>
+                </div>
+
+                <div class="quick-access">
+                    <h3>Hızlı Erişim</h3>
+                    <button class="btn-primary" onclick="goToPage('exams')">Sınav Çöz</button>
+                    <button class="btn-secondary" onclick="goToPage('rewards')">Ödül Talep Et</button>
+                </div>
+            </section>
+
+            <!-- Exams Page -->
+            <section id="exams" class="page">
+                <h2>📖 Sınavlar</h2>
+                <div class="exams-grid" id="examsGrid">
+                    <!-- Dinamik olarak doldurulacak -->
+                </div>
+            </section>
+
+            <!-- Leaderboard Page -->
+            <section id="leaderboard" class="page">
+                <h2>🏆 Puan Tablosu (Bu Ay)</h2>
+                <div class="filter-bar">
+                    <select id="leaderboardFilter">
+                        <option value="all">Tüm Sınavlar</option>
+                        <option value="tyt">TYT</option>
+                        <option value="ayt">AYT</option>
+                        <option value="kpss">KPSS</option>
+                    </select>
+                </div>
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Ad</th>
+                            <th>Puan</th>
+                            <th>Ödül (₺)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardBody">
+                        <!-- Dinamik olarak doldurulacak -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Rewards Page -->
+            <section id="rewards" class="page">
+                <h2>🎁 Ödül Talebinde Bulun</h2>
+                
+                <div class="reward-info card">
+                    <p>Mevcut Puan: <strong id="currentPoints">0</strong></p>
+                    <p>Kullanılabilir Ödül: <strong id="availableReward" style="color: #27ae60;">₺0.00</strong></p>
+                </div>
+
+                <form id="rewardRequestForm" class="reward-form">
+                    <div class="form-group">
+                        <label>Ödül Türü</label>
+                        <select id="rewardType" required>
+                            <option value="">-- Seçin --</option>
+                            <option value="phone-bill">📱 Telefon Faturası Ödeme</option>
+                            <option value="internet">🌐 İnternet Paketi</option>
+                            <option value="subscription">🎬 Streaming Aboneliği</option>
+                            <option value="donation">❤️ Hayır Kurumuna Bağış</option>
+                            <option value="custom">✨ Diğer</option>
+                        </select>
+                    </div>
+
+                    <!-- Dinamik Form Alanları -->
+                    <div id="dynamicFields"></div>
+
+                    <div class="form-group">
+                        <label>Talebin Detayları</label>
+                        <textarea id="rewardDetails" rows="4" placeholder="Örn: Vodafone'dan 10GB paketi 05xx111222 numarasına gönder" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Talebi Gönder</button>
+                </form>
+
+                <div id="rewardHistory" class="reward-history">
+                    <h3>Ödül Talepleri</h3>
+                    <div id="historyList"></div>
+                </div>
+            </section>
+
+            <!-- More Page -->
+            <section id="my-rewards" class="page">
+                <h2>⚙️ Ayarlar & Daha Fazla</h2>
+                <div class="settings-grid">
+                    <div class="card">
+                        <h3>Profil Bilgilerim</h3>
+                        <p>Ad: <span id="profileName">-</span></p>
+                        <p>Email: <span id="profileEmail">-</span></p>
+                        <p>Telefon: <span id="profilePhone">-</span></p>
+                        <button class="btn-secondary" onclick="editProfile()">Düzenle</button>
+                    </div>
+
+                    <div class="card">
+                        <h3>Ayarlar</h3>
+                        <label>
+                            <input type="checkbox" id="notificationToggle" checked>
+                            Bildirimler
+                        </label>
+                        <label>
+                            <input type="checkbox" id="privacyToggle" unchecked>
+                            Puan tablosunda görünsün
+                        </label>
+                    </div>
+
+                    <div class="card">
+                        <h3>İstatistikler</h3>
+                        <p>Toplam Çözülen: <strong id="totalSolved">0</strong></p>
+                        <p>Ortalama Puan: <strong id="avgScore">0%</strong></p>
+                        <p>Başarı Oranı: <strong id="successRate">0%</strong></p>
+                    </div>
+                </div>
+
+                <button class="btn-danger" onclick="logout()">Çıkış Yap</button>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal: Login -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Giriş Yap / Kayıt Ol</h2>
+            <form id="loginForm">
+                <input type="text" id="loginName" placeholder="Adınız Soyadınız" required>
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="tel" id="loginPhone" placeholder="Telefon Numarası" required>
+                <button type="submit" class="btn-primary">Giriş Yap</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Exam -->
+    <div id="examModal" class="modal">
+        <div class="modal-content large">
+            <span class="close" onclick="closeModal('examModal')">&times;</span>
+            <div id="examContainer">
+                <!-- Sınav dinamik olarak kullanılacak -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="js/sheets-api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/quiz.js"></script>
+    <script src="js/leaderboard.js"></script>
+    <script src="js/rewards.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
