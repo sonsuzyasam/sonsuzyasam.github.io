@@ -196,8 +196,15 @@ class Rewards {
         if (!rowIndex) return;
 
         try {
-            await sheetsAPI.updateRewardStatus(rowIndex, status);
-            app.showNotification(`Talep durumu ${status} olarak guncellendi.`, 'success');
+            const result = await sheetsAPI.updateRewardStatus(rowIndex, status);
+
+            if (result && result.transport === 'no-cors') {
+                app.showNotification('Durum guncelleme istegi gonderildi. Liste 2-5 sn icinde yenilenecek.', 'info');
+            } else {
+                app.showNotification(`Talep durumu ${status} olarak guncellendi.`, 'success');
+            }
+
+            await new Promise((resolve) => setTimeout(resolve, 1200));
             await this.loadAdminQueue();
         } catch (error) {
             app.showNotification(`Durum guncellenemedi: ${error.message}`, 'error');

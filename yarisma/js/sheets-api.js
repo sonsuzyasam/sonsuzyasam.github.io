@@ -208,7 +208,8 @@ class SheetsAPI {
         try {
             const response = await fetch(this.appsScriptUrl, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                // text/plain avoids many browser preflight failures on Apps Script endpoints.
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify(payload)
             });
 
@@ -230,7 +231,15 @@ class SheetsAPI {
 
             return data || { ok: true };
         } catch (error) {
-            throw error;
+            // Last-resort transport for browsers that still block cross-origin response reads.
+            await fetch(this.appsScriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(payload)
+            });
+
+            return { ok: true, transport: 'no-cors', note: error.message };
         }
     }
 
