@@ -615,6 +615,17 @@ body {
     color: var(--dark);
 }
 
+.question-passage {
+    background: #f7fbff;
+    border: 1px solid #dcecf9;
+    border-left: 4px solid var(--primary);
+    border-radius: 8px;
+    padding: 0.9rem 1rem;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+    line-height: 1.7;
+}
+
 .options {
     display: flex;
     flex-direction: column;

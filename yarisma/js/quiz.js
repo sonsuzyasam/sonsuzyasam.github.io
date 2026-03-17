@@ -56,6 +56,7 @@ class Quiz {
 
             <div class="question-container">
                 <p id="questionNumber" class="question-number"></p>
+                <div id="questionPassage" class="question-passage" style="display:none;"></div>
                 <h3 id="questionText" class="question-text"></h3>
                 <div id="questionMeta" class="exam-details"></div>
                 <div id="questionOptions" class="options"></div>
@@ -79,12 +80,22 @@ class Quiz {
         if (!question) return;
 
         const numberEl = document.getElementById('questionNumber');
+        const passageEl = document.getElementById('questionPassage');
         const textEl = document.getElementById('questionText');
         const metaEl = document.getElementById('questionMeta');
         const optionsEl = document.getElementById('questionOptions');
         const progressEl = document.getElementById('examProgressBar');
 
         numberEl.textContent = `Soru ${this.currentIndex + 1} / ${this.questions.length}`;
+
+        if (question.passage) {
+            passageEl.style.display = 'block';
+            passageEl.textContent = question.passage;
+        } else {
+            passageEl.style.display = 'none';
+            passageEl.textContent = '';
+        }
+
         textEl.textContent = question.text;
         metaEl.textContent = `${question.topic || '-'} | Zorluk: ${question.difficulty || '-'}`;
 
