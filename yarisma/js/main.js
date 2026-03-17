@@ -127,7 +127,7 @@ class App {
 
         // Sayfa yüklendiğinde verileri güncelle
         if (pageName === 'leaderboard') {
-            leaderboard.loadLeaderboard();
+            this.refreshMonthlyPointsFromServer().finally(() => leaderboard.loadLeaderboard());
         } else if (pageName === 'rewards') {
             rewards.loadRewardHistory();
         } else if (pageName === 'dashboard') {
@@ -201,15 +201,21 @@ class App {
 
     async refreshMonthlyPointsFromServer() {
         if (!this.currentUser || !window.sheetsAPI || typeof sheetsAPI.getMonthlyPoints !== 'function') {
-            return;
+            return 0;
         }
 
         try {
             const points = await sheetsAPI.getMonthlyPoints(this.currentMonth);
             this.pointsCache[this.currentMonth] = Number(points || 0);
             this.updateDashboard();
+            const leaderboardPage = document.getElementById('leaderboard');
+            if (leaderboardPage && leaderboardPage.classList.contains('active') && window.leaderboard) {
+                leaderboard.loadLeaderboard();
+            }
+            return this.pointsCache[this.currentMonth];
         } catch (error) {
             console.warn('Monthly points could not be loaded from server:', error);
+            return 0;
         }
     }
 

@@ -212,7 +212,7 @@ class Quiz {
                 serverScored = true;
 
                 if (typeof app.refreshMonthlyPointsFromServer === 'function') {
-                    app.refreshMonthlyPointsFromServer();
+                    await app.refreshMonthlyPointsFromServer();
                 }
             } catch (error) {
                 app.showNotification(`Sunucu puan kaydi basarisiz: ${error.message}`, 'error');

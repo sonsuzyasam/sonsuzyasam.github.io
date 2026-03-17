@@ -120,7 +120,7 @@ class Rewards {
         localStorage.setItem(this.processedKey, JSON.stringify(processedMap));
         localStorage.setItem(this.historyKey, JSON.stringify(merged));
         if (typeof app.refreshMonthlyPointsFromServer === 'function') {
-            app.refreshMonthlyPointsFromServer();
+            await app.refreshMonthlyPointsFromServer();
         }
         return merged;
     }

@@ -5,18 +5,35 @@ class Leaderboard {
         const tbody = document.getElementById('leaderboardBody');
         if (!tbody) return;
 
-        const currentName = app.currentUser ? app.currentUser.name : 'Misafir';
-        const currentPoints = app.currentUser ? app.getUserMonthlyPoints() : 0;
+        tbody.innerHTML = '<tr><td colspan="4">Puan tablosu yukleniyor...</td></tr>';
 
-        const rows = [
-            { rank: 1, name: currentName, points: currentPoints },
-            { rank: 2, name: 'Ornek Kullanici', points: Math.max(0, currentPoints - 10) }
-        ];
+        try {
+            let rows = [];
 
-        tbody.innerHTML = rows.map((item) => {
-            const value = (item.points * CONFIG.POINTS_SYSTEM.MULTIPLIER).toFixed(2);
-            return `<tr><td>${item.rank}</td><td>${item.name}</td><td>${item.points}</td><td>₺${value}</td></tr>`;
-        }).join('');
+            if (window.sheetsAPI && typeof sheetsAPI.getLeaderboard === 'function') {
+                rows = await sheetsAPI.getLeaderboard(CONFIG.getCurrentMonth());
+            }
+
+            if (!rows.length && app.currentUser) {
+                rows = [{ rank: 1, name: app.currentUser.name, email: app.currentUser.email, points: app.getUserMonthlyPoints() }];
+            }
+
+            if (!rows.length) {
+                tbody.innerHTML = '<tr><td colspan="4">Bu ay icin puan verisi bulunamadi.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = rows.map((item, index) => {
+                const points = Number(item.points || 0);
+                const value = (points * CONFIG.POINTS_SYSTEM.MULTIPLIER).toFixed(2);
+                const rank = Number(item.rank || (index + 1));
+                const name = item.name || item.email || 'Kullanici';
+                return `<tr><td>${rank}</td><td>${name}</td><td>${points}</td><td>₺${value}</td></tr>`;
+            }).join('');
+        } catch (error) {
+            tbody.innerHTML = '<tr><td colspan="4">Puan tablosu su anda yuklenemiyor.</td></tr>';
+            console.warn('Leaderboard could not be loaded:', error);
+        }
     }
 }
 

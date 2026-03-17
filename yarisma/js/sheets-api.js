@@ -101,6 +101,17 @@ class SheetsAPI {
         return Number(data.points || 0);
     }
 
+    async getLeaderboard(month) {
+        if (!this.isConfigured()) return [];
+
+        const data = await this.callAppsScriptExpectJson({
+            action: 'getLeaderboard',
+            month: month || CONFIG.getCurrentMonth()
+        });
+
+        return Array.isArray(data.items) ? data.items : [];
+    }
+
     async callAppsScript(payload) {
         try {
             const enriched = await this.withAuth(payload);
@@ -220,9 +231,6 @@ class SheetsAPI {
         };
     }
 
-    async getLeaderboard() {
-        return [];
-    }
 }
 
 window.sheetsAPI = new SheetsAPI();
