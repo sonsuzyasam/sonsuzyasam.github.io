@@ -225,6 +225,10 @@ class App {
 
     closeModal(modalId) {
         document.getElementById(modalId).classList.remove('show');
+
+        if (modalId === 'examModal' && window.quiz && typeof quiz.onModalClosed === 'function') {
+            quiz.onModalClosed();
+        }
     }
 
     // === Notifications ===
