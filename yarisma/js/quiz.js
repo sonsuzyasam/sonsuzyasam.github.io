@@ -8,6 +8,7 @@ class Quiz {
         this.answers = {};
         this.timeLeft = 0;
         this.timerId = null;
+        this.sessionStartedAt = null;
     }
 
     startExam(examId) {
@@ -32,6 +33,7 @@ class Quiz {
         this.questions = this.shuffle([...bank]);
         this.currentIndex = 0;
         this.timeLeft = (Number(exam.duration) || 60) * 60;
+        this.sessionStartedAt = new Date().toISOString();
 
         this.renderExamShell();
         this.renderQuestion();
@@ -166,7 +168,7 @@ class Quiz {
         timerEl.textContent = `Sure: ${min}:${sec}`;
     }
 
-    finishExam(autoFinish) {
+    async finishExam(autoFinish) {
         if (!this.currentExam || !this.questions.length) return;
 
         this.stopTimer();
@@ -189,10 +191,32 @@ class Quiz {
         const net = correct - (wrong / 3);
         const score = Math.max(0, Math.min(100, ((net * 100) / total) + 50));
         const passed = score >= Number(CONFIG.POINTS_SYSTEM.PASS_SCORE || 45);
-        const pointsEarned = passed ? Math.max(0, Math.round(score)) : 0;
+        let pointsEarned = 0;
+        let serverScored = false;
 
-        if (pointsEarned > 0) {
-            app.addPoints(pointsEarned);
+        if (window.sheetsAPI && typeof sheetsAPI.submitExamResult === 'function') {
+            try {
+                const answersPayload = this.questions.map((q, idx) => ({
+                    questionId: q.id || `${this.currentExam.id}-${idx + 1}`,
+                    selectedIndex: this.answers[idx] !== undefined ? Number(this.answers[idx]) : null
+                }));
+
+                const result = await sheetsAPI.submitExamResult(this.currentExam.id, answersPayload, {
+                    startedAt: this.sessionStartedAt,
+                    finishedAt: new Date().toISOString(),
+                    durationSeconds: ((Number(this.currentExam.duration) || 60) * 60) - this.timeLeft,
+                    month: CONFIG.getCurrentMonth()
+                });
+
+                pointsEarned = Number(result.awardedPoints || 0);
+                serverScored = true;
+
+                if (typeof app.refreshMonthlyPointsFromServer === 'function') {
+                    app.refreshMonthlyPointsFromServer();
+                }
+            } catch (error) {
+                app.showNotification(`Sunucu puan kaydi basarisiz: ${error.message}`, 'error');
+            }
         }
 
         const container = document.getElementById('examContainer');
@@ -210,15 +234,16 @@ class Quiz {
                 <p><strong>Skor:</strong> ${score.toFixed(2)}</p>
                 <p><strong>Baraj:</strong> ${passed ? 'Gecti' : 'Gecemedi'} (${CONFIG.POINTS_SYSTEM.PASS_SCORE})</p>
                 <p><strong>Kazanilan Puan:</strong> ${pointsEarned}</p>
+                <p><strong>Puan Kaynagi:</strong> ${serverScored ? 'Sunucu dogrulamasi' : 'Kaydedilemedi'}</p>
             </div>
 
             <button id="closeExamResultBtn" class="btn-primary" type="button">Kapat</button>
         `;
 
         const msgType = passed ? 'success' : 'info';
-        const msg = passed
-            ? `${this.currentExam.name} tamamlandi. +${pointsEarned} puan kazandin.`
-            : `${this.currentExam.name} tamamlandi. Baraj alti kaldigin icin puan eklenmedi.`;
+        const msg = serverScored
+            ? `${this.currentExam.name} tamamlandi. +${pointsEarned} puan sunucu tarafinda kaydedildi.`
+            : `${this.currentExam.name} tamamlandi. Puanin sunucuya yazilmasi icin altyapiyi kontrol et.`;
         app.showNotification(msg, msgType);
 
         document.getElementById('closeExamResultBtn').addEventListener('click', () => {
@@ -239,6 +264,7 @@ class Quiz {
         this.currentIndex = 0;
         this.answers = {};
         this.timeLeft = 0;
+        this.sessionStartedAt = null;
     }
 
     shuffle(list) {

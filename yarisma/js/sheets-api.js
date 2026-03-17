@@ -2,107 +2,62 @@
 
 class SheetsAPI {
     constructor() {
-        this.baseUrl = CONFIG.ENDPOINTS.APPEND_VALUES;
         this.appsScriptUrl = CONFIG.APPS_SCRIPT_WEBAPP_URL || '';
         this.warned = false;
     }
 
     isConfigured() {
-        return Boolean(CONFIG.SHEETS_API_KEY && CONFIG.SPREADSHEET_ID && CONFIG.SHEETS_API_KEY !== 'YOUR_API_KEY_HERE' && CONFIG.SPREADSHEET_ID !== 'YOUR_SPREADSHEET_ID_HERE');
+        return Boolean(this.appsScriptUrl);
     }
 
     async appendUser(user) {
         if (!this.isConfigured()) return;
-        const values = [[user.email || '', user.name || '', user.phone || '', new Date().toISOString(), 'true']];
-        await this.appendRows(CONFIG.SHEETS.USERS, values);
+        await this.callAppsScript({
+            action: 'upsertUser',
+            user: {
+                email: user.email || '',
+                name: user.name || '',
+                phone: user.phone || '',
+                verified: Boolean(user.verified)
+            }
+        });
     }
 
     async recordScore(email, points) {
-        if (!this.isConfigured()) return;
-        const values = [[new Date().toISOString(), email || '', 'monthly', points, '', '']];
-        await this.appendRows(CONFIG.SHEETS.SCORES, values);
+        // Legacy method retained for backward compatibility.
+        return this.callAppsScript({
+            action: 'recordScore',
+            email: email || '',
+            points: Number(points || 0),
+            month: CONFIG.getCurrentMonth()
+        });
     }
 
     async saveRewardRequest(email, rewardType, details, points, meta = {}) {
-        if (!this.isConfigured()) return;
+        if (!this.isConfigured()) throw new Error('Apps Script URL tanimli degil.');
 
-        const requestId = meta.requestId || `req_${Date.now()}`;
-        const createdAt = meta.createdAt || new Date().toISOString();
-        const month = meta.month || CONFIG.getCurrentMonth();
-        const detailsWithId = `[RID:${requestId}] ${details || ''}`;
-        const values = [[createdAt, email || '', 'Bekleme', rewardType || '', points || 0, detailsWithId, month]];
-        await this.appendRows(CONFIG.SHEETS.REWARDS, values);
+        return this.callAppsScript({
+            action: 'createRewardRequest',
+            email: email || '',
+            rewardType: rewardType || '',
+            details: details || '',
+            requestedPoints: Number(points || 0),
+            requestId: meta.requestId || `req_${Date.now()}`,
+            createdAt: meta.createdAt || new Date().toISOString(),
+            month: meta.month || CONFIG.getCurrentMonth()
+        });
     }
 
     async getRewardRequestsByEmail(email) {
         if (!this.isConfigured() || !email) return [];
-
-        if (this.appsScriptUrl) {
-            try {
-                const data = await this.callAppsScriptList(email);
-                return (data.items || []).map((item) => this.mapRewardRowFromObject(item));
-            } catch (error) {
-                console.warn('Apps Script reward list by email failed, falling back to Sheets API:', error);
-            }
-        }
-
-        try {
-            const range = encodeURIComponent(`${CONFIG.SHEETS.REWARDS}!A:G`);
-            const url = `${CONFIG.ENDPOINTS.GET_VALUES}/${CONFIG.SPREADSHEET_ID}/values/${range}?key=${CONFIG.SHEETS_API_KEY}`;
-            const response = await fetch(url);
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`Sheets read ${response.status}: ${errorText}`);
-            }
-
-            const data = await response.json();
-            const rows = data.values || [];
-            if (rows.length <= 1) return [];
-
-            return rows.slice(1)
-                .map((row, index) => this.mapRewardRow(row, index + 2))
-                .filter((item) => item.email.toLowerCase() === String(email).toLowerCase())
-                .sort((a, b) => String(b.dateISO).localeCompare(String(a.dateISO)));
-        } catch (error) {
-            console.warn('Reward status read failed:', error);
-            return [];
-        }
+        const data = await this.callAppsScriptExpectJson({ action: 'listRewardRequests', email });
+        return (data.items || []).map((item) => this.mapRewardRowFromObject(item));
     }
 
     async getAllRewardRequests() {
         if (!this.isConfigured()) return [];
-
-        if (this.appsScriptUrl) {
-            try {
-                const data = await this.callAppsScriptList();
-                return (data.items || []).map((item) => this.mapRewardRowFromObject(item));
-            } catch (error) {
-                console.warn('Apps Script admin reward queue read failed, falling back to Sheets API:', error);
-            }
-        }
-
-        try {
-            const range = encodeURIComponent(`${CONFIG.SHEETS.REWARDS}!A:G`);
-            const url = `${CONFIG.ENDPOINTS.GET_VALUES}/${CONFIG.SPREADSHEET_ID}/values/${range}?key=${CONFIG.SHEETS_API_KEY}`;
-            const response = await fetch(url);
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`Sheets read ${response.status}: ${errorText}`);
-            }
-
-            const data = await response.json();
-            const rows = data.values || [];
-            if (rows.length <= 1) return [];
-
-            return rows.slice(1)
-                .map((row, index) => this.mapRewardRow(row, index + 2))
-                .sort((a, b) => String(b.dateISO).localeCompare(String(a.dateISO)));
-        } catch (error) {
-            console.warn('Admin reward queue read failed:', error);
-            return [];
-        }
+        const data = await this.callAppsScriptExpectJson({ action: 'listRewardRequests' });
+        return (data.items || []).map((item) => this.mapRewardRowFromObject(item));
     }
 
     async updateRewardStatus(rowIndex, status) {
@@ -119,98 +74,41 @@ class SheetsAPI {
         return this.callAppsScript(payload);
     }
 
-    async appendRows(sheetName, values) {
-        if (this.appsScriptUrl) {
-            return this.appendRowsWithAppsScript(sheetName, values);
+    async submitExamResult(examId, answers, meta = {}) {
+        if (!this.isConfigured()) {
+            throw new Error('Apps Script URL tanimli degil.');
         }
 
-        try {
-            const range = encodeURIComponent(`${sheetName}!A1`);
-            const url = `${this.baseUrl}/${CONFIG.SPREADSHEET_ID}/values/${range}:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS&key=${CONFIG.SHEETS_API_KEY}`;
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ values })
-            });
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`Sheets API ${response.status}: ${errorText}`);
-            }
-
-            return true;
-        } catch (error) {
-            console.warn('Sheets write failed:', error);
-            this.notifyWriteFailure();
-            return false;
-        }
+        return this.callAppsScriptExpectJson({
+            action: 'submitExamResult',
+            examId: examId || '',
+            answers: Array.isArray(answers) ? answers : [],
+            startedAt: meta.startedAt || '',
+            finishedAt: meta.finishedAt || new Date().toISOString(),
+            durationSeconds: Number(meta.durationSeconds || 0),
+            month: meta.month || CONFIG.getCurrentMonth()
+        });
     }
 
-    async appendRowsWithAppsScript(sheetName, values) {
-        const sheetNameForScript = this.toScriptSheetName(sheetName);
+    async getMonthlyPoints(month) {
+        if (!this.isConfigured()) return 0;
 
-        const payload = {
-            action: 'append',
-            sheetName: sheetNameForScript,
-            values
-        };
+        const data = await this.callAppsScriptExpectJson({
+            action: 'getMonthlyPoints',
+            month: month || CONFIG.getCurrentMonth()
+        });
 
-        try {
-            const response = await fetch(this.appsScriptUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`Apps Script ${response.status}: ${errorText}`);
-            }
-
-            let data = null;
-            try {
-                data = await response.json();
-            } catch (_) {
-                // Some deployments may return non-JSON output.
-            }
-
-            if (data && data.ok === false) {
-                throw new Error(data.error || 'Apps Script returned an application error.');
-            }
-
-            return true;
-        } catch (error) {
-            // Some browsers block CORS on Apps Script even when request is valid.
-            // Retry with no-cors so the request can still be delivered.
-            try {
-                await fetch(this.appsScriptUrl, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (window.app && typeof window.app.showNotification === 'function') {
-                    window.app.showNotification('Veri gonderildi. Sheets satiri 2-5 sn gecikmeli gorunebilir.', 'info');
-                }
-
-                return true;
-            } catch (fallbackError) {
-                console.warn('Apps Script write failed:', error);
-                console.warn('Apps Script no-cors fallback failed:', fallbackError);
-                this.notifyWriteFailure(error.message);
-                return false;
-            }
-        }
+        return Number(data.points || 0);
     }
 
     async callAppsScript(payload) {
         try {
+            const enriched = await this.withAuth(payload);
             const response = await fetch(this.appsScriptUrl, {
                 method: 'POST',
                 // text/plain avoids many browser preflight failures on Apps Script endpoints.
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(enriched)
             });
 
             if (!response.ok) {
@@ -232,37 +130,65 @@ class SheetsAPI {
             return data || { ok: true };
         } catch (error) {
             // Last-resort transport for browsers that still block cross-origin response reads.
+            const enriched = await this.withAuth(payload);
             await fetch(this.appsScriptUrl, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(enriched)
             });
 
             return { ok: true, transport: 'no-cors', note: error.message };
         }
     }
 
-    async callAppsScriptList(email) {
-        const params = new URLSearchParams({ action: 'listRewardRequests' });
-        if (email) {
-            params.set('email', email);
-        }
-
-        const url = `${this.appsScriptUrl}?${params.toString()}`;
-        const response = await fetch(url, { method: 'GET' });
+    async callAppsScriptExpectJson(payload) {
+        const enriched = await this.withAuth(payload);
+        const response = await fetch(this.appsScriptUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(enriched)
+        });
 
         if (!response.ok) {
             const errorText = await response.text();
-            throw new Error(`Apps Script GET ${response.status}: ${errorText}`);
+            throw new Error(`Apps Script ${response.status}: ${errorText}`);
         }
 
         const data = await response.json();
         if (data && data.ok === false) {
-            throw new Error(data.error || 'Apps Script list action failed.');
+            throw new Error(data.error || 'Apps Script action failed.');
         }
 
-        return data || { ok: true, items: [] };
+        return data || { ok: true };
+    }
+
+    async withAuth(payload) {
+        const auth = await this.getAuthContext();
+        return {
+            ...payload,
+            auth,
+            origin: window.location.origin,
+            clientTs: new Date().toISOString()
+        };
+    }
+
+    async getAuthContext() {
+        if (window.authManager && typeof window.authManager.getAuthContext === 'function') {
+            return window.authManager.getAuthContext();
+        }
+
+        const current = window.firebase && firebase.auth && firebase.auth().currentUser;
+        if (!current) {
+            return { uid: '', email: '', idToken: '' };
+        }
+
+        const idToken = await current.getIdToken(false);
+        return {
+            uid: current.uid,
+            email: current.email || '',
+            idToken
+        };
     }
 
     notifyWriteFailure(details) {
@@ -273,36 +199,6 @@ class SheetsAPI {
             const extra = details ? ` (${details})` : '';
             window.app.showNotification(`Google Sheets yazma hatasi: su an veriler sadece bu cihazda saklaniyor.${extra}`, 'error');
         }
-    }
-
-    toScriptSheetName(sheetName) {
-        const map = {
-            'Kullanıcılar': 'Kullanicilar',
-            'Ödüller': 'Oduller',
-            'Ödül_Talepleri': 'Odul_Talepleri',
-            'Aylık_Puanlar': 'Aylik_Puanlar'
-        };
-
-        return map[sheetName] || sheetName;
-    }
-
-    mapRewardRow(row, rowIndex) {
-        const rawDetails = row[5] || '';
-        const ridMatch = rawDetails.match(/\[RID:([^\]]+)\]/i);
-        const requestId = ridMatch ? ridMatch[1] : '';
-        const cleanDetails = rawDetails.replace(/\[RID:[^\]]+\]\s*/i, '');
-
-        return {
-            rowIndex,
-            requestId,
-            dateISO: row[0] || '',
-            email: row[1] || '',
-            status: row[2] || 'Bekleme',
-            rewardType: row[3] || '',
-            points: Number(row[4] || 0),
-            details: cleanDetails,
-            month: row[6] || ''
-        };
     }
 
     mapRewardRowFromObject(item) {

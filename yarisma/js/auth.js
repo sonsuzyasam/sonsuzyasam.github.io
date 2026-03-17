@@ -212,6 +212,20 @@ class AuthManager {
         await this.auth.signOut();
     }
 
+    async getAuthContext(forceRefresh = false) {
+        if (!this.auth || !this.auth.currentUser) {
+            return { uid: '', email: '', idToken: '' };
+        }
+
+        const u = this.auth.currentUser;
+        const idToken = await u.getIdToken(Boolean(forceRefresh));
+        return {
+            uid: u.uid,
+            email: u.email || '',
+            idToken
+        };
+    }
+
     notify(message, type) {
         if (window.app && typeof window.app.showNotification === 'function') {
             window.app.showNotification(message, type);

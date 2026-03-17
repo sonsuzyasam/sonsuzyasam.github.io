@@ -49,11 +49,15 @@ class Rewards {
             localStorage.setItem(this.historyKey, JSON.stringify(list));
 
             if (window.sheetsAPI && typeof window.sheetsAPI.saveRewardRequest === 'function') {
-                await sheetsAPI.saveRewardRequest(app.currentUser.email, rewardType, details, points, {
+                const result = await sheetsAPI.saveRewardRequest(app.currentUser.email, rewardType, details, points, {
                     requestId,
                     createdAt,
                     month: CONFIG.getCurrentMonth()
                 });
+
+                if (result && typeof result.acceptedPoints === 'number') {
+                    entry.points = Number(result.acceptedPoints || 0);
+                }
             }
 
             await this.loadRewardHistory();
@@ -106,7 +110,6 @@ class Rewards {
             const isApproved = normalized === 'onayli' || normalized === 'onaylı' || normalized === 'approved';
 
             if (isApproved && next.requestId && !processedMap[next.requestId]) {
-                app.deductPoints(Number(next.points || 0));
                 processedMap[next.requestId] = true;
                 app.showNotification('Odul talebin onaylandi. Puan bakiyenden dusuldu.', 'success');
             }
@@ -116,6 +119,9 @@ class Rewards {
 
         localStorage.setItem(this.processedKey, JSON.stringify(processedMap));
         localStorage.setItem(this.historyKey, JSON.stringify(merged));
+        if (typeof app.refreshMonthlyPointsFromServer === 'function') {
+            app.refreshMonthlyPointsFromServer();
+        }
         return merged;
     }
 

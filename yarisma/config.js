@@ -22,8 +22,14 @@ const CONFIG = {
     APPS_SCRIPT_WEBAPP_URL: 'https://script.google.com/macros/s/AKfycbx6h2zr-VtskdLNGyJLSIDoZIyyDP0UNZxK9Ng7OnM-sc2gmmPRjk0DozZCDuwayyYm/exec',
 
     // Google Sheets API Ayarları
-    SHEETS_API_KEY: 'AIzaSyARzvGq0XDPwxmYKzEHRi3iqYySGjFFrWo',
+    // Keep empty in production. Client should not call Sheets API directly.
+    SHEETS_API_KEY: '',
     SPREADSHEET_ID: '1_rCYk3xfD03qjR1BFfZ7rC94UHvTuPdvJB2pGj6796M',
+
+    SECURITY: {
+        ENFORCE_SERVER_SIDE_SCORING: true,
+        ENFORCE_SERVER_SIDE_ADMIN_CHECK: true
+    },
     
     // Sheet İsimleri
     SHEETS: {

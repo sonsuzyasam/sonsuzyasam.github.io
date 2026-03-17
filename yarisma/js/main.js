@@ -4,6 +4,7 @@ class App {
     constructor() {
         this.currentUser = null;
         this.currentMonth = CONFIG.getCurrentMonth();
+        this.pointsCache = {};
         this.init();
     }
 
@@ -68,9 +69,10 @@ class App {
                 sheetsAPI.appendUser(user);
             }
             this.closeModal('loginModal');
+            this.refreshMonthlyPointsFromServer();
         } else {
             localStorage.removeItem(STORAGE_KEYS.USER);
-            localStorage.removeItem(STORAGE_KEYS.USER_POINTS);
+            this.pointsCache = {};
         }
 
         this.updateUserUI();
@@ -183,45 +185,32 @@ class App {
     }
 
     getUserMonthlyPoints() {
-        const stored = localStorage.getItem(STORAGE_KEYS.USER_POINTS);
-        if (!stored) return 0;
-        
-        const pointsData = JSON.parse(stored);
-        return pointsData[this.currentMonth] || 0;
+        return Number(this.pointsCache[this.currentMonth] || 0);
     }
 
     addPoints(points) {
-        if (!this.currentUser) return;
-
-        let pointsData = JSON.parse(localStorage.getItem(STORAGE_KEYS.USER_POINTS) || '{}');
-        
-        if (!pointsData[this.currentMonth]) {
-            pointsData[this.currentMonth] = 0;
-        }
-
-        pointsData[this.currentMonth] += points;
-        localStorage.setItem(STORAGE_KEYS.USER_POINTS, JSON.stringify(pointsData));
-
-        // Google Sheets'e kaydet
-        if (window.sheetsAPI && typeof window.sheetsAPI.recordScore === 'function') {
-            sheetsAPI.recordScore(this.currentUser.email, points);
-        }
-        
-        this.updateDashboard();
+        // Disabled for security: points are server-authoritative.
+        // Keep function for backward compatibility.
+        console.warn('Client-side addPoints is disabled. Use server-side scoring.');
     }
 
     deductPoints(points) {
-        if (!this.currentUser) return;
+        // Disabled for security: points are server-authoritative.
+        this.refreshMonthlyPointsFromServer();
+    }
 
-        const safePoints = Math.max(0, Number(points) || 0);
-        if (safePoints <= 0) return;
+    async refreshMonthlyPointsFromServer() {
+        if (!this.currentUser || !window.sheetsAPI || typeof sheetsAPI.getMonthlyPoints !== 'function') {
+            return;
+        }
 
-        let pointsData = JSON.parse(localStorage.getItem(STORAGE_KEYS.USER_POINTS) || '{}');
-        const current = Number(pointsData[this.currentMonth] || 0);
-        pointsData[this.currentMonth] = Math.max(0, current - safePoints);
-        localStorage.setItem(STORAGE_KEYS.USER_POINTS, JSON.stringify(pointsData));
-
-        this.updateDashboard();
+        try {
+            const points = await sheetsAPI.getMonthlyPoints(this.currentMonth);
+            this.pointsCache[this.currentMonth] = Number(points || 0);
+            this.updateDashboard();
+        } catch (error) {
+            console.warn('Monthly points could not be loaded from server:', error);
+        }
     }
 
     // === Modals ===

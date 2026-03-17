@@ -1,0 +1,13 @@
+# Local secret overrides
+yarisma/config.local.js
+
+# Google Apps Script / clasp local files
+.clasp.json
+.claspignore
+
+# Environment files
+.env
+.env.*
+
+# Logs
+*.log
