@@ -204,6 +204,20 @@ class App {
         this.updateDashboard();
     }
 
+    deductPoints(points) {
+        if (!this.currentUser) return;
+
+        const safePoints = Math.max(0, Number(points) || 0);
+        if (safePoints <= 0) return;
+
+        let pointsData = JSON.parse(localStorage.getItem(STORAGE_KEYS.USER_POINTS) || '{}');
+        const current = Number(pointsData[this.currentMonth] || 0);
+        pointsData[this.currentMonth] = Math.max(0, current - safePoints);
+        localStorage.setItem(STORAGE_KEYS.USER_POINTS, JSON.stringify(pointsData));
+
+        this.updateDashboard();
+    }
+
     // === Modals ===
     showModal(modalId) {
         document.getElementById(modalId).classList.add('show');

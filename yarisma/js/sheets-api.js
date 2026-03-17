@@ -23,10 +23,58 @@ class SheetsAPI {
         await this.appendRows(CONFIG.SHEETS.SCORES, values);
     }
 
-    async saveRewardRequest(email, rewardType, details, points) {
+    async saveRewardRequest(email, rewardType, details, points, meta = {}) {
         if (!this.isConfigured()) return;
-        const values = [[new Date().toISOString(), email || '', 'Bekleme', rewardType || '', points || 0, details || '', CONFIG.getCurrentMonth()]];
+
+        const requestId = meta.requestId || `req_${Date.now()}`;
+        const createdAt = meta.createdAt || new Date().toISOString();
+        const month = meta.month || CONFIG.getCurrentMonth();
+        const detailsWithId = `[RID:${requestId}] ${details || ''}`;
+        const values = [[createdAt, email || '', 'Bekleme', rewardType || '', points || 0, detailsWithId, month]];
         await this.appendRows(CONFIG.SHEETS.REWARDS, values);
+    }
+
+    async getRewardRequestsByEmail(email) {
+        if (!this.isConfigured() || !email) return [];
+
+        try {
+            const range = encodeURIComponent(`${CONFIG.SHEETS.REWARDS}!A:G`);
+            const url = `${CONFIG.ENDPOINTS.GET_VALUES}/${CONFIG.SPREADSHEET_ID}/values/${range}?key=${CONFIG.SHEETS_API_KEY}`;
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Sheets read ${response.status}: ${errorText}`);
+            }
+
+            const data = await response.json();
+            const rows = data.values || [];
+            if (rows.length <= 1) return [];
+
+            return rows.slice(1)
+                .map((row) => {
+                    const rawDetails = row[5] || '';
+                    const ridMatch = rawDetails.match(/\[RID:([^\]]+)\]/i);
+                    const requestId = ridMatch ? ridMatch[1] : '';
+                    const cleanDetails = rawDetails.replace(/\[RID:[^\]]+\]\s*/i, '');
+
+                    return {
+                        requestId,
+                        dateISO: row[0] || '',
+                        email: row[1] || '',
+                        status: row[2] || 'Bekleme',
+                        rewardType: row[3] || '',
+                        points: Number(row[4] || 0),
+                        details: cleanDetails,
+                        month: row[6] || ''
+                    };
+                })
+                .filter((item) => item.email.toLowerCase() === String(email).toLowerCase())
+                .sort((a, b) => String(b.dateISO).localeCompare(String(a.dateISO)));
+        } catch (error) {
+            console.warn('Reward status read failed:', error);
+            return [];
+        }
     }
 
     async appendRows(sheetName, values) {
