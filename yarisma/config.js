@@ -14,6 +14,10 @@ const CONFIG = {
         REQUIRE_EMAIL_VERIFICATION: true
     },
 
+    ADMIN_EMAILS: [
+        'sdoldur@gmail.com'
+    ],
+
     // Google Sheets yazma icin onerilen yontem (Apps Script Web App)
     APPS_SCRIPT_WEBAPP_URL: 'https://script.google.com/macros/s/AKfycbx6h2zr-VtskdLNGyJLSIDoZIyyDP0UNZxK9Ng7OnM-sc2gmmPRjk0DozZCDuwayyYm/exec',
 

@@ -52,29 +52,53 @@ class SheetsAPI {
             if (rows.length <= 1) return [];
 
             return rows.slice(1)
-                .map((row) => {
-                    const rawDetails = row[5] || '';
-                    const ridMatch = rawDetails.match(/\[RID:([^\]]+)\]/i);
-                    const requestId = ridMatch ? ridMatch[1] : '';
-                    const cleanDetails = rawDetails.replace(/\[RID:[^\]]+\]\s*/i, '');
-
-                    return {
-                        requestId,
-                        dateISO: row[0] || '',
-                        email: row[1] || '',
-                        status: row[2] || 'Bekleme',
-                        rewardType: row[3] || '',
-                        points: Number(row[4] || 0),
-                        details: cleanDetails,
-                        month: row[6] || ''
-                    };
-                })
+                .map((row, index) => this.mapRewardRow(row, index + 2))
                 .filter((item) => item.email.toLowerCase() === String(email).toLowerCase())
                 .sort((a, b) => String(b.dateISO).localeCompare(String(a.dateISO)));
         } catch (error) {
             console.warn('Reward status read failed:', error);
             return [];
         }
+    }
+
+    async getAllRewardRequests() {
+        if (!this.isConfigured()) return [];
+
+        try {
+            const range = encodeURIComponent(`${CONFIG.SHEETS.REWARDS}!A:G`);
+            const url = `${CONFIG.ENDPOINTS.GET_VALUES}/${CONFIG.SPREADSHEET_ID}/values/${range}?key=${CONFIG.SHEETS_API_KEY}`;
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Sheets read ${response.status}: ${errorText}`);
+            }
+
+            const data = await response.json();
+            const rows = data.values || [];
+            if (rows.length <= 1) return [];
+
+            return rows.slice(1)
+                .map((row, index) => this.mapRewardRow(row, index + 2))
+                .sort((a, b) => String(b.dateISO).localeCompare(String(a.dateISO)));
+        } catch (error) {
+            console.warn('Admin reward queue read failed:', error);
+            return [];
+        }
+    }
+
+    async updateRewardStatus(rowIndex, status) {
+        if (!this.appsScriptUrl) {
+            throw new Error('Apps Script URL tanimli degil.');
+        }
+
+        const payload = {
+            action: 'updateRewardStatus',
+            rowIndex,
+            status
+        };
+
+        return this.callAppsScript(payload);
     }
 
     async appendRows(sheetName, values) {
@@ -162,6 +186,36 @@ class SheetsAPI {
         }
     }
 
+    async callAppsScript(payload) {
+        try {
+            const response = await fetch(this.appsScriptUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Apps Script ${response.status}: ${errorText}`);
+            }
+
+            let data = null;
+            try {
+                data = await response.json();
+            } catch (_) {
+                data = null;
+            }
+
+            if (data && data.ok === false) {
+                throw new Error(data.error || 'Apps Script returned an application error.');
+            }
+
+            return data || { ok: true };
+        } catch (error) {
+            throw error;
+        }
+    }
+
     notifyWriteFailure(details) {
         if (this.warned) return;
         this.warned = true;
@@ -181,6 +235,25 @@ class SheetsAPI {
         };
 
         return map[sheetName] || sheetName;
+    }
+
+    mapRewardRow(row, rowIndex) {
+        const rawDetails = row[5] || '';
+        const ridMatch = rawDetails.match(/\[RID:([^\]]+)\]/i);
+        const requestId = ridMatch ? ridMatch[1] : '';
+        const cleanDetails = rawDetails.replace(/\[RID:[^\]]+\]\s*/i, '');
+
+        return {
+            rowIndex,
+            requestId,
+            dateISO: row[0] || '',
+            email: row[1] || '',
+            status: row[2] || 'Bekleme',
+            rewardType: row[3] || '',
+            points: Number(row[4] || 0),
+            details: cleanDetails,
+            month: row[6] || ''
+        };
     }
 
     async getLeaderboard() {

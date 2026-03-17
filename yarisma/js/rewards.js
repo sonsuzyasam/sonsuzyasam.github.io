@@ -5,6 +5,16 @@ class Rewards {
         this.historyKey = 'sonsuzyasam_reward_history';
         this.processedKey = 'sonsuzyasam_processed_approvals';
         this.bindForm();
+        this.bindAdmin();
+    }
+
+    bindAdmin() {
+        const refreshBtn = document.getElementById('refreshAdminQueueBtn');
+        if (!refreshBtn) return;
+
+        refreshBtn.addEventListener('click', async () => {
+            await this.loadAdminQueue();
+        });
     }
 
     bindForm() {
@@ -124,6 +134,81 @@ class Rewards {
 
     createRequestId() {
         return `req_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+    }
+
+    async loadAdminQueue() {
+        const container = document.getElementById('adminQueueList');
+        if (!container) return;
+
+        if (!app.isAdminUser()) {
+            container.innerHTML = '<p>Bu alan sadece admin hesaplar icindir.</p>';
+            return;
+        }
+
+        container.innerHTML = '<p>Talep listesi yukleniyor...</p>';
+        const requests = await sheetsAPI.getAllRewardRequests();
+
+        if (!requests.length) {
+            container.innerHTML = '<p>Bekleyen veya islenmis talep bulunamadi.</p>';
+            return;
+        }
+
+        container.innerHTML = requests.map((item) => {
+            const statusKey = this.getStatusClass(item.status);
+            const canApprove = statusKey !== 'approved';
+            const canReject = statusKey !== 'rejected';
+
+            return `
+                <div class="admin-queue-item" data-row-index="${item.rowIndex}">
+                    <div class="admin-queue-header">
+                        <div class="admin-queue-meta">
+                            <p><strong>${item.rewardType}</strong></p>
+                            <p>${item.email}</p>
+                            <p>${item.dateISO || '-'}</p>
+                            <p>${item.details || '-'}</p>
+                            <p>Puan: ${item.points}</p>
+                        </div>
+                        <span class="status-chip ${statusKey}">${item.status}</span>
+                    </div>
+
+                    <div class="admin-actions">
+                        <button class="btn-primary admin-approve-btn" type="button" data-row-index="${item.rowIndex}" ${canApprove ? '' : 'disabled'}>Onayla</button>
+                        <button class="btn-danger admin-reject-btn" type="button" data-row-index="${item.rowIndex}" ${canReject ? '' : 'disabled'}>Reddet</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        container.querySelectorAll('.admin-approve-btn').forEach((btn) => {
+            btn.addEventListener('click', async () => {
+                await this.updateAdminStatus(Number(btn.dataset.rowIndex), 'Onaylı');
+            });
+        });
+
+        container.querySelectorAll('.admin-reject-btn').forEach((btn) => {
+            btn.addEventListener('click', async () => {
+                await this.updateAdminStatus(Number(btn.dataset.rowIndex), 'Reddedildi');
+            });
+        });
+    }
+
+    async updateAdminStatus(rowIndex, status) {
+        if (!rowIndex) return;
+
+        try {
+            await sheetsAPI.updateRewardStatus(rowIndex, status);
+            app.showNotification(`Talep durumu ${status} olarak guncellendi.`, 'success');
+            await this.loadAdminQueue();
+        } catch (error) {
+            app.showNotification(`Durum guncellenemedi: ${error.message}`, 'error');
+        }
+    }
+
+    getStatusClass(status) {
+        const value = String(status || '').toLowerCase();
+        if (value === 'onayli' || value === 'onaylı' || value === 'approved') return 'approved';
+        if (value === 'reddedildi' || value === 'rejected') return 'rejected';
+        return 'pending';
     }
 }
 

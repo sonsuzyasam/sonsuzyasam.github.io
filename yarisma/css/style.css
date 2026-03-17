@@ -474,6 +474,81 @@ body {
     margin-bottom: 1rem;
 }
 
+.admin-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.admin-queue-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.admin-queue-item {
+    border: 1px solid #dde6ee;
+    border-radius: 10px;
+    padding: 1rem;
+    background: #fbfdff;
+}
+
+.admin-queue-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.admin-queue-meta {
+    display: grid;
+    gap: 0.35rem;
+    color: #5d6d7e;
+    font-size: 0.92rem;
+}
+
+.status-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.status-chip.pending {
+    background: #fff3cd;
+    color: #8a6d1d;
+}
+
+.status-chip.approved {
+    background: #d4edda;
+    color: #25653c;
+}
+
+.status-chip.rejected {
+    background: #f8d7da;
+    color: #8f2430;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 0.85rem;
+}
+
+.btn-warning {
+    background: var(--warning);
+    color: white;
+}
+
+.btn-warning:hover {
+    background: #d68910;
+}
+
 .history-item {
     padding: 1rem;
     border-left: 4px solid var(--warning);
@@ -761,6 +836,12 @@ body {
 
     .settings-grid {
         grid-template-columns: 1fr;
+    }
+
+    .admin-summary,
+    .admin-queue-header {
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .modal-content {
