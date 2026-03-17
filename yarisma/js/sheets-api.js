@@ -75,6 +75,17 @@ class SheetsAPI {
                 throw new Error(`Apps Script ${response.status}: ${errorText}`);
             }
 
+            let data = null;
+            try {
+                data = await response.json();
+            } catch (_) {
+                // Some deployments may return non-JSON output.
+            }
+
+            if (data && data.ok === false) {
+                throw new Error(data.error || 'Apps Script returned an application error.');
+            }
+
             return true;
         } catch (error) {
             // Some browsers block CORS on Apps Script even when request is valid.
@@ -95,18 +106,19 @@ class SheetsAPI {
             } catch (fallbackError) {
                 console.warn('Apps Script write failed:', error);
                 console.warn('Apps Script no-cors fallback failed:', fallbackError);
-                this.notifyWriteFailure();
+                this.notifyWriteFailure(error.message);
                 return false;
             }
         }
     }
 
-    notifyWriteFailure() {
+    notifyWriteFailure(details) {
         if (this.warned) return;
         this.warned = true;
 
         if (window.app && typeof window.app.showNotification === 'function') {
-            window.app.showNotification('Google Sheets yazma hatasi: su an veriler sadece bu cihazda saklaniyor.', 'error');
+            const extra = details ? ` (${details})` : '';
+            window.app.showNotification(`Google Sheets yazma hatasi: su an veriler sadece bu cihazda saklaniyor.${extra}`, 'error');
         }
     }
 
