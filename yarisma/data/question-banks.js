@@ -1,0 +1,85 @@
+// ===== QUESTION BANKS =====
+
+window.QUESTION_BANKS = {
+    tyt: [
+        { id: 'tyt-1', topic: 'Temel Matematik', difficulty: 'Kolay', text: '3x + 5 = 20 denklemini sağlayan x değeri kaçtır?', options: ['3', '4', '5', '6'], correctIndex: 2 },
+        { id: 'tyt-2', topic: 'Temel Matematik', difficulty: 'Kolay', text: 'Bir sayının %25\'i 18 ise sayının tamamı kaçtır?', options: ['54', '62', '72', '84'], correctIndex: 2 },
+        { id: 'tyt-3', topic: 'Problemler', difficulty: 'Orta', text: 'Bir otobüs 240 km yolu 4 saatte gidiyor. Ortalama hızı kaç km/saattir?', options: ['50', '55', '60', '65'], correctIndex: 2 },
+        { id: 'tyt-4', topic: 'Problemler', difficulty: 'Orta', text: '8 işçi bir işi 15 günde bitiriyorsa aynı işi 12 işçi kaç günde bitirir?', options: ['8', '10', '12', '14'], correctIndex: 1 },
+        { id: 'tyt-5', topic: 'Geometri', difficulty: 'Kolay', text: 'Bir üçgenin iç açılar toplamı kaç derecedir?', options: ['90', '120', '180', '360'], correctIndex: 2 },
+        { id: 'tyt-6', topic: 'Geometri', difficulty: 'Orta', text: 'Kenar uzunlukları 3, 4 ve 5 olan dik üçgende hipotenüs uzunluğu kaçtır?', options: ['3', '4', '5', '6'], correctIndex: 2 },
+        { id: 'tyt-7', topic: 'Sayı Basamakları', difficulty: 'Orta', text: 'Rakamları toplamı 12 olan iki basamaklı en büyük doğal sayı kaçtır?', options: ['84', '93', '96', '99'], correctIndex: 1 },
+        { id: 'tyt-8', topic: 'Temel Matematik', difficulty: 'Kolay', text: '(-4) + 9 işleminin sonucu kaçtır?', options: ['3', '4', '5', '6'], correctIndex: 2 },
+        { id: 'tyt-9', topic: 'Temel Matematik', difficulty: 'Orta', text: '2^5 değeri kaçtır?', options: ['16', '24', '32', '64'], correctIndex: 2 },
+        { id: 'tyt-10', topic: 'Problemler', difficulty: 'Orta', text: 'Bir ürün önce %20 indirim sonra indirimli fiyat üzerinden %10 zam görüyor. Net değişim yüzdesi nedir?', options: ['%8 indirim', '%10 indirim', '%12 indirim', '%2 zam'], correctIndex: 2 },
+        { id: 'tyt-11', topic: 'Türkçe', difficulty: 'Kolay', text: '\"Aşağıdakilerden hangisi isimdir?\"', options: ['Koşmak', 'Güzel', 'Kalem', 'Hızla'], correctIndex: 2 },
+        { id: 'tyt-12', topic: 'Türkçe', difficulty: 'Orta', text: '\"Bugün hava oldukça serin.\" cümlesinde zarf olan sözcük hangisidir?', options: ['Bugün', 'hava', 'oldukça', 'serin'], correctIndex: 2 },
+        { id: 'tyt-13', topic: 'Türkçe', difficulty: 'Orta', text: 'Aşağıdaki cümlelerin hangisinde yazım yanlışı yoktur?', options: ['Herkez burada.', 'Birçok öğrenci geldi.', 'Yanlız kalmak istemedi.', 'Hiç bir şey anlamadım.'], correctIndex: 1 },
+        { id: 'tyt-14', topic: 'Paragraf', difficulty: 'Orta', text: 'Bir paragrafta ana düşünce genellikle neyi açıklar?', options: ['Yazarın kimliğini', 'Metnin temel iletisini', 'Sözcüklerin kökenini', 'Noktalama işaretlerini'], correctIndex: 1 },
+        { id: 'tyt-15', topic: 'Paragraf', difficulty: 'Orta', text: 'Paragrafta yardımcı düşünce için hangisi doğrudur?', options: ['Ana düşüncenin aynısıdır', 'Ana düşünceyi destekler', 'Her zaman ilk cümlededir', 'Sadece örnekten oluşur'], correctIndex: 1 },
+        { id: 'tyt-16', topic: 'Sosyal Bilimler', difficulty: 'Kolay', text: 'Türkiye\'nin başkenti neresidir?', options: ['İstanbul', 'Ankara', 'İzmir', 'Bursa'], correctIndex: 1 },
+        { id: 'tyt-17', topic: 'Tarih', difficulty: 'Orta', text: 'Kurtuluş Savaşı\'nın diplomatik zaferi olarak kabul edilen antlaşma hangisidir?', options: ['Mondros', 'Sevr', 'Lozan', 'Brest-Litovsk'], correctIndex: 2 },
+        { id: 'tyt-18', topic: 'Coğrafya', difficulty: 'Orta', text: 'Ekvator\'a yaklaştıkça sıcaklığın artmasının temel nedeni nedir?', options: ['Nem oranı', 'Güneş ışınlarının geliş açısı', 'Basınç farkı', 'Rüzgar yönü'], correctIndex: 1 },
+        { id: 'tyt-19', topic: 'Coğrafya', difficulty: 'Kolay', text: 'Aşağıdakilerden hangisi bir yenilenebilir enerji kaynağıdır?', options: ['Petrol', 'Kömür', 'Doğalgaz', 'Rüzgar'], correctIndex: 3 },
+        { id: 'tyt-20', topic: 'Felsefe', difficulty: 'Orta', text: 'Bilginin kaynağını deney olarak gören yaklaşım hangisidir?', options: ['Rasyonalizm', 'Empirizm', 'İdealizm', 'Nihilizm'], correctIndex: 1 },
+        { id: 'tyt-21', topic: 'Fen Bilimleri', difficulty: 'Kolay', text: 'Su hangi sıcaklıkta (normal basınçta) kaynar?', options: ['50 C', '75 C', '100 C', '125 C'], correctIndex: 2 },
+        { id: 'tyt-22', topic: 'Fizik', difficulty: 'Orta', text: 'Sürat birimi aşağıdakilerden hangisidir?', options: ['kg', 'm/s', 'N', 'J'], correctIndex: 1 },
+        { id: 'tyt-23', topic: 'Kimya', difficulty: 'Orta', text: 'pH değeri 7 olan çözelti için hangisi doğrudur?', options: ['Asidik', 'Bazik', 'Nötr', 'Tuzlu'], correctIndex: 2 },
+        { id: 'tyt-24', topic: 'Biyoloji', difficulty: 'Kolay', text: 'Canlıların kalıtsal bilgisini taşıyan yapı hangisidir?', options: ['Protein', 'DNA', 'Vitamin', 'Enzim'], correctIndex: 1 },
+        { id: 'tyt-25', topic: 'Temel Matematik', difficulty: 'Orta', text: '6, 9, 12, 15, ... dizisinin 10. terimi kaçtır?', options: ['30', '33', '36', '39'], correctIndex: 1 },
+        { id: 'tyt-26', topic: 'Temel Matematik', difficulty: 'Orta', text: 'Bir sınıfta kız/erkek oranı 3/2 ve toplam 25 kişi ise kız sayısı kaçtır?', options: ['10', '12', '15', '18'], correctIndex: 2 },
+        { id: 'tyt-27', topic: 'Problemler', difficulty: 'Orta', text: 'Bir musluk havuzu 6 saatte dolduruyor. Aynı havuzu aynı özellikte 3 musluk kaç saatte doldurur?', options: ['1', '2', '3', '4'], correctIndex: 1 },
+        { id: 'tyt-28', topic: 'Geometri', difficulty: 'Orta', text: 'Yarıçapı 7 cm olan dairenin çevresi kaç cm\'dir? (pi=22/7)', options: ['22', '44', '66', '88'], correctIndex: 1 },
+        { id: 'tyt-29', topic: 'Türkçe', difficulty: 'Kolay', text: 'Aşağıdaki kelimelerden hangisi fiildir?', options: ['Masa', 'Yürümek', 'Mavi', 'Hız'], correctIndex: 1 },
+        { id: 'tyt-30', topic: 'Türkçe', difficulty: 'Orta', text: 'Aşağıdaki cümlelerden hangisi kurallı cümledir?', options: ['Bugün okula erken.', 'Erken bugün okula geldim.', 'Bugün okula erken geldim.', 'Okula bugün erken.'], correctIndex: 2 },
+        { id: 'tyt-31', topic: 'Tarih', difficulty: 'Orta', text: 'TBMM hangi yılda açılmıştır?', options: ['1918', '1919', '1920', '1923'], correctIndex: 2 },
+        { id: 'tyt-32', topic: 'Coğrafya', difficulty: 'Kolay', text: 'Aşağıdakilerden hangisi Türkiye\'de bir iç bölgedir?', options: ['Karadeniz', 'Ege', 'Marmara', 'İç Anadolu'], correctIndex: 3 },
+        { id: 'tyt-33', topic: 'Fizik', difficulty: 'Orta', text: 'Ağırlık aşağıdaki büyüklüklerden hangisine bağlıdır?', options: ['Kütle ve yerçekimi', 'Sıcaklık', 'Hacim', 'Renk'], correctIndex: 0 },
+        { id: 'tyt-34', topic: 'Kimya', difficulty: 'Kolay', text: 'H2O bileşiğinin adı nedir?', options: ['Oksijen', 'Hidrojen', 'Su', 'Tuz'], correctIndex: 2 },
+        { id: 'tyt-35', topic: 'Biyoloji', difficulty: 'Orta', text: 'Fotosentez için aşağıdakilerden hangisi gereklidir?', options: ['Işık', 'Ses', 'Rüzgar', 'Basınç'], correctIndex: 0 },
+        { id: 'tyt-36', topic: 'Temel Matematik', difficulty: 'Orta', text: 'Bir dikdörtgenin kenarları 8 ve 5 ise alanı kaçtır?', options: ['13', '26', '40', '80'], correctIndex: 2 },
+        { id: 'tyt-37', topic: 'Temel Matematik', difficulty: 'Kolay', text: '45 sayısının asal çarpanlarından biri hangisidir?', options: ['2', '3', '8', '14'], correctIndex: 1 },
+        { id: 'tyt-38', topic: 'Paragraf', difficulty: 'Orta', text: 'Bir metinde \"örneğin\" ifadesi genelde ne amaçla kullanılır?', options: ['Karşılaştırma', 'Tanım yapma', 'Açıklama destekleme', 'Sonuç çıkarma'], correctIndex: 2 },
+        { id: 'tyt-39', topic: 'Coğrafya', difficulty: 'Orta', text: 'Aşağıdakilerden hangisi iklim elemanlarından biri değildir?', options: ['Sıcaklık', 'Yağış', 'Toprak türü', 'Rüzgar'], correctIndex: 2 },
+        { id: 'tyt-40', topic: 'Felsefe', difficulty: 'Orta', text: 'Ahlak felsefesinin temel kavramlarından biri hangisidir?', options: ['Erdem', 'Atom', 'Enlem', 'Molekül'], correctIndex: 0 }
+    ],
+
+    ayt: [
+        { id: 'ayt-1', topic: 'Matematik', difficulty: 'Orta', text: 'f(x)=2x+3 ise f(4) kaçtır?', options: ['8', '9', '10', '11'], correctIndex: 3 },
+        { id: 'ayt-2', topic: 'Matematik', difficulty: 'Orta', text: 'log10(1000) değeri kaçtır?', options: ['2', '3', '10', '100'], correctIndex: 1 },
+        { id: 'ayt-3', topic: 'Geometri', difficulty: 'Zor', text: 'Bir çemberde merkez açı 60 derece ise gördüğü yayın ölçüsü kaç derecedir?', options: ['30', '60', '90', '120'], correctIndex: 1 },
+        { id: 'ayt-4', topic: 'Fizik', difficulty: 'Orta', text: 'Işığın boşluktaki hızı yaklaşık kaç km/s\'dir?', options: ['300', '3000', '300000', '3000000'], correctIndex: 2 },
+        { id: 'ayt-5', topic: 'Kimya', difficulty: 'Orta', text: 'Mol kavramı aşağıdakilerden hangisini ifade eder?', options: ['Kütle birimi', 'Madde miktarı', 'Hacim birimi', 'Enerji birimi'], correctIndex: 1 },
+        { id: 'ayt-6', topic: 'Biyoloji', difficulty: 'Orta', text: 'Mitoz bölünme sonucu kaç hücre oluşur?', options: ['1', '2', '3', '4'], correctIndex: 1 },
+        { id: 'ayt-7', topic: 'Edebiyat', difficulty: 'Kolay', text: 'Bir eserin yazarına ne denir?', options: ['Şair', 'Yazar', 'Editör', 'Çevirmen'], correctIndex: 1 },
+        { id: 'ayt-8', topic: 'Tarih', difficulty: 'Orta', text: 'Osmanlı Devleti\'nin ilk başkenti neresidir?', options: ['Bursa', 'Edirne', 'İstanbul', 'Söğüt'], correctIndex: 0 },
+        { id: 'ayt-9', topic: 'Coğrafya', difficulty: 'Orta', text: 'Nüfus yoğunluğu en çok hangi faktörden etkilenir?', options: ['Yükselti', 'İklim', 'Ekonomik faaliyetler', 'Bitki örtüsü'], correctIndex: 2 },
+        { id: 'ayt-10', topic: 'Matematik', difficulty: 'Zor', text: 'x^2 - 5x + 6 = 0 denkleminin köklerinden biri hangisidir?', options: ['1', '2', '4', '5'], correctIndex: 1 }
+    ],
+
+    kpss: [
+        { id: 'kpss-1', topic: 'Vatandaşlık', difficulty: 'Kolay', text: 'Türkiye Cumhuriyeti\'nin yönetim şekli nedir?', options: ['Monarşi', 'Cumhuriyet', 'Teokrasi', 'Federasyon'], correctIndex: 1 },
+        { id: 'kpss-2', topic: 'Vatandaşlık', difficulty: 'Orta', text: 'Yasama organı aşağıdakilerden hangisidir?', options: ['TBMM', 'Cumhurbaşkanlığı', 'Danıştay', 'Yargıtay'], correctIndex: 0 },
+        { id: 'kpss-3', topic: 'Tarih', difficulty: 'Orta', text: 'Atatürk\'ün \"Yurtta sulh, cihanda sulh\" sözü hangi ilke ile ilişkilidir?', options: ['Halkçılık', 'Devletçilik', 'Barışçılık', 'Milliyetçilik'], correctIndex: 2 },
+        { id: 'kpss-4', topic: 'Coğrafya', difficulty: 'Kolay', text: 'Türkiye hangi yarımkürede yer alır?', options: ['Güney-Batı', 'Kuzey-Doğu', 'Güney-Doğu', 'Kuzey-Batı'], correctIndex: 1 },
+        { id: 'kpss-5', topic: 'Türkçe', difficulty: 'Orta', text: 'Aşağıdakilerden hangisi anlatım bozukluğuna örnektir?', options: ['Dün sinemaya gittim.', 'Kitabı okuyup bitirdim.', 'Hem geldi hem de gelmedi.', 'Yarın erkenden kalkacağım.'], correctIndex: 2 },
+        { id: 'kpss-6', topic: 'Matematik', difficulty: 'Kolay', text: '120 sayısının %10\'u kaçtır?', options: ['10', '11', '12', '14'], correctIndex: 2 },
+        { id: 'kpss-7', topic: 'Güncel Bilgiler', difficulty: 'Orta', text: 'Türkiye\'de para birimi nedir?', options: ['Euro', 'Dolar', 'Sterlin', 'Türk Lirası'], correctIndex: 3 },
+        { id: 'kpss-8', topic: 'Vatandaşlık', difficulty: 'Orta', text: 'Anayasa Mahkemesi\'nin görevi ağırlıklı olarak nedir?', options: ['Yasa yapmak', 'Anayasaya uygunluk denetimi', 'Vergi toplamak', 'Seçim düzenlemek'], correctIndex: 1 },
+        { id: 'kpss-9', topic: 'Tarih', difficulty: 'Kolay', text: 'Cumhuriyet hangi tarihte ilan edilmiştir?', options: ['19 Mayıs 1919', '23 Nisan 1920', '29 Ekim 1923', '30 Ağustos 1922'], correctIndex: 2 },
+        { id: 'kpss-10', topic: 'Matematik', difficulty: 'Orta', text: 'Bir sayının 4 katının 7 fazlası 31 ise sayı kaçtır?', options: ['4', '5', '6', '7'], correctIndex: 2 }
+    ],
+
+    english: [
+        { id: 'eng-1', topic: 'Vocabulary', difficulty: 'Easy', text: 'Choose the correct synonym of "quick".', options: ['Slow', 'Fast', 'Late', 'Soft'], correctIndex: 1 },
+        { id: 'eng-2', topic: 'Grammar', difficulty: 'Easy', text: 'She ____ to school every day.', options: ['go', 'goes', 'going', 'gone'], correctIndex: 1 },
+        { id: 'eng-3', topic: 'Grammar', difficulty: 'Medium', text: 'If I ____ time, I will call you.', options: ['have', 'had', 'will have', 'having'], correctIndex: 0 },
+        { id: 'eng-4', topic: 'Vocabulary', difficulty: 'Medium', text: 'Opposite of "expensive" is ____.', options: ['cheap', 'large', 'strong', 'early'], correctIndex: 0 },
+        { id: 'eng-5', topic: 'Reading', difficulty: 'Medium', text: 'Choose the best connector: "I was tired, ____ I finished my homework."', options: ['because', 'but', 'so', 'or'], correctIndex: 1 },
+        { id: 'eng-6', topic: 'Grammar', difficulty: 'Medium', text: 'They ____ dinner when I arrived.', options: ['have', 'had', 'were having', 'are having'], correctIndex: 2 },
+        { id: 'eng-7', topic: 'Vocabulary', difficulty: 'Easy', text: '"Library" is a place where you can ____.', options: ['buy bread', 'borrow books', 'watch movies', 'play football'], correctIndex: 1 },
+        { id: 'eng-8', topic: 'Grammar', difficulty: 'Medium', text: 'He has lived here ____ 2018.', options: ['for', 'since', 'from', 'during'], correctIndex: 1 },
+        { id: 'eng-9', topic: 'Grammar', difficulty: 'Medium', text: 'I enjoy ____ music.', options: ['listen', 'to listen', 'listening to', 'listened'], correctIndex: 2 },
+        { id: 'eng-10', topic: 'Vocabulary', difficulty: 'Easy', text: 'Choose the correct meaning of "teacher".', options: ['A person who teaches', 'A person who drives', 'A person who cooks', 'A person who paints'], correctIndex: 0 }
+    ]
+};
