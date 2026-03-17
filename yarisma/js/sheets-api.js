@@ -37,6 +37,18 @@ class SheetsAPI {
     async getRewardRequestsByEmail(email) {
         if (!this.isConfigured() || !email) return [];
 
+        if (this.appsScriptUrl) {
+            try {
+                const data = await this.callAppsScript({
+                    action: 'listRewardRequests',
+                    email
+                });
+                return (data.items || []).map((item) => this.mapRewardRowFromObject(item));
+            } catch (error) {
+                console.warn('Apps Script reward list by email failed, falling back to Sheets API:', error);
+            }
+        }
+
         try {
             const range = encodeURIComponent(`${CONFIG.SHEETS.REWARDS}!A:G`);
             const url = `${CONFIG.ENDPOINTS.GET_VALUES}/${CONFIG.SPREADSHEET_ID}/values/${range}?key=${CONFIG.SHEETS_API_KEY}`;
@@ -63,6 +75,17 @@ class SheetsAPI {
 
     async getAllRewardRequests() {
         if (!this.isConfigured()) return [];
+
+        if (this.appsScriptUrl) {
+            try {
+                const data = await this.callAppsScript({
+                    action: 'listRewardRequests'
+                });
+                return (data.items || []).map((item) => this.mapRewardRowFromObject(item));
+            } catch (error) {
+                console.warn('Apps Script admin reward queue read failed, falling back to Sheets API:', error);
+            }
+        }
 
         try {
             const range = encodeURIComponent(`${CONFIG.SHEETS.REWARDS}!A:G`);
@@ -253,6 +276,25 @@ class SheetsAPI {
             points: Number(row[4] || 0),
             details: cleanDetails,
             month: row[6] || ''
+        };
+    }
+
+    mapRewardRowFromObject(item) {
+        const rawDetails = item.rawDetails || item.details || '';
+        const ridMatch = rawDetails.match(/\[RID:([^\]]+)\]/i);
+        const requestId = item.requestId || (ridMatch ? ridMatch[1] : '');
+        const cleanDetails = item.details || rawDetails.replace(/\[RID:[^\]]+\]\s*/i, '');
+
+        return {
+            rowIndex: Number(item.rowIndex || 0),
+            requestId,
+            dateISO: item.dateISO || '',
+            email: item.email || '',
+            status: item.status || 'Bekleme',
+            rewardType: item.rewardType || '',
+            points: Number(item.points || 0),
+            details: cleanDetails,
+            month: item.month || ''
         };
     }
 
