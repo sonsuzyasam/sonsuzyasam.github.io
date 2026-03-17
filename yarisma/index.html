@@ -19,8 +19,8 @@
                 <p>Sınav Hazırlığı + Ödüllü Quiz</p>
             </div>
             <div class="user-section">
-                <span id="userName">Giriş Yap</span>
-                <button id="loginBtn" class="btn-login">Giriş</button>
+                <span id="userName">Misafir</span>
+                <button id="loginBtn" class="btn-login">Başla</button>
             </div>
         </header>
 
@@ -195,12 +195,18 @@
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('loginModal')">&times;</span>
-            <h2>Giriş Yap / Kayıt Ol</h2>
-            <form id="loginForm">
+            <h2 id="authTitle">Giriş Yap</h2>
+            <p id="authHint">Parola ile giriş yapabilir veya yeni hesap oluşturabilirsin.</p>
+            <form id="loginForm" data-mode="login">
                 <input type="text" id="loginName" placeholder="Adınız Soyadınız" required>
-                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="email" id="loginEmail" placeholder="E-posta" required>
+                <input type="password" id="loginPassword" placeholder="Parola" required minlength="6">
+                <input type="password" id="loginPasswordConfirm" placeholder="Parola (Tekrar)">
                 <input type="tel" id="loginPhone" placeholder="Telefon Numarası" required>
-                <button type="submit" class="btn-primary">Giriş Yap</button>
+                <button type="submit" id="authSubmitBtn" class="btn-primary">Giriş Yap</button>
+                <button type="button" id="toggleAuthModeBtn" class="btn-secondary">Yeni Hesap Oluştur</button>
+                <button type="button" id="resendVerificationBtn" class="btn-secondary">Doğrulama Mailini Yeniden Gönder</button>
+                <button type="button" id="googleSignInBtn" class="btn-secondary">Google ile Giriş Yap</button>
             </form>
         </div>
     </div>
@@ -217,6 +223,8 @@
 
     <!-- Scripts -->
     <script src="config.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
     <script src="js/sheets-api.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/quiz.js"></script>

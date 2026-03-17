@@ -2,6 +2,18 @@
 // Bu dosyayı Google Cloud Console'dan aldığınız bilgilerle güncelleyin
 
 const CONFIG = {
+    // Firebase Authentication Ayarlari
+    FIREBASE: {
+        apiKey: 'AIzaSyA_IijFTARQUObeu63BpM9QPGINUHjtJl8',
+        authDomain: 'yarisma-edd25.firebaseapp.com',
+        projectId: 'yarisma-edd25',
+        appId: '1:988825882554:web:9e4f9ce4105c0dbe5bd783'
+    },
+
+    AUTH: {
+        REQUIRE_EMAIL_VERIFICATION: true
+    },
+
     // Google Sheets API Ayarları
     SHEETS_API_KEY: 'AIzaSyARzvGq0XDPwxmYKzEHRi3iqYySGjFFrWo',
     SPREADSHEET_ID: '1_rCYk3xfD03qjR1BFfZ7rC94UHvTuPdvJB2pGj6796M',

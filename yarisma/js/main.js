@@ -32,11 +32,6 @@ class App {
             this.showModal('loginModal');
         });
 
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.loginUser();
-        });
-
         // Modal Close
         document.querySelectorAll('.close').forEach(closeBtn => {
             closeBtn.addEventListener('click', (e) => {
@@ -64,30 +59,33 @@ class App {
         }
     }
 
-    loginUser() {
-        const name = document.getElementById('loginName').value;
-        const email = document.getElementById('loginEmail').value;
-        const phone = document.getElementById('loginPhone').value;
+    onAuthUser(user) {
+        this.currentUser = user;
 
-        this.currentUser = { name, email, phone };
-        localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(this.currentUser));
-
-        // Google Sheets'e kaydet
-        sheetsAPI.appendUser(this.currentUser);
+        if (user) {
+            localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
+            if (window.sheetsAPI && typeof window.sheetsAPI.appendUser === 'function') {
+                sheetsAPI.appendUser(user);
+            }
+            this.closeModal('loginModal');
+        } else {
+            localStorage.removeItem(STORAGE_KEYS.USER);
+            localStorage.removeItem(STORAGE_KEYS.USER_POINTS);
+        }
 
         this.updateUserUI();
-        this.closeModal('loginModal');
-        this.goToPage('dashboard');
+        this.updateDashboard();
     }
 
     logout() {
         if (confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
-            this.currentUser = null;
-            localStorage.removeItem(STORAGE_KEYS.USER);
-            localStorage.removeItem(STORAGE_KEYS.USER_POINTS);
-            this.updateUserUI();
+            if (window.authManager && typeof window.authManager.logout === 'function') {
+                authManager.logout();
+            } else {
+                this.onAuthUser(null);
+            }
             this.goToPage('dashboard');
-            this.showNotification('Başarıyla çıkış yaptınız!', 'success');
+            this.showNotification('Basariyla cikis yaptiniz!', 'success');
         }
     }
 
@@ -99,8 +97,11 @@ class App {
             document.getElementById('profileEmail').textContent = this.currentUser.email;
             document.getElementById('profilePhone').textContent = this.currentUser.phone;
         } else {
-            document.getElementById('userName').textContent = 'Giriş Yap';
-            document.getElementById('loginBtn').textContent = 'Giriş';
+            document.getElementById('userName').textContent = 'Misafir';
+            document.getElementById('loginBtn').textContent = 'Başla';
+            document.getElementById('profileName').textContent = '-';
+            document.getElementById('profileEmail').textContent = '-';
+            document.getElementById('profilePhone').textContent = '-';
         }
     }
 
@@ -196,7 +197,9 @@ class App {
         localStorage.setItem(STORAGE_KEYS.USER_POINTS, JSON.stringify(pointsData));
 
         // Google Sheets'e kaydet
-        sheetsAPI.recordScore(this.currentUser.email, points);
+        if (window.sheetsAPI && typeof window.sheetsAPI.recordScore === 'function') {
+            sheetsAPI.recordScore(this.currentUser.email, points);
+        }
         
         this.updateDashboard();
     }
