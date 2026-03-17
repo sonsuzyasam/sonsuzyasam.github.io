@@ -1,6 +1,29 @@
 // ===== LEADERBOARD.JS =====
 
 class Leaderboard {
+    renderRows(tbody, rows) {
+        tbody.innerHTML = rows.map((item, index) => {
+            const points = Number(item.points || 0);
+            const value = (points * CONFIG.POINTS_SYSTEM.MULTIPLIER).toFixed(2);
+            const rank = Number(item.rank || (index + 1));
+            const name = item.name || item.email || 'Kullanici';
+            return `<tr><td>${rank}</td><td>${name}</td><td>${points}</td><td>₺${value}</td></tr>`;
+        }).join('');
+    }
+
+    getFallbackRows() {
+        if (!window.app || !app.currentUser) {
+            return [];
+        }
+
+        return [{
+            rank: 1,
+            name: app.currentUser.name,
+            email: app.currentUser.email,
+            points: app.getUserMonthlyPoints()
+        }];
+    }
+
     async loadLeaderboard() {
         const tbody = document.getElementById('leaderboardBody');
         if (!tbody) return;
@@ -15,7 +38,7 @@ class Leaderboard {
             }
 
             if (!rows.length && app.currentUser) {
-                rows = [{ rank: 1, name: app.currentUser.name, email: app.currentUser.email, points: app.getUserMonthlyPoints() }];
+                rows = this.getFallbackRows();
             }
 
             if (!rows.length) {
@@ -23,15 +46,14 @@ class Leaderboard {
                 return;
             }
 
-            tbody.innerHTML = rows.map((item, index) => {
-                const points = Number(item.points || 0);
-                const value = (points * CONFIG.POINTS_SYSTEM.MULTIPLIER).toFixed(2);
-                const rank = Number(item.rank || (index + 1));
-                const name = item.name || item.email || 'Kullanici';
-                return `<tr><td>${rank}</td><td>${name}</td><td>${points}</td><td>₺${value}</td></tr>`;
-            }).join('');
+            this.renderRows(tbody, rows);
         } catch (error) {
-            tbody.innerHTML = '<tr><td colspan="4">Puan tablosu su anda yuklenemiyor.</td></tr>';
+            const fallbackRows = this.getFallbackRows();
+            if (fallbackRows.length) {
+                this.renderRows(tbody, fallbackRows);
+            } else {
+                tbody.innerHTML = '<tr><td colspan="4">Puan tablosu su anda yuklenemiyor.</td></tr>';
+            }
             console.warn('Leaderboard could not be loaded:', error);
         }
     }
