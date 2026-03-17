@@ -271,6 +271,11 @@ function editProfile() {
 let app;
 document.addEventListener('DOMContentLoaded', () => {
     app = new App();
+    window.app = app;
+
+    if (window.authManager && typeof window.authManager.attachApp === 'function') {
+        window.authManager.attachApp(app);
+    }
 
     // CSS animasyonları ekle
     const style = document.createElement('style');

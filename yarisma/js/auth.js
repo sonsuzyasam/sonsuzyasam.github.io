@@ -4,6 +4,7 @@ class AuthManager {
     constructor() {
         this.auth = null;
         this.mode = 'login';
+        this.pendingAuthUser = undefined;
         this.init();
     }
 
@@ -93,9 +94,7 @@ class AuthManager {
             }
 
             this.notify('Google ile giris basarili.', 'success');
-            if (window.app) {
-                window.app.closeModal('loginModal');
-            }
+            this.closeLoginModal();
         } catch (err) {
             this.notify(this.mapAuthError(err), 'error');
         }
@@ -142,9 +141,7 @@ class AuthManager {
             }
 
             this.notify('Giris basarili.', 'success');
-            if (window.app) {
-                window.app.closeModal('loginModal');
-            }
+            this.closeLoginModal();
         } catch (err) {
             this.notify(this.mapAuthError(err), 'error');
         }
@@ -171,15 +168,13 @@ class AuthManager {
 
     watchAuthState() {
         this.auth.onAuthStateChanged((user) => {
-            if (!window.app) return;
-
             if (!user) {
-                window.app.onAuthUser(null);
+                this.dispatchAuthUser(null);
                 return;
             }
 
             const phone = this.getPhoneByUid(user.uid);
-            window.app.onAuthUser({
+            this.dispatchAuthUser({
                 uid: user.uid,
                 name: user.displayName || 'Kullanici',
                 email: user.email,
@@ -187,6 +182,29 @@ class AuthManager {
                 verified: user.emailVerified
             });
         });
+    }
+
+    attachApp(appInstance) {
+        if (!appInstance || typeof appInstance.onAuthUser !== 'function') return;
+        if (this.pendingAuthUser !== undefined) {
+            appInstance.onAuthUser(this.pendingAuthUser);
+            this.pendingAuthUser = undefined;
+        }
+    }
+
+    dispatchAuthUser(userData) {
+        if (window.app && typeof window.app.onAuthUser === 'function') {
+            window.app.onAuthUser(userData);
+            return;
+        }
+        this.pendingAuthUser = userData;
+    }
+
+    closeLoginModal() {
+        const modal = document.getElementById('loginModal');
+        if (modal) {
+            modal.classList.remove('show');
+        }
     }
 
     async logout() {
