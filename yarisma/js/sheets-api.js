@@ -57,15 +57,17 @@ class SheetsAPI {
     }
 
     async appendRowsWithAppsScript(sheetName, values) {
+        const payload = {
+            action: 'append',
+            sheetName,
+            values
+        };
+
         try {
             const response = await fetch(this.appsScriptUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'append',
-                    sheetName,
-                    values
-                })
+                body: JSON.stringify(payload)
             });
 
             if (!response.ok) {
@@ -75,9 +77,27 @@ class SheetsAPI {
 
             return true;
         } catch (error) {
-            console.warn('Apps Script write failed:', error);
-            this.notifyWriteFailure();
-            return false;
+            // Some browsers block CORS on Apps Script even when request is valid.
+            // Retry with no-cors so the request can still be delivered.
+            try {
+                await fetch(this.appsScriptUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (window.app && typeof window.app.showNotification === 'function') {
+                    window.app.showNotification('Veri gonderildi. Sheets satiri 2-5 sn gecikmeli gorunebilir.', 'info');
+                }
+
+                return true;
+            } catch (fallbackError) {
+                console.warn('Apps Script write failed:', error);
+                console.warn('Apps Script no-cors fallback failed:', fallbackError);
+                this.notifyWriteFailure();
+                return false;
+            }
         }
     }
 
