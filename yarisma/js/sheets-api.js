@@ -39,10 +39,7 @@ class SheetsAPI {
 
         if (this.appsScriptUrl) {
             try {
-                const data = await this.callAppsScript({
-                    action: 'listRewardRequests',
-                    email
-                });
+                const data = await this.callAppsScriptList(email);
                 return (data.items || []).map((item) => this.mapRewardRowFromObject(item));
             } catch (error) {
                 console.warn('Apps Script reward list by email failed, falling back to Sheets API:', error);
@@ -78,9 +75,7 @@ class SheetsAPI {
 
         if (this.appsScriptUrl) {
             try {
-                const data = await this.callAppsScript({
-                    action: 'listRewardRequests'
-                });
+                const data = await this.callAppsScriptList();
                 return (data.items || []).map((item) => this.mapRewardRowFromObject(item));
             } catch (error) {
                 console.warn('Apps Script admin reward queue read failed, falling back to Sheets API:', error);
@@ -237,6 +232,28 @@ class SheetsAPI {
         } catch (error) {
             throw error;
         }
+    }
+
+    async callAppsScriptList(email) {
+        const params = new URLSearchParams({ action: 'listRewardRequests' });
+        if (email) {
+            params.set('email', email);
+        }
+
+        const url = `${this.appsScriptUrl}?${params.toString()}`;
+        const response = await fetch(url, { method: 'GET' });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Apps Script GET ${response.status}: ${errorText}`);
+        }
+
+        const data = await response.json();
+        if (data && data.ok === false) {
+            throw new Error(data.error || 'Apps Script list action failed.');
+        }
+
+        return data || { ok: true, items: [] };
     }
 
     notifyWriteFailure(details) {
