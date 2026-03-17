@@ -57,9 +57,11 @@ class SheetsAPI {
     }
 
     async appendRowsWithAppsScript(sheetName, values) {
+        const sheetNameForScript = this.toScriptSheetName(sheetName);
+
         const payload = {
             action: 'append',
-            sheetName,
+            sheetName: sheetNameForScript,
             values
         };
 
@@ -120,6 +122,17 @@ class SheetsAPI {
             const extra = details ? ` (${details})` : '';
             window.app.showNotification(`Google Sheets yazma hatasi: su an veriler sadece bu cihazda saklaniyor.${extra}`, 'error');
         }
+    }
+
+    toScriptSheetName(sheetName) {
+        const map = {
+            'Kullanıcılar': 'Kullanicilar',
+            'Ödüller': 'Oduller',
+            'Ödül_Talepleri': 'Odul_Talepleri',
+            'Aylık_Puanlar': 'Aylik_Puanlar'
+        };
+
+        return map[sheetName] || sheetName;
     }
 
     async getLeaderboard() {
