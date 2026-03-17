@@ -146,7 +146,7 @@ class Rewards {
         const container = document.getElementById('adminQueueList');
         if (!container) return;
 
-        if (!app.isAdminUser()) {
+        if (!app || typeof app.isAdminUser !== 'function' || !app.isAdminUser()) {
             container.innerHTML = '<p>Bu alan sadece admin hesaplar icindir.</p>';
             return;
         }
