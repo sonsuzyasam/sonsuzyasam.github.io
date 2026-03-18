@@ -127,7 +127,9 @@ class App {
 
         // Sayfa yüklendiğinde verileri güncelle
         if (pageName === 'leaderboard') {
-            this.refreshMonthlyPointsFromServer().finally(() => leaderboard.loadLeaderboard());
+            // Do not block leaderboard rendering on a network call.
+            leaderboard.loadLeaderboard();
+            this.refreshMonthlyPointsFromServer();
         } else if (pageName === 'rewards') {
             rewards.loadRewardHistory();
         } else if (pageName === 'dashboard') {

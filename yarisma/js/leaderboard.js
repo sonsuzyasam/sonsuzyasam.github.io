@@ -1,6 +1,13 @@
 // ===== LEADERBOARD.JS =====
 
 class Leaderboard {
+    withTimeout(promise, ms) {
+        return Promise.race([
+            promise,
+            new Promise((_, reject) => setTimeout(() => reject(new Error('Leaderboard request timeout')), ms))
+        ]);
+    }
+
     renderRows(tbody, rows) {
         tbody.innerHTML = rows.map((item, index) => {
             const points = Number(item.points || 0);
@@ -28,13 +35,21 @@ class Leaderboard {
         const tbody = document.getElementById('leaderboardBody');
         if (!tbody) return;
 
-        tbody.innerHTML = '<tr><td colspan="4">Puan tablosu yukleniyor...</td></tr>';
+        const fallbackRows = this.getFallbackRows();
+        if (fallbackRows.length) {
+            this.renderRows(tbody, fallbackRows);
+        } else {
+            tbody.innerHTML = '<tr><td colspan="4">Puan tablosu yukleniyor...</td></tr>';
+        }
 
         try {
             let rows = [];
 
             if (window.sheetsAPI && typeof sheetsAPI.getLeaderboard === 'function') {
-                rows = await sheetsAPI.getLeaderboard(CONFIG.getCurrentMonth());
+                rows = await this.withTimeout(
+                    sheetsAPI.getLeaderboard(CONFIG.getCurrentMonth()),
+                    8000
+                );
             }
 
             if (!rows.length && app.currentUser) {
@@ -48,10 +63,7 @@ class Leaderboard {
 
             this.renderRows(tbody, rows);
         } catch (error) {
-            const fallbackRows = this.getFallbackRows();
-            if (fallbackRows.length) {
-                this.renderRows(tbody, fallbackRows);
-            } else {
+            if (!fallbackRows.length) {
                 tbody.innerHTML = '<tr><td colspan="4">Puan tablosu su anda yuklenemiyor.</td></tr>';
             }
             console.warn('Leaderboard could not be loaded:', error);
