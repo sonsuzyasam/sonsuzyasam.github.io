@@ -369,28 +369,39 @@ function handleGetLeaderboard_(auth, body) {
   var shMonthly = getSheet_(SHEET_NAMES.MONTHLY);
   var monthlyValues = shMonthly.getDataRange().getValues();
   var userNames = getUserNamesMap_();
-  var items = [];
 
-  for (var i = 1; i < monthlyValues.length; i++) {
+  // Aggregate points per email, summing across any duplicate rows for the same month.
+  var emailPoints  = {};
+  var emailUpdated = {};
+
+  for (var i = 0; i < monthlyValues.length; i++) {
     var row = monthlyValues[i];
-    if (String(row[0] || '') !== month) continue;
+    if (normalizeMonth_(row[0]) !== month) continue;
 
-    var email = normalizeEmail_(row[1]);
-    if (!email) continue;
+    var rowEmail = normalizeEmail_(row[1]);
+    if (!rowEmail) continue;
 
+    emailPoints[rowEmail]  = (emailPoints[rowEmail]  || 0) + Number(row[2] || 0);
+    var ts = String(row[3] || '');
+    if (!emailUpdated[rowEmail] || ts > emailUpdated[rowEmail]) {
+      emailUpdated[rowEmail] = ts;
+    }
+  }
+
+  var items = [];
+  for (var mapEmail in emailPoints) {
+    if (!emailPoints.hasOwnProperty(mapEmail)) continue;
     items.push({
-      email: email,
-      name: userNames[email] || email,
-      points: Number(row[2] || 0),
-      updatedAt: String(row[3] || '')
+      email:     mapEmail,
+      name:      userNames[mapEmail] || mapEmail,
+      points:    emailPoints[mapEmail],
+      updatedAt: emailUpdated[mapEmail] || ''
     });
   }
 
   items.sort(function(a, b) {
-    if (Number(b.points || 0) !== Number(a.points || 0)) {
-      return Number(b.points || 0) - Number(a.points || 0);
-    }
-    return String(b.updatedAt || '').localeCompare(String(a.updatedAt || ''));
+    if (b.points !== a.points) return b.points - a.points;
+    return String(b.updatedAt).localeCompare(String(a.updatedAt));
   });
 
   for (var j = 0; j < items.length; j++) {
@@ -429,14 +440,17 @@ function handleRecordScore_(auth, body) {
 function getMonthlyPointsByEmailMonth_(email, month) {
   var sh     = getSheet_(SHEET_NAMES.MONTHLY);
   var values = sh.getDataRange().getValues();
+  var target = normalizeEmail_(email);
+  var total  = 0;
 
-  for (var i = 1; i < values.length; i++) {
-    if (String(values[i][0]) === month &&
-        normalizeEmail_(values[i][1]) === normalizeEmail_(email)) {
-      return Number(values[i][2] || 0);
-    }
+  // Start from row 0 so we don't skip row 1 when there is no header.
+  // normalizeMonth_ returns '' for header text ("Ay"), which won't match, so headers are skipped safely.
+  for (var i = 0; i < values.length; i++) {
+    if (normalizeMonth_(values[i][0]) !== month) continue;
+    if (normalizeEmail_(values[i][1]) !== target) continue;
+    total += Number(values[i][2] || 0);
   }
-  return 0;
+  return total;
 }
 
 function adjustMonthlyPoints_(email, month, delta) {
@@ -444,20 +458,37 @@ function adjustMonthlyPoints_(email, month, delta) {
   var values      = sh.getDataRange().getValues();
   var targetEmail = normalizeEmail_(email);
   var d           = Number(delta || 0);
+  var matchRows   = [];
 
-  for (var i = 1; i < values.length; i++) {
-    if (String(values[i][0]) === month &&
-        normalizeEmail_(values[i][1]) === targetEmail) {
-      var next = Math.max(0, Number(values[i][2] || 0) + d);
-      sh.getRange(i + 1, 3).setValue(next);
-      sh.getRange(i + 1, 4).setValue(new Date().toISOString());
-      return next;
-    }
+  // Collect ALL matching rows (duplicate rows can exist if month was previously stored as a Date).
+  for (var i = 0; i < values.length; i++) {
+    if (normalizeMonth_(values[i][0]) !== month) continue;
+    if (normalizeEmail_(values[i][1]) !== targetEmail) continue;
+    matchRows.push({ rowNum: i + 1, points: Number(values[i][2] || 0) });
   }
 
-  var start = Math.max(0, d);
-  sh.appendRow([month, targetEmail, start, new Date().toISOString()]);
-  return start;
+  if (matchRows.length === 0) {
+    var start = Math.max(0, d);
+    sh.appendRow([month, targetEmail, start, new Date().toISOString()]);
+    return start;
+  }
+
+  // Consolidate all duplicate rows into the first one, then apply delta.
+  var total = 0;
+  for (var j = 0; j < matchRows.length; j++) {
+    total += matchRows[j].points;
+  }
+  var next = Math.max(0, total + d);
+
+  sh.getRange(matchRows[0].rowNum, 3).setValue(next);
+  sh.getRange(matchRows[0].rowNum, 4).setValue(new Date().toISOString());
+
+  // Delete duplicate rows in reverse order so earlier row indices stay valid.
+  for (var k = matchRows.length - 1; k >= 1; k--) {
+    sh.deleteRow(matchRows[k].rowNum);
+  }
+
+  return next;
 }
 
 // ============================================================
@@ -613,6 +644,24 @@ function getCurrentMonth_() {
   var d  = new Date();
   var mm = ('0' + (d.getMonth() + 1)).slice(-2);
   return d.getFullYear() + '-' + mm;
+}
+
+// Normalize a month value from Sheets: handles Date objects, date strings, and "YYYY-MM" strings.
+// Returns "" for non-month values (e.g., header text like "Ay"), so loops can skip them safely.
+function normalizeMonth_(val) {
+  if (!val && val !== 0) return '';
+  if (val instanceof Date) {
+    var mm = ('0' + (val.getMonth() + 1)).slice(-2);
+    return val.getFullYear() + '-' + mm;
+  }
+  var s = String(val).trim();
+  if (/^\d{4}-\d{2}$/.test(s)) return s;
+  var d = new Date(s);
+  if (!isNaN(d.getTime())) {
+    var mm2 = ('0' + (d.getMonth() + 1)).slice(-2);
+    return d.getFullYear() + '-' + mm2;
+  }
+  return ''; // Header text like "Ay" or unrecognized value
 }
 
 function merge_(target, source) {
