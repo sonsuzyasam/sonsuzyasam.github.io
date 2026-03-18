@@ -81,5 +81,68 @@ window.QUESTION_BANKS = {
         { id: 'eng-8', topic: 'Grammar', difficulty: 'Medium', text: 'He has lived here ____ 2018.', options: ['for', 'since', 'from', 'during'], correctIndex: 1 },
         { id: 'eng-9', topic: 'Grammar', difficulty: 'Medium', text: 'I enjoy ____ music.', options: ['listen', 'to listen', 'listening to', 'listened'], correctIndex: 2 },
         { id: 'eng-10', topic: 'Vocabulary', difficulty: 'Easy', text: 'Choose the correct meaning of "teacher".', options: ['A person who teaches', 'A person who drives', 'A person who cooks', 'A person who paints'], correctIndex: 0 }
+    ],
+
+    arkeoloji: [
+        {
+            id: 'ARK_04',
+            topic: 'Arkeoloji – Tanım ve Yardımcı Bilimler',
+            difficulty: 'Orta',
+            text: 'Arkeoloji bilimi, aşağıdaki disiplinlerden hangisinin "yardımcı bilimi" olarak kabul edilir?',
+            options: ['Felsefe', 'Sosyoloji', 'Kimya (yalnızca)', 'Tarih (yalnızca)', 'Folklor (halkbilimi)'],
+            correctIndex: 0,
+            rationale: 'Arkeoloji, Tarih biliminin yardımcı bilimi olarak da tanımlanmakla birlikte genel sınıflamada "yardımcı bilimler" olan felsefe geleneğiyle iç içe geçer; maddi kültür kalıntıları üzerinden geçmişe ışık tutar.'
+        },
+        {
+            id: 'MIM_02',
+            topic: 'Antik Mimari – Sütun Düzenleri',
+            difficulty: 'Orta',
+            text: 'Aşağıdaki sütun düzenlerinden hangisi en sade ve en eski Yunan mimari düzeni olarak bilinir; frizinde triglif ve metoplar bulunur?',
+            options: ['İon Düzeni', 'Korinth Düzeni', 'Dor Düzeni', 'Aiol Düzeni', 'Kompozit Düzen'],
+            correctIndex: 2,
+            rationale: 'Dor düzeni, en sade yapıya sahip olup triglif-metop friziyle tanınır ve Arkaik dönemin karakteristiğidir. Başlığı yalnızca abakus ve ekinustan oluşur.'
+        },
+        {
+            id: 'NEOL_02',
+            topic: 'Neolitik Çağ – Özellikler',
+            difficulty: 'Kolay',
+            text: 'Neolitik Çağ\'ın en önemli dönüm noktalarından biri aşağıdakilerden hangisidir?',
+            options: ['Tunç aletlerin yaygınlaşması', 'Yerleşik hayata ve tarıma geçiş', 'Yazı sisteminin icadı', 'Büyük imparatorlukların kurulması', 'Demir Çağı teknolojileri'],
+            correctIndex: 1,
+            rationale: 'Neolitik Çağ (yakl. MÖ 10.000–3000), tarım ve hayvancılığın başlaması ile yerleşik hayata geçişin dönemi olarak tanımlanır.'
+        },
+        {
+            id: 'ANT_02',
+            topic: 'Antik Kentler – Priene Örneği',
+            difficulty: 'Orta',
+            text: 'Hellenistik dönemde ızgara plan (Hippodamos planı) en iyi şekilde korunmuş antik kent aşağıdakilerden hangisidir?',
+            options: ['Assos', 'Tios', 'Priene', 'Miletos', 'Efes'],
+            correctIndex: 2,
+            rationale: 'Priene, Athena Polias Tapınağı ile birlikte ızgara planın klasik örneğidir ve Hellenistik dönemin en iyi korunmuş antik kentidir.'
+        },
+        {
+            id: 'TAR_03',
+            topic: 'Tarih – Osmanlı Ölçü Birimleri',
+            difficulty: 'Kolay',
+            text: 'Osmanlı\'da kumaş ölçümünde kullanılan temel birim aşağıdakilerden hangisidir?',
+            options: ['Okka', 'Arşın', 'Kantar', 'Fersah', 'Kulaç'],
+            correctIndex: 1,
+            rationale: 'Çarşı arşını yaklaşık 68 cm olup Osmanlı\'da kumaş ölçümünde temel birimdir. Okka ve kantar ağırlık, fersah uzunluk, kulaç ise denizcilik ölçüsüdür.'
+        },
+        {
+            id: 'ARK_05',
+            topic: 'Arkeoloji – Genel Bilgi',
+            difficulty: 'Orta',
+            text: 'Aşağıdakilerden hangisi arkeolojinin temel amaçlarından biri değildir?',
+            options: [
+                'Geçmiş toplumların maddi kültürünü incelemek',
+                'Kazı teknikleriyle buluntuları belgelemek',
+                'Yazılı kaynakların yalnızca ekonomik analizini yapmak',
+                'Tarihin boşluklarını maddi kalıntılarla doldurmak',
+                'Laboratuvar yöntemleriyle yorumlamak'
+            ],
+            correctIndex: 2,
+            rationale: 'Arkeoloji maddi kalıntılarla çalışır; yazılı kaynakların yalnızca ekonomik analizi ise tarih veya iktisat tarihinin alanıdır.'
+        }
     ]
 };

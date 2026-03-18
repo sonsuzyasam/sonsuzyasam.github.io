@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arkeoloji Bilgi Yarışması | arkeoloji.biz × Sonsuz Yaşam</title>
+    <meta name="description" content="Arkeoloji, mimari, tarih ve antik kentler hakkında bilginizi test edin. arkeoloji.biz ile Sonsuz Yaşam işbirliğiyle hazırlanmış yarışma soruları.">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* ===== Arkeoloji Page Overrides ===== */
+        :root {
+            --ark-brown: #8B5E3C;
+            --ark-gold:  #C9A84C;
+            --ark-sand:  #F5EED9;
+            --ark-dark:  #3B2A1A;
+        }
+
+        body {
+            background: #f9f6ef;
+        }
+
+        /* ===== Arkeoloji Header ===== */
+        .ark-header {
+            background: linear-gradient(135deg, var(--ark-dark) 0%, var(--ark-brown) 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 16px rgba(59,42,26,0.25);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .ark-header-left h1 {
+            font-size: 1.6rem;
+            margin-bottom: 0.2rem;
+            letter-spacing: -0.01em;
+        }
+
+        .ark-header-left p {
+            font-size: 0.85rem;
+            opacity: 0.85;
+        }
+
+        .ark-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .ark-badge a {
+            background: var(--ark-gold);
+            color: var(--ark-dark);
+            text-decoration: none;
+            padding: 0.5rem 1.1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+
+        .ark-badge a:hover {
+            opacity: 0.85;
+        }
+
+        /* ===== Intro Card ===== */
+        .ark-intro {
+            background: linear-gradient(135deg, #fdfaf3 0%, var(--ark-sand) 100%);
+            border: 1px solid rgba(201,168,76,0.3);
+            border-left: 4px solid var(--ark-gold);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .ark-intro h2 {
+            color: var(--ark-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .ark-intro p {
+            color: #6b5a45;
+            margin-bottom: 0;
+        }
+
+        /* ===== Quiz Container ===== */
+        .ark-quiz-wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* ===== Question Card ===== */
+        .ark-question-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(59,42,26,0.12);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .ark-q-meta {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .ark-tag {
+            background: var(--ark-sand);
+            color: var(--ark-brown);
+            border: 1px solid rgba(139,94,60,0.2);
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 0.25rem 0.65rem;
+            border-radius: 12px;
+        }
+
+        .ark-tag.difficulty-kolay  { background: #e8f9ef; color: #27ae60; border-color: #a8dbb7; }
+        .ark-tag.difficulty-orta   { background: #fff8e6; color: #d68910; border-color: #f0d080; }
+        .ark-tag.difficulty-zor    { background: #fde8e8; color: #c0392b; border-color: #f0a8a8; }
+
+        .ark-q-number {
+            font-size: 0.82rem;
+            color: #9b8070;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        .ark-q-text {
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: var(--ark-dark);
+            line-height: 1.65;
+            margin-bottom: 1.4rem;
+        }
+
+        /* ===== Options ===== */
+        .ark-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+
+        .ark-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            padding: 0.85rem 1.1rem;
+            border: 2px solid #e8ddd0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #fafaf8;
+            user-select: none;
+        }
+
+        .ark-option:hover:not(.locked) {
+            border-color: var(--ark-gold);
+            background: #fffdf5;
+        }
+
+        .ark-option.selected:not(.locked) {
+            border-color: var(--ark-brown);
+            background: #fdf5e8;
+        }
+
+        .ark-option.correct {
+            border-color: #27ae60;
+            background: #e8f9ef;
+        }
+
+        .ark-option.wrong {
+            border-color: #e74c3c;
+            background: #fde8e8;
+        }
+
+        .ark-option.reveal-correct {
+            border-color: #27ae60;
+            background: #e8f9ef;
+            opacity: 0.7;
+        }
+
+        .ark-option-label {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--ark-brown);
+            min-width: 1.4rem;
+            padding-top: 0.05rem;
+        }
+
+        .ark-option.correct .ark-option-label,
+        .ark-option.reveal-correct .ark-option-label { color: #27ae60; }
+
+        .ark-option.wrong .ark-option-label { color: #e74c3c; }
+
+        .ark-option-text {
+            font-size: 0.97rem;
+            color: #4a3728;
+            line-height: 1.5;
+        }
+
+        .ark-option-icon {
+            margin-left: auto;
+            font-size: 1.1rem;
+        }
+
+        /* ===== Rationale ===== */
+        .ark-rationale {
+            margin-top: 1.2rem;
+            background: linear-gradient(135deg, #fdfaf3, #f5eed9);
+            border: 1px solid rgba(201,168,76,0.4);
+            border-left: 4px solid var(--ark-gold);
+            border-radius: 8px;
+            padding: 1rem 1.2rem;
+            display: none;
+        }
+
+        .ark-rationale.visible {
+            display: block;
+            animation: fadeIn 0.35s ease;
+        }
+
+        .ark-rationale-title {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--ark-brown);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 0.4rem;
+        }
+
+        .ark-rationale p {
+            font-size: 0.94rem;
+            color: #5a4230;
+            line-height: 1.6;
+            margin-bottom: 0.4rem;
+        }
+
+        .ark-rationale a {
+            color: var(--ark-brown);
+            font-weight: 600;
+            font-size: 0.88rem;
+        }
+
+        /* ===== Progress Bar ===== */
+        .ark-progress-wrap {
+            background: #e8ddd0;
+            border-radius: 10px;
+            height: 8px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .ark-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--ark-gold), var(--ark-brown));
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        .ark-progress-label {
+            font-size: 0.82rem;
+            color: #9b8070;
+            margin-bottom: 0.4rem;
+            text-align: right;
+        }
+
+        /* ===== Navigation Buttons ===== */
+        .ark-nav {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-ark-primary {
+            background: linear-gradient(135deg, var(--ark-brown), var(--ark-dark));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.96rem;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+
+        .btn-ark-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59,42,26,0.3);
+        }
+
+        .btn-ark-primary:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .btn-ark-secondary {
+            background: white;
+            color: var(--ark-brown);
+            border: 2px solid var(--ark-brown);
+            padding: 0.75rem 1.4rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-ark-secondary:hover {
+            background: var(--ark-sand);
+        }
+
+        /* ===== Results Screen ===== */
+        .ark-results {
+            display: none;
+        }
+
+        .ark-results.visible {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .ark-score-card {
+            background: linear-gradient(135deg, var(--ark-dark), var(--ark-brown));
+            color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .ark-score-big {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--ark-gold);
+            line-height: 1;
+            margin: 0.5rem 0;
+        }
+
+        .ark-score-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .ark-score-detail {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .ark-score-stat {
+            text-align: center;
+        }
+
+        .ark-score-stat strong {
+            display: block;
+            font-size: 1.5rem;
+            color: var(--ark-gold);
+        }
+
+        .ark-score-stat span {
+            font-size: 0.82rem;
+            opacity: 0.8;
+        }
+
+        /* ===== Review List ===== */
+        .ark-review-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--ark-dark);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .ark-review-item {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(59,42,26,0.08);
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid transparent;
+        }
+
+        .ark-review-item.correct-item  { border-left-color: #27ae60; }
+        .ark-review-item.wrong-item    { border-left-color: #e74c3c; }
+        .ark-review-item.skipped-item  { border-left-color: #bdc3c7; }
+
+        .ark-review-q {
+            font-weight: 600;
+            color: var(--ark-dark);
+            margin-bottom: 0.6rem;
+            line-height: 1.5;
+        }
+
+        .ark-review-answers {
+            font-size: 0.9rem;
+            color: #6b5a45;
+            margin-bottom: 0.6rem;
+        }
+
+        .ark-review-answers .user-ans.correct-ans { color: #27ae60; font-weight: 700; }
+        .ark-review-answers .user-ans.wrong-ans   { color: #e74c3c; font-weight: 700; }
+        .ark-review-answers .correct-ans           { color: #27ae60; font-weight: 700; }
+
+        .ark-review-rationale {
+            font-size: 0.88rem;
+            color: #7a5f4a;
+            background: var(--ark-sand);
+            border-radius: 6px;
+            padding: 0.6rem 0.9rem;
+            line-height: 1.55;
+        }
+
+        .ark-review-rationale a {
+            color: var(--ark-brown);
+            font-weight: 600;
+        }
+
+        /* ===== CTA Join ===== */
+        .ark-cta {
+            background: linear-gradient(135deg, #1a2a4a 0%, #2c3e50 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 1.8rem 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .ark-cta h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.6rem;
+            color: #a8d8ff;
+        }
+
+        .ark-cta p {
+            font-size: 0.93rem;
+            opacity: 0.85;
+            margin-bottom: 1.2rem;
+        }
+
+        .ark-cta-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-cta-register {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.96rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-cta-register:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn-cta-arkbiz {
+            background: var(--ark-gold);
+            color: var(--ark-dark);
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.96rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-cta-arkbiz:hover {
+            opacity: 0.85;
+            transform: translateY(-2px);
+        }
+
+        /* ===== Footer ===== */
+        .ark-footer {
+            background: var(--ark-dark);
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            padding: 1.2rem 2rem;
+            font-size: 0.83rem;
+            margin-top: 3rem;
+        }
+
+        .ark-footer a {
+            color: var(--ark-gold);
+        }
+
+        /* ===== Timer ===== */
+        .ark-timer {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--ark-sand);
+            color: var(--ark-brown);
+            border: 1px solid rgba(139,94,60,0.25);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .ark-timer.warning {
+            background: #fff3cd;
+            color: #d68910;
+            border-color: #f0d080;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.6; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== Start Screen ===== */
+        .ark-start-screen {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .ark-start-screen .ark-icon-big {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .ark-start-screen h2 {
+            font-size: 1.7rem;
+            color: var(--ark-dark);
+            margin-bottom: 0.6rem;
+        }
+
+        .ark-start-screen p {
+            color: #7a5f4a;
+            margin-bottom: 0.4rem;
+            font-size: 0.97rem;
+        }
+
+        .ark-start-meta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .ark-start-meta-item {
+            text-align: center;
+        }
+
+        .ark-start-meta-item strong {
+            display: block;
+            font-size: 1.5rem;
+            color: var(--ark-brown);
+        }
+
+        .ark-start-meta-item span {
+            font-size: 0.82rem;
+            color: #9b8070;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 600px) {
+            .ark-header { padding: 1rem; }
+            .ark-quiz-wrap { padding: 1rem; }
+            .ark-score-big { font-size: 2.5rem; }
+            .ark-nav { flex-direction: column; }
+            .btn-ark-primary, .btn-ark-secondary { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="ark-header">
+        <div class="ark-header-left">
+            <h1>🏺 Arkeoloji Bilgi Yarışması</h1>
+            <p>arkeoloji.biz × Sonsuz Yaşam Platformu işbirliği</p>
+        </div>
+        <div class="ark-badge">
+            <a href="https://arkeoloji.biz" target="_blank" rel="noopener">arkeoloji.biz →</a>
+            <a href="./index.html">Ana Platform</a>
+        </div>
+    </header>
+
+    <!-- Quiz Wrapper -->
+    <div class="ark-quiz-wrap">
+
+        <!-- Start Screen -->
+        <div id="arkStartScreen" class="card ark-start-screen">
+            <span class="ark-icon-big">🏺</span>
+            <h2>Arkeoloji Bilgi Yarışması</h2>
+            <p>Arkeoloji, antik mimari, kazılar ve tarih hakkında ne kadar bilgi sahibisiniz?</p>
+            <p>arkeoloji.biz'den derlenen sorularla kendinizi test edin.</p>
+
+            <div class="ark-start-meta">
+                <div class="ark-start-meta-item">
+                    <strong>6</strong>
+                    <span>Soru</span>
+                </div>
+                <div class="ark-start-meta-item">
+                    <strong>10</strong>
+                    <span>Dakika</span>
+                </div>
+                <div class="ark-start-meta-item">
+                    <strong>Ücretsiz</strong>
+                    <span>Giriş gerekmez</span>
+                </div>
+            </div>
+
+            <button class="btn-ark-primary" onclick="arkQuiz.start()" style="font-size:1.05rem; padding: 0.9rem 2.5rem;">
+                🚀 Yarışmayı Başlat
+            </button>
+
+            <p style="margin-top: 1.2rem; font-size: 0.85rem; color: #9b8070;">
+                Puanlarınızı kaydetmek ve ödül kazanmak için
+                <a href="./index.html" style="color: var(--ark-brown); font-weight:600;">Sonsuz Yaşam platformuna</a> kayıt olun.
+            </p>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="arkQuizScreen" style="display:none;">
+
+            <div id="arkTimer" class="ark-timer">⏱ 10:00</div>
+
+            <div class="ark-progress-label">
+                <span id="arkProgressLabel">Soru 1 / 6</span>
+            </div>
+            <div class="ark-progress-wrap">
+                <div id="arkProgressBar" class="ark-progress-bar" style="width:16.7%"></div>
+            </div>
+
+            <div id="arkQuestionContainer"></div>
+
+            <div class="ark-nav" id="arkNav">
+                <button id="arkAnswerBtn" class="btn-ark-primary" onclick="arkQuiz.submitAnswer()">
+                    Cevapla
+                </button>
+                <button id="arkNextBtn" class="btn-ark-secondary" onclick="arkQuiz.nextQuestion()" style="display:none;">
+                    Sonraki Soru →
+                </button>
+                <button id="arkFinishBtn" class="btn-ark-primary" onclick="arkQuiz.finish()" style="display:none;">
+                    Sonuçları Gör
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="arkResultsScreen" class="ark-results">
+
+            <div class="ark-score-card">
+                <div class="ark-score-label">Yarışma Tamamlandı!</div>
+                <div id="arkScoreBig" class="ark-score-big">0/6</div>
+                <div id="arkScorePercent" class="ark-score-label">%0 Başarı</div>
+                <div class="ark-score-detail">
+                    <div class="ark-score-stat">
+                        <strong id="arkCorrectCount">0</strong>
+                        <span>Doğru</span>
+                    </div>
+                    <div class="ark-score-stat">
+                        <strong id="arkWrongCount">0</strong>
+                        <span>Yanlış</span>
+                    </div>
+                    <div class="ark-score-stat">
+                        <strong id="arkBlankCount">0</strong>
+                        <span>Boş</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ark-review-title">📋 Soru Değerlendirmesi</div>
+            <div id="arkReviewList"></div>
+
+            <div class="ark-cta">
+                <h3>🏆 Puan Kazan, Ödül Al!</h3>
+                <p>
+                    Sonsuz Yaşam platformuna ücretsiz üye olun. Her doğru yarışmada puan kazanın,<br>
+                    aylık ödül havuzundan pay alın ve arkeoloji sorularında birinci olun!
+                </p>
+                <div class="ark-cta-btns">
+                    <a href="./index.html" class="btn-cta-register">Yarışmaya Kayıt Ol →</a>
+                    <a href="https://arkeoloji.biz" target="_blank" rel="noopener" class="btn-cta-arkbiz">arkeoloji.biz'i Ziyaret Et</a>
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-top: 1.5rem;">
+                <button class="btn-ark-secondary" onclick="arkQuiz.restart()">
+                    🔄 Tekrar Dene
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="ark-footer">
+        Sorular <a href="https://arkeoloji.biz" target="_blank" rel="noopener">arkeoloji.biz</a> kaynaklı.
+        Platform: <a href="./index.html">Sonsuz Yaşam Yarışma</a> |
+        &copy; 2025
+    </footer>
+
+    <script>
+    // ===== Arkeoloji Quiz Questions =====
+    const ARK_QUESTIONS = [
+        {
+            id: 'ARK_04',
+            subject: 'Arkeoloji – Tanım ve Yardımcı Bilimler',
+            difficulty: 'Orta',
+            text: 'Arkeoloji bilimi, aşağıdaki disiplinlerden hangisinin "yardımcı bilimi" olarak kabul edilir?',
+            options: [
+                'Felsefe',
+                'Sosyoloji',
+                'Kimya (yalnızca)',
+                'Tarih (yalnızca)',
+                'Folklor (halkbilimi)'
+            ],
+            correctIndex: 0,
+            rationale: 'Arkeoloji, Tarih biliminin yardımcı bilimi olarak da tanımlanmakla birlikte genel sınıflamada "yardımcı bilimler" olan felsefe geleneğiyle iç içe geçer; maddi kültür kalıntıları üzerinden geçmişe ışık tutar.',
+            sourceUrl: 'https://arkeoloji.biz'
+        },
+        {
+            id: 'MIM_02',
+            subject: 'Antik Mimari – Sütun Düzenleri',
+            difficulty: 'Orta',
+            text: 'Aşağıdaki sütun düzenlerinden hangisi en sade ve en eski Yunan mimari düzeni olarak bilinir; frizinde triglif ve metoplar bulunur?',
+            options: [
+                'İon Düzeni',
+                'Korinth Düzeni',
+                'Dor Düzeni',
+                'Aiol Düzeni',
+                'Kompozit Düzen'
+            ],
+            correctIndex: 2,
+            rationale: 'Dor düzeni, en sade yapıya sahip olup triglif-metop friziyle tanınır ve Arkaik dönemin karakteristiğidir. Başlığı yalnızca abakus ve ekinustan oluşur.',
+            sourceUrl: 'https://arkeoloji.biz'
+        },
+        {
+            id: 'NEOL_02',
+            subject: 'Neolitik Çağ – Özellikler',
+            difficulty: 'Kolay',
+            text: 'Neolitik Çağ\'ın en önemli dönüm noktalarından biri aşağıdakilerden hangisidir?',
+            options: [
+                'Tunç aletlerin yaygınlaşması',
+                'Yerleşik hayata ve tarıma geçiş',
+                'Yazı sisteminin icadı',
+                'Büyük imparatorlukların kurulması',
+                'Demir Çağı teknolojileri'
+            ],
+            correctIndex: 1,
+            rationale: 'Neolitik Çağ (yakl. MÖ 10.000–3000), tarım ve hayvancılığın başlaması ile yerleşik hayata geçişin dönemi olarak tanımlanır. Tunç ve demir ise daha sonraki çağlara aittir.',
+            sourceUrl: 'https://arkeoloji.biz'
+        },
+        {
+            id: 'ANT_02',
+            subject: 'Antik Kentler – Priene Örneği',
+            difficulty: 'Orta',
+            text: 'Hellenistik dönemde ızgara plan (Hippodamos planı) en iyi şekilde korunmuş antik kent aşağıdakilerden hangisidir?',
+            options: [
+                'Assos',
+                'Tios',
+                'Priene',
+                'Miletos',
+                'Efes'
+            ],
+            correctIndex: 2,
+            rationale: 'Priene, Athena Polias Tapınağı ile birlikte ızgara planın klasik örneğidir. Hippodamos\'un ızgara kent anlayışının Hellenistik dönemde en iyi korunmuş uygulamasıdır.',
+            sourceUrl: 'https://arkeoloji.biz'
+        },
+        {
+            id: 'TAR_03',
+            subject: 'Tarih – Osmanlı Ölçü Birimleri',
+            difficulty: 'Kolay',
+            text: 'Osmanlı\'da kumaş ölçümünde kullanılan temel birim aşağıdakilerden hangisidir?',
+            options: [
+                'Okka',
+                'Arşın',
+                'Kantar',
+                'Fersah',
+                'Kulaç'
+            ],
+            correctIndex: 1,
+            rationale: 'Çarşı arşını yaklaşık 68 cm olup Osmanlı\'da kumaş ölçümünde temel birimdir. Okka ve kantar ağırlık, fersah uzunluk (yol ölçümü), kulaç ise denizcilik/derinlik ölçüsüdür.',
+            sourceUrl: 'https://arkeoloji.biz'
+        },
+        {
+            id: 'ARK_05',
+            subject: 'Arkeoloji – Genel Bilgi',
+            difficulty: 'Orta',
+            text: 'Aşağıdakilerden hangisi arkeolojinin temel amaçlarından biri değildir?',
+            options: [
+                'Geçmiş toplumların maddi kültürünü incelemek',
+                'Kazı teknikleriyle buluntuları belgelemek',
+                'Yazılı kaynakların yalnızca ekonomik analizini yapmak',
+                'Tarihin boşluklarını maddi kalıntılarla doldurmak',
+                'Laboratuvar yöntemleriyle yorumlamak'
+            ],
+            correctIndex: 2,
+            rationale: 'Arkeoloji maddi kalıntılarla çalışır; yazılı kaynakların yalnızca ekonomik analizi ise tarih veya iktisat tarihinin alanıdır. Arkeoloji çok daha geniş kapsamlı ve disiplinlerarası bir alandır.',
+            sourceUrl: 'https://arkeoloji.biz'
+        }
+    ];
+
+    // ===== Arkeoloji Quiz Controller =====
+    const arkQuiz = (() => {
+        const TOTAL_SECONDS = 10 * 60; // 10 dakika
+        const LABELS = ['A', 'B', 'C', 'D', 'E'];
+
+        let questions = [];
+        let currentIdx = 0;
+        let answers = {};      // { questionIndex: selectedOptionIndex }
+        let timeLeft = TOTAL_SECONDS;
+        let timerId = null;
+        let answered = false;  // current question answered?
+
+        // ---- DOM refs ----
+        const startScreen   = () => document.getElementById('arkStartScreen');
+        const quizScreen    = () => document.getElementById('arkQuizScreen');
+        const resultsScreen = () => document.getElementById('arkResultsScreen');
+        const timerEl       = () => document.getElementById('arkTimer');
+        const progressBar   = () => document.getElementById('arkProgressBar');
+        const progressLabel = () => document.getElementById('arkProgressLabel');
+        const qContainer    = () => document.getElementById('arkQuestionContainer');
+        const answerBtn     = () => document.getElementById('arkAnswerBtn');
+        const nextBtn       = () => document.getElementById('arkNextBtn');
+        const finishBtn     = () => document.getElementById('arkFinishBtn');
+
+        function shuffle(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        function start() {
+            questions = shuffle(ARK_QUESTIONS);
+            currentIdx = 0;
+            answers = {};
+            timeLeft = TOTAL_SECONDS;
+            answered = false;
+
+            startScreen().style.display = 'none';
+            quizScreen().style.display = 'block';
+            resultsScreen().classList.remove('visible');
+
+            renderQuestion();
+            startTimer();
+        }
+
+        function restart() {
+            stopTimer();
+            resultsScreen().classList.remove('visible');
+            start();
+        }
+
+        function startTimer() {
+            stopTimer();
+            updateTimerUI();
+            timerId = setInterval(() => {
+                timeLeft -= 1;
+                updateTimerUI();
+                if (timeLeft <= 0) {
+                    stopTimer();
+                    finish();
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (timerId) { clearInterval(timerId); timerId = null; }
+        }
+
+        function updateTimerUI() {
+            const safe = Math.max(0, timeLeft);
+            const m = String(Math.floor(safe / 60)).padStart(2, '0');
+            const s = String(safe % 60).padStart(2, '0');
+            const el = timerEl();
+            el.textContent = `⏱ ${m}:${s}`;
+            el.classList.toggle('warning', timeLeft <= 60);
+        }
+
+        function renderQuestion() {
+            answered = false;
+            const q = questions[currentIdx];
+            const selectedIdx = answers[currentIdx];
+
+            // Progress
+            const pct = ((currentIdx + 1) / questions.length) * 100;
+            progressBar().style.width = `${pct}%`;
+            progressLabel().textContent = `Soru ${currentIdx + 1} / ${questions.length}`;
+
+            // Difficulty badge class
+            const diffClass = {
+                'Kolay': 'difficulty-kolay',
+                'Orta':  'difficulty-orta',
+                'Zor':   'difficulty-zor'
+            }[q.difficulty] || '';
+
+            qContainer().innerHTML = `
+                <div class="ark-question-card">
+                    <div class="ark-q-meta">
+                        <span class="ark-tag">${q.subject}</span>
+                        <span class="ark-tag ${diffClass}">${q.difficulty}</span>
+                    </div>
+                    <div class="ark-q-number">Soru ${currentIdx + 1}</div>
+                    <div class="ark-q-text">${q.text}</div>
+                    <div class="ark-options" id="arkOptions">
+                        ${q.options.map((opt, i) => `
+                            <label class="ark-option ${selectedIdx === i ? 'selected' : ''}" data-idx="${i}">
+                                <span class="ark-option-label">${LABELS[i]})</span>
+                                <span class="ark-option-text">${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                    <div class="ark-rationale" id="arkRationale">
+                        <div class="ark-rationale-title">📚 Açıklama</div>
+                        <p>${q.rationale}</p>
+                        <a href="${q.sourceUrl}" target="_blank" rel="noopener">Daha fazlası için arkeoloji.biz →</a>
+                    </div>
+                </div>
+            `;
+
+            // Attach option click handlers
+            document.querySelectorAll('#arkOptions .ark-option').forEach(el => {
+                el.addEventListener('click', () => selectOption(Number(el.dataset.idx)));
+            });
+
+            // Button visibility
+            answerBtn().style.display = 'inline-flex';
+            answerBtn().disabled = selectedIdx === undefined;
+            nextBtn().style.display = 'none';
+            finishBtn().style.display = 'none';
+        }
+
+        function selectOption(idx) {
+            if (answered) return;
+            answers[currentIdx] = idx;
+
+            document.querySelectorAll('#arkOptions .ark-option').forEach(el => {
+                el.classList.toggle('selected', Number(el.dataset.idx) === idx);
+            });
+
+            answerBtn().disabled = false;
+        }
+
+        function submitAnswer() {
+            if (answered) return;
+            const selected = answers[currentIdx];
+            if (selected === undefined) return;
+
+            answered = true;
+            const q = questions[currentIdx];
+            const correct = q.correctIndex;
+
+            // Reveal correct / wrong
+            document.querySelectorAll('#arkOptions .ark-option').forEach(el => {
+                const i = Number(el.dataset.idx);
+                el.classList.add('locked');
+                if (i === correct) {
+                    el.classList.add(i === selected ? 'correct' : 'reveal-correct');
+                    el.querySelector('.ark-option-label').insertAdjacentText('afterend', i === selected ? '' : '');
+                    if (i !== selected) {
+                        el.insertAdjacentHTML('beforeend', '<span class="ark-option-icon">✅</span>');
+                    }
+                }
+                if (i === selected && i !== correct) {
+                    el.classList.add('wrong');
+                    el.insertAdjacentHTML('beforeend', '<span class="ark-option-icon">❌</span>');
+                }
+                if (i === selected && i === correct) {
+                    el.insertAdjacentHTML('beforeend', '<span class="ark-option-icon">✅</span>');
+                }
+            });
+
+            // Show rationale
+            document.getElementById('arkRationale').classList.add('visible');
+
+            // Update buttons
+            answerBtn().style.display = 'none';
+            const isLast = currentIdx >= questions.length - 1;
+            if (isLast) {
+                finishBtn().style.display = 'inline-flex';
+            } else {
+                nextBtn().style.display = 'inline-flex';
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIdx < questions.length - 1) {
+                currentIdx += 1;
+                renderQuestion();
+            }
+        }
+
+        function finish() {
+            stopTimer();
+
+            let correct = 0, wrong = 0, blank = 0;
+            questions.forEach((q, i) => {
+                const sel = answers[i];
+                if (sel === undefined) { blank += 1; return; }
+                if (Number(sel) === Number(q.correctIndex)) correct += 1;
+                else wrong += 1;
+            });
+
+            const total = questions.length;
+            const pct = Math.round((correct / total) * 100);
+
+            // Update score card
+            document.getElementById('arkScoreBig').textContent    = `${correct}/${total}`;
+            document.getElementById('arkScorePercent').textContent = `%${pct} Başarı`;
+            document.getElementById('arkCorrectCount').textContent = correct;
+            document.getElementById('arkWrongCount').textContent   = wrong;
+            document.getElementById('arkBlankCount').textContent   = blank;
+
+            // Build review list
+            const reviewList = document.getElementById('arkReviewList');
+            reviewList.innerHTML = questions.map((q, i) => {
+                const sel = answers[i];
+                let itemClass = 'skipped-item';
+                let userAnsHtml = '<span style="color:#bdc3c7;">— Boş —</span>';
+
+                if (sel !== undefined) {
+                    const isCorrect = Number(sel) === Number(q.correctIndex);
+                    itemClass = isCorrect ? 'correct-item' : 'wrong-item';
+                    userAnsHtml = `<span class="user-ans ${isCorrect ? 'correct-ans' : 'wrong-ans'}">
+                        Cevabınız: ${LABELS[sel]}) ${q.options[sel]}
+                    </span>`;
+                }
+
+                const correctAnsHtml = `<span class="correct-ans">
+                    Doğru: ${LABELS[q.correctIndex]}) ${q.options[q.correctIndex]}
+                </span>`;
+
+                return `
+                    <div class="ark-review-item ${itemClass}">
+                        <div class="ark-q-meta">
+                            <span class="ark-tag" style="font-size:0.75rem;">${q.subject}</span>
+                        </div>
+                        <div class="ark-review-q">${i + 1}. ${q.text}</div>
+                        <div class="ark-review-answers">
+                            ${userAnsHtml}<br>
+                            ${sel !== undefined && Number(sel) !== Number(q.correctIndex) ? correctAnsHtml : ''}
+                        </div>
+                        <div class="ark-review-rationale">
+                            📚 ${q.rationale}
+                            &nbsp;<a href="${q.sourceUrl}" target="_blank" rel="noopener">arkeoloji.biz →</a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            quizScreen().style.display = 'none';
+            resultsScreen().classList.add('visible');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        return { start, restart, submitAnswer, nextQuestion, finish };
+    })();
+    </script>
+</body>
+</html>

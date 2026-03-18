@@ -83,6 +83,15 @@ const CONFIG = {
             questions: 80,
             difficulty: 'Orta',
             category: 'Yabancı Dil'
+        },
+        {
+            id: 'arkeoloji',
+            name: 'Arkeoloji',
+            description: 'Arkeoloji Bilimi & Antik Dünya',
+            duration: 30,
+            questions: 6,
+            difficulty: 'Orta',
+            category: 'Kültür'
         }
     ],
 

@@ -1,0 +1,92 @@
+[
+  {
+    "id": "ARK_04",
+    "subject": "Arkeoloji - Tanım ve Yardımcı Bilimler",
+    "difficulty": "Orta",
+    "question": "Arkeoloji bilimi, aşağıdaki disiplinlerden hangisinin 'yardımcı bilimi' olarak kabul edilir?",
+    "options": {
+      "A": "Felsefe",
+      "B": "Sosyoloji",
+      "C": "Kimya (yalnızca)",
+      "D": "Tarih (yalnızca)",
+      "E": "Folklor (halkbilimi)"
+    },
+    "answer": "A",
+    "rationale": "Arkeoloji, felsefenin yardımcı bilimlerinden biri olarak tanımlanır; maddi kültür kalıntıları üzerinden geçmişe ışık tutar."
+  },
+  {
+    "id": "MIM_02",
+    "subject": "Antik Mimari - Düzenler",
+    "difficulty": "Orta",
+    "question": "Aşağıdaki sütun düzenlerinden hangisi en sade ve en eski Yunan mimari düzeni olarak bilinir; frizinde triglif ve metoplar bulunur?",
+    "options": {
+      "A": "İon Düzeni",
+      "B": "Korinth Düzeni",
+      "C": "Dor Düzeni",
+      "D": "Aiol Düzeni",
+      "E": "Kompozit Düzen"
+    },
+    "answer": "C",
+    "rationale": "Dor düzeni, en sade yapıya sahip olup triglif-metop friziyle tanınır ve Arkaik dönemin karakteristiğidir."
+  },
+  {
+    "id": "NEOL_02",
+    "subject": "Neolitik Çağ - Özellikler",
+    "difficulty": "Kolay",
+    "question": "Neolitik Çağ'ın en önemli dönüm noktalarından biri aşağıdakilerden hangisidir?",
+    "options": {
+      "A": "Tunç aletlerin yaygınlaşması",
+      "B": "Yerleşik hayata ve tarıma geçiş",
+      "C": "Yazı sisteminin icadı",
+      "D": "Büyük imparatorlukların kurulması",
+      "E": "Demir Çağı teknolojileri"
+    },
+    "answer": "B",
+    "rationale": "Neolitik Çağ, tarım ve hayvancılığın başlaması ile yerleşik hayata geçişin dönemi olarak tanımlanır."
+  },
+  {
+    "id": "ANT_02",
+    "subject": "Antik Kentler - Priene Örneği",
+    "difficulty": "Orta",
+    "question": "Hellenistik dönemde ızgara plan (Hippodamos planı) en iyi şekilde korunmuş antik kent aşağıdakilerden hangisidir?",
+    "options": {
+      "A": "Assos",
+      "B": "Tios",
+      "C": "Priene",
+      "D": "Miletos",
+      "E": "Efes"
+    },
+    "answer": "C",
+    "rationale": "Priene, Athena Polias Tapınağı ile birlikte ızgara planın klasik örneğidir ve Hellenistik dönemin en iyi korunmuş antik kentidir."
+  },
+  {
+    "id": "TAR_03",
+    "subject": "Tarih - Osmanlı Ölçü Birimleri",
+    "difficulty": "Kolay",
+    "question": "Osmanlı'da kumaş ölçümünde kullanılan temel birim aşağıdakilerden hangisidir?",
+    "options": {
+      "A": "Okka",
+      "B": "Arşın",
+      "C": "Kantar",
+      "D": "Fersah",
+      "E": "Kulaç"
+    },
+    "answer": "B",
+    "rationale": "Çarşı arşını yaklaşık 68 cm olup kumaş ölçümünde temel birimdir. Diğer birimler farklı ölçüm alanlarında kullanılmıştır."
+  },
+  {
+    "id": "ARK_05",
+    "subject": "Arkeoloji - Genel Bilgi",
+    "difficulty": "Orta",
+    "question": "Aşağıdakilerden hangisi arkeolojinin temel amaçlarından biri değildir?",
+    "options": {
+      "A": "Geçmiş toplumların maddi kültürünü incelemek",
+      "B": "Kazı teknikleriyle buluntuları belgelemek",
+      "C": "Yazılı kaynakların yalnızca ekonomik analizini yapmak",
+      "D": "Tarihin boşluklarını maddi kalıntılarla doldurmak",
+      "E": "Laboratuvar yöntemleriyle yorumlamak"
+    },
+    "answer": "C",
+    "rationale": "Arkeoloji maddi kalıntılarla çalışır; yazılı kaynakların yalnızca ekonomik analizi ise tarih veya iktisat tarihinin alanıdır."
+  }
+]

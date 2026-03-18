@@ -57,6 +57,9 @@ var ANSWER_KEYS = {
   english: {
     'eng-1':1,'eng-2':1,'eng-3':0,'eng-4':0,'eng-5':1,
     'eng-6':2,'eng-7':1,'eng-8':1,'eng-9':2,'eng-10':0
+  },
+  arkeoloji: {
+    'ARK_04':0,'MIM_02':2,'NEOL_02':1,'ANT_02':2,'TAR_03':1,'ARK_05':2
   }
 };
 
