@@ -49,49 +49,13 @@ const CONFIG = {
     // Sınav Konfigurasyonu
     EXAMS: [
         {
-            id: 'tyt',
-            name: 'TYT',
-            description: 'Türkçe-Matematik',
-            duration: 180, // dakika
-            questions: 120,
-            difficulty: 'Orta',
-            category: 'YKS'
-        },
-        {
-            id: 'ayt',
-            name: 'AYT',
-            description: 'Seçmeli Dersler',
-            duration: 180,
-            questions: 120,
-            difficulty: 'Zor',
-            category: 'YKS'
-        },
-        {
-            id: 'kpss',
-            name: 'KPSS',
-            description: 'Kamu Personel Seçim Sınavı',
-            duration: 180,
-            questions: 120,
-            difficulty: 'Orta',
-            category: 'Memur'
-        },
-        {
-            id: 'english',
-            name: 'İngilizce',
-            description: 'İngilizce Dil Yeterliği',
-            duration: 120,
-            questions: 80,
-            difficulty: 'Orta',
-            category: 'Yabancı Dil'
-        },
-        {
             id: 'arkeoloji',
-            name: 'Arkeoloji',
-            description: 'Arkeoloji Bilimi & Antik Dünya',
+            name: 'Arkeoloji Biz Quiz',
+            description: 'Arkeoloji, antik dunya ve kultur tarihi',
             duration: 30,
             questions: 6,
             difficulty: 'Orta',
-            category: 'Kültür'
+            category: 'Odullu Quiz'
         }
     ],
 

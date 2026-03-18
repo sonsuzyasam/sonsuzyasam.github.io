@@ -94,13 +94,13 @@ class App {
     updateUserUI() {
         if (this.currentUser) {
             document.getElementById('userName').textContent = this.currentUser.name;
-            document.getElementById('loginBtn').textContent = 'Çıkış Yap';
+            document.getElementById('loginBtn').textContent = 'Cikis Yap';
             document.getElementById('profileName').textContent = this.currentUser.name;
             document.getElementById('profileEmail').textContent = this.currentUser.email;
             document.getElementById('profilePhone').textContent = this.currentUser.phone;
         } else {
             document.getElementById('userName').textContent = 'Misafir';
-            document.getElementById('loginBtn').textContent = 'Başla';
+            document.getElementById('loginBtn').textContent = 'Giris Yap';
             document.getElementById('profileName').textContent = '-';
             document.getElementById('profileEmail').textContent = '-';
             document.getElementById('profilePhone').textContent = '-';
@@ -146,7 +146,7 @@ class App {
             const card = document.createElement('div');
             card.className = 'exam-card';
             card.innerHTML = `
-                <h3>📝 ${exam.name}</h3>
+                <h3>${exam.name}</h3>
                 <p class="exam-details">${exam.description}</p>
                 <div class="exam-details">
                     <span>⏱️ ${exam.duration} dk</span>
@@ -155,7 +155,7 @@ class App {
                 <div class="exam-details">
                     <span>📈 Zorluk: ${exam.difficulty}</span>
                 </div>
-                <button class="exam-button" onclick="app.startExam('${exam.id}')">Sınava Başla</button>
+                <button class="exam-button" onclick="app.startExam('${exam.id}')">Sorulari Cevapla</button>
             `;
             grid.appendChild(card);
         });

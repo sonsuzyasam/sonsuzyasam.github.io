@@ -6,39 +6,46 @@
 }
 
 :root {
-    --primary: #3498db;
-    --secondary: #2ecc71;
-    --danger: #e74c3c;
-    --warning: #f39c12;
-    --dark: #2c3e50;
-    --light: #ecf0f1;
-    --border: #bdc3c7;
-    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 5px 20px rgba(0, 0, 0, 0.15);
+    --primary: #c8a13a;
+    --secondary: #8f6d1b;
+    --danger: #c76a4b;
+    --warning: #d6aa3d;
+    --dark: #0f0f10;
+    --light: #1a1a1d;
+    --border: #3a3322;
+    --muted: #b8ac88;
+    --text-soft: #d6ccb0;
+    --shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+    --shadow-lg: 0 18px 40px rgba(0, 0, 0, 0.34);
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f6fa;
-    color: var(--dark);
+    font-family: Georgia, 'Times New Roman', serif;
+    background:
+        radial-gradient(circle at top left, rgba(200, 161, 58, 0.12), transparent 34%),
+        linear-gradient(180deg, #111113 0%, #0a0a0b 100%);
+    color: #f1ead7;
     line-height: 1.6;
 }
 
 .top-strip {
-    background: #0d6efd;
-    color: white;
+    background: #0b0b0c;
+    color: var(--text-soft);
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
     padding: 0.6rem 2rem;
     font-size: 0.9rem;
+    border-bottom: 1px solid rgba(200, 161, 58, 0.32);
 }
 
 .top-strip a {
-    color: white;
+    color: var(--primary);
     text-decoration: none;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
 }
 
 .top-strip a:hover {
@@ -47,23 +54,29 @@ body {
 
 /* ===== Header ===== */
 .header {
-    background: linear-gradient(135deg, var(--primary) 0%, #2980b9 100%);
-    color: white;
+    background: rgba(10, 10, 11, 0.96);
+    color: #f3ebd5;
     padding: 1.5rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: var(--shadow-lg);
+    border-bottom: 1px solid rgba(200, 161, 58, 0.22);
 }
 
 .header-content h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
     margin-bottom: 0.2rem;
+    color: var(--primary);
+    letter-spacing: 0.04em;
 }
 
 .header-content p {
     font-size: 0.9rem;
     opacity: 0.9;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
 }
 
 .user-section {
@@ -73,14 +86,16 @@ body {
 }
 
 .btn-login {
-    background: white;
-    color: var(--primary);
+    background: var(--primary);
+    color: #16120b;
     border: none;
     padding: 0.6rem 1.2rem;
-    border-radius: 20px;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
     transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
 }
 
 .btn-login:hover {
@@ -93,8 +108,8 @@ body {
     display: flex;
     gap: 1rem;
     padding: 1rem 2rem;
-    background: white;
-    border-bottom: 1px solid var(--border);
+    background: rgba(17, 17, 19, 0.96);
+    border-bottom: 1px solid rgba(200, 161, 58, 0.18);
     overflow-x: auto;
     scroll-behavior: smooth;
 }
@@ -106,10 +121,12 @@ body {
     cursor: pointer;
     font-size: 0.95rem;
     font-weight: 500;
-    color: var(--dark);
+    color: var(--text-soft);
     border-bottom: 3px solid transparent;
     transition: all 0.3s;
     white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
 .nav-btn:hover {
@@ -158,12 +175,13 @@ body {
 
 /* ===== Cards ===== */
 .card {
-    background: white;
+    background: linear-gradient(180deg, rgba(29, 29, 32, 0.96) 0%, rgba(19, 19, 21, 0.98) 100%);
     padding: 1.5rem;
-    border-radius: 10px;
+    border-radius: 18px;
     box-shadow: var(--shadow);
     margin-bottom: 1.5rem;
     transition: all 0.3s;
+    border: 1px solid rgba(200, 161, 58, 0.18);
 }
 
 .card:hover {
@@ -174,12 +192,12 @@ body {
 .card h2,
 .card h3 {
     margin-bottom: 1rem;
-    color: var(--dark);
+    color: #f3ebd5;
 }
 
 .card p {
     margin-bottom: 0.5rem;
-    color: #7f8c8d;
+    color: var(--text-soft);
 }
 
 .intro-banner {
@@ -187,8 +205,14 @@ body {
     justify-content: space-between;
     align-items: center;
     gap: 1.5rem;
-    border: 1px solid rgba(52, 152, 219, 0.18);
-    background: linear-gradient(135deg, #f7fbff 0%, #eef7ff 45%, #ffffff 100%);
+    border: 1px solid rgba(200, 161, 58, 0.38);
+    background:
+        linear-gradient(90deg, rgba(13, 13, 14, 0.9) 0%, rgba(17, 17, 19, 0.82) 55%, rgba(20, 20, 23, 0.92) 100%),
+        radial-gradient(circle at left, rgba(200, 161, 58, 0.2), transparent 38%);
+}
+
+.arkeoloji-hero {
+    min-height: 280px;
 }
 
 .eyebrow {
@@ -196,7 +220,7 @@ body {
     margin-bottom: 0.6rem;
     color: var(--primary);
     font-weight: 700;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
 }
 
@@ -225,13 +249,18 @@ body {
 }
 
 .btn-outline-link:hover {
-    background: #eef7ff;
+    background: rgba(200, 161, 58, 0.08);
 }
 
 .subtitle {
     font-size: 0.85rem;
-    color: #95a5a6;
+    color: var(--muted);
     margin-top: 0.5rem;
+}
+
+.section-lead {
+    margin: -0.25rem 0 1.25rem;
+    color: var(--muted);
 }
 
 /* ===== Dashboard Grid ===== */
@@ -266,21 +295,21 @@ body {
 
 .btn-primary {
     background: var(--primary);
-    color: white;
+    color: #16120b;
 }
 
 .btn-primary:hover {
-    background: #2980b9;
+    background: #ddb85a;
     transform: translateY(-2px);
 }
 
 .btn-secondary {
     background: var(--secondary);
-    color: white;
+    color: #f4ecd8;
 }
 
 .btn-secondary:hover {
-    background: #27ae60;
+    background: #a37c21;
 }
 
 .btn-danger {
@@ -294,10 +323,11 @@ body {
 
 /* ===== Quick Access ===== */
 .quick-access {
-    background: white;
+    background: linear-gradient(180deg, rgba(25, 25, 28, 0.98) 0%, rgba(17, 17, 19, 0.98) 100%);
     padding: 1.5rem;
-    border-radius: 10px;
+    border-radius: 18px;
     box-shadow: var(--shadow);
+    border: 1px solid rgba(200, 161, 58, 0.18);
 }
 
 .quick-access h3 {
@@ -312,13 +342,15 @@ body {
 }
 
 .exam-card {
-    background: white;
+    background: linear-gradient(180deg, rgba(27, 27, 30, 0.98) 0%, rgba(19, 19, 22, 0.98) 100%);
     padding: 1.5rem;
-    border-radius: 10px;
+    border-radius: 18px;
     box-shadow: var(--shadow);
     cursor: pointer;
     transition: all 0.3s;
     border-left: 4px solid var(--primary);
+    border-top: 1px solid rgba(200, 161, 58, 0.18);
+    color: #f3ebd5;
 }
 
 .exam-card:hover {
@@ -328,12 +360,12 @@ body {
 
 .exam-card h3 {
     margin-bottom: 0.5rem;
-    color: var(--dark);
+    color: #f3ebd5;
 }
 
 .exam-details {
     font-size: 0.85rem;
-    color: #7f8c8d;
+    color: var(--text-soft);
     margin: 0.5rem 0;
 }
 
@@ -372,28 +404,30 @@ body {
 
 .leaderboard-table {
     width: 100%;
-    background: white;
+    background: rgba(22, 22, 24, 0.98);
     border-collapse: collapse;
     box-shadow: var(--shadow);
-    border-radius: 10px;
+    border-radius: 18px;
     overflow: hidden;
 }
 
 .leaderboard-table th {
-    background: var(--primary);
-    color: white;
+    background: #171717;
+    color: var(--primary);
     padding: 1rem;
     text-align: left;
     font-weight: 600;
+    border-bottom: 1px solid rgba(200, 161, 58, 0.22);
 }
 
 .leaderboard-table td {
     padding: 1rem;
-    border-bottom: 1px solid var(--light);
+    border-bottom: 1px solid rgba(200, 161, 58, 0.08);
+    color: #f1ead7;
 }
 
 .leaderboard-table tr:hover {
-    background: #f9f9f9;
+    background: rgba(200, 161, 58, 0.06);
 }
 
 .leaderboard-table tr:nth-child(2) td:first-child::before {
@@ -410,11 +444,12 @@ body {
 
 /* ===== Forms ===== */
 .reward-form {
-    background: white;
+    background: rgba(22, 22, 24, 0.98);
     padding: 1.5rem;
-    border-radius: 10px;
+    border-radius: 18px;
     box-shadow: var(--shadow);
     margin-bottom: 2rem;
+    border: 1px solid rgba(200, 161, 58, 0.18);
 }
 
 .form-group {
@@ -425,7 +460,7 @@ body {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
-    color: var(--dark);
+    color: #f0e7d0;
 }
 
 .form-group input[type="text"],
@@ -441,6 +476,8 @@ body {
     font-size: 0.95rem;
     font-family: inherit;
     transition: border-color 0.3s;
+    background: #1d1d20;
+    color: #f1ead7;
 }
 
 .form-group input:focus,
@@ -453,7 +490,7 @@ body {
 
 /* ===== Reward Info ===== */
 .reward-info {
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background: linear-gradient(135deg, rgba(200, 161, 58, 0.2) 0%, rgba(73, 58, 17, 0.42) 100%);
     border-left: 4px solid var(--secondary);
 }
 
@@ -464,10 +501,11 @@ body {
 
 /* ===== Reward History ===== */
 .reward-history {
-    background: white;
+    background: rgba(22, 22, 24, 0.98);
     padding: 1.5rem;
-    border-radius: 10px;
+    border-radius: 18px;
     box-shadow: var(--shadow);
+    border: 1px solid rgba(200, 161, 58, 0.18);
 }
 
 .reward-history h3 {
@@ -553,18 +591,18 @@ body {
     padding: 1rem;
     border-left: 4px solid var(--warning);
     margin-bottom: 1rem;
-    background: #fef5e7;
+    background: rgba(88, 68, 18, 0.22);
     border-radius: 6px;
 }
 
 .history-item.approved {
     border-left-color: var(--secondary);
-    background: #d5f4e6;
+    background: rgba(61, 110, 66, 0.18);
 }
 
 .history-item.rejected {
     border-left-color: var(--danger);
-    background: #fadbd8;
+    background: rgba(166, 83, 57, 0.18);
 }
 
 .history-status {
@@ -602,7 +640,7 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     animation: fadeIn 0.3s ease;
 }
 
@@ -613,15 +651,16 @@ body {
 }
 
 .modal-content {
-    background-color: white;
+    background-color: #171719;
     padding: 2rem;
-    border-radius: 10px;
+    border-radius: 18px;
     box-shadow: var(--shadow-lg);
     max-width: 600px;
     width: 90%;
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
+    border: 1px solid rgba(200, 161, 58, 0.18);
 }
 
 .modal-content.large {
@@ -631,7 +670,7 @@ body {
 
 .modal-content h2 {
     margin-bottom: 1.5rem;
-    color: var(--dark);
+    color: #f3ebd5;
 }
 
 .close {
@@ -646,24 +685,25 @@ body {
 }
 
 .close:hover {
-    color: var(--dark);
+    color: #f3ebd5;
 }
 
 /* ===== Exam Modal ===== */
 #examContainer {
-    background: white;
+    background: #171719;
 }
 
 .exam-header {
-    background: linear-gradient(135deg, var(--primary) 0%, #2980b9 100%);
-    color: white;
+    background: linear-gradient(135deg, #1a1a1d 0%, #0d0d0f 100%);
+    color: #f3ebd5;
     padding: 1.5rem;
     margin: -2rem -2rem 1.5rem -2rem;
     border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid rgba(200, 161, 58, 0.22);
 }
 
 .exam-header h2 {
-    color: white;
+    color: var(--primary);
     margin-bottom: 0.5rem;
 }
 
@@ -679,7 +719,7 @@ body {
 
 .question-number {
     font-size: 0.9rem;
-    color: #7f8c8d;
+    color: var(--muted);
     margin-bottom: 0.5rem;
 }
 
@@ -687,17 +727,17 @@ body {
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 1rem;
-    color: var(--dark);
+    color: #f3ebd5;
 }
 
 .question-passage {
-    background: #f7fbff;
-    border: 1px solid #dcecf9;
+    background: rgba(200, 161, 58, 0.08);
+    border: 1px solid rgba(200, 161, 58, 0.2);
     border-left: 4px solid var(--primary);
     border-radius: 8px;
     padding: 0.9rem 1rem;
     margin-bottom: 1rem;
-    color: #2c3e50;
+    color: #f0e7d0;
     line-height: 1.7;
 }
 
@@ -709,36 +749,38 @@ body {
 
 .option {
     padding: 1rem;
-    border: 2px solid var(--light);
+    border: 2px solid rgba(200, 161, 58, 0.14);
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s;
-    background: white;
+    background: rgba(22, 22, 24, 0.98);
+    color: #f3ebd5;
 }
 
 .option:hover {
     border-color: var(--primary);
-    background: #f0f7ff;
+    background: rgba(200, 161, 58, 0.08);
 }
 
 .option.selected {
     border-color: var(--primary);
-    background: #e8f4f8;
+    background: rgba(200, 161, 58, 0.12);
 }
 
 .option.correct {
     border-color: var(--secondary);
-    background: #e8f8f1;
+    background: rgba(61, 110, 66, 0.18);
 }
 
 .option.incorrect {
     border-color: var(--danger);
-    background: #fadbd8;
+    background: rgba(166, 83, 57, 0.18);
 }
 
 .option input[type="radio"] {
     margin-right: 0.7rem;
     cursor: pointer;
+    accent-color: var(--primary);
 }
 
 .exam-navigation {
@@ -758,7 +800,7 @@ body {
 
 .exam-navigation .btn-prev {
     background: var(--light);
-    color: var(--dark);
+    color: #f3ebd5;
 }
 
 .exam-navigation .btn-next {
@@ -775,7 +817,7 @@ body {
 .exam-progress {
     width: 100%;
     height: 8px;
-    background: var(--light);
+    background: rgba(200, 161, 58, 0.08);
     border-radius: 4px;
     margin-bottom: 2rem;
     overflow: hidden;
