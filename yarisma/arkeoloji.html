@@ -614,17 +614,31 @@
 
             <div class="ark-start-meta">
                 <div class="ark-start-meta-item">
-                    <strong>6</strong>
+                    <strong>20</strong>
                     <span>Soru</span>
                 </div>
                 <div class="ark-start-meta-item">
-                    <strong>10</strong>
+                    <strong>30</strong>
                     <span>Dakika</span>
                 </div>
                 <div class="ark-start-meta-item">
-                    <strong>Ücretsiz</strong>
-                    <span>Giriş gerekmez</span>
+                    <strong>Barajlı</strong>
+                    <span>Ödül Sistemi</span>
                 </div>
+            </div>
+
+            <div style="background: var(--ark-sand); border: 1px solid var(--ark-gold); border-radius: 8px; padding: 1rem 1.2rem; margin: 1.2rem 0; text-align: left; font-size: 0.92rem; color: #5a4230; line-height: 1.6;">
+                <strong style="color: var(--ark-dark); display: block; margin-bottom: 0.6rem;">🏆 Barajlı Ödül Sistemi Nasıl Çalışır?</strong>
+                <ul style="margin: 0; padding-left: 1.2rem;">
+                    <li><strong>3 doğru soru</strong> → <span style="color: var(--ark-brown); font-weight:700;">15 kuruş</span></li>
+                    <li><strong>10 doğru soru</strong> → <span style="color: var(--ark-brown); font-weight:700;">50 kuruş</span></li>
+                    <li><strong>15 doğru soru</strong> → <span style="color: var(--ark-brown); font-weight:700;">75 kuruş</span></li>
+                    <li><strong>20 doğru soru</strong> → <span style="color: var(--ark-brown); font-weight:700;">1 TL</span></li>
+                </ul>
+                <p style="margin: 0.8rem 0 0 0; font-size: 0.88rem; opacity: 0.9;">
+                    ℹ️ <strong>Baraj Nedir?</strong> Her doğru soruya ulaştığınızda, o seviyedeki ödül garantidir. Yani 15 doğru yaparsanız 75 kuruş kazanırsınız (15 ve 20 soruluk barajları da açarsınız). <br>
+                    Puanlarınızı kaydetmek ve ödül talebinde bulunmak için <a href="./index.html" style="color: var(--ark-brown); font-weight: 700; text-decoration: underline;">Sonsuz Yaşam platformuna</a> ücretsiz üye olun.
+                </p>
             </div>
 
             <button class="btn-ark-primary" onclick="arkQuiz.start()" style="font-size:1.05rem; padding: 0.9rem 2.5rem;">
@@ -640,10 +654,10 @@
         <!-- Quiz Screen -->
         <div id="arkQuizScreen" style="display:none;">
 
-            <div id="arkTimer" class="ark-timer">⏱ 10:00</div>
+            <div id="arkTimer" class="ark-timer">⏱ 30:00</div>
 
             <div class="ark-progress-label">
-                <span id="arkProgressLabel">Soru 1 / 6</span>
+                <span id="arkProgressLabel">Soru 1 / 20</span>
             </div>
             <div class="ark-progress-wrap">
                 <div id="arkProgressBar" class="ark-progress-bar" style="width:16.7%"></div>
@@ -719,110 +733,40 @@
     </footer>
 
     <script>
-    // ===== Arkeoloji Quiz Questions =====
+    // ===== Arkeoloji Quiz Questions (20 Soru) =====
     const ARK_QUESTIONS = [
-        {
-            id: 'ARK_04',
-            subject: 'Arkeoloji – Tanım ve Yardımcı Bilimler',
-            difficulty: 'Orta',
-            text: 'Arkeoloji bilimi, aşağıdaki disiplinlerden hangisinin "yardımcı bilimi" olarak kabul edilir?',
-            options: [
-                'Felsefe',
-                'Sosyoloji',
-                'Kimya (yalnızca)',
-                'Tarih (yalnızca)',
-                'Folklor (halkbilimi)'
-            ],
-            correctIndex: 0,
-            rationale: 'Arkeoloji, Tarih biliminin yardımcı bilimi olarak da tanımlanmakla birlikte genel sınıflamada "yardımcı bilimler" olan felsefe geleneğiyle iç içe geçer; maddi kültür kalıntıları üzerinden geçmişe ışık tutar.',
-            sourceUrl: 'https://arkeoloji.biz'
-        },
-        {
-            id: 'MIM_02',
-            subject: 'Antik Mimari – Sütun Düzenleri',
-            difficulty: 'Orta',
-            text: 'Aşağıdaki sütun düzenlerinden hangisi en sade ve en eski Yunan mimari düzeni olarak bilinir; frizinde triglif ve metoplar bulunur?',
-            options: [
-                'İon Düzeni',
-                'Korinth Düzeni',
-                'Dor Düzeni',
-                'Aiol Düzeni',
-                'Kompozit Düzen'
-            ],
-            correctIndex: 2,
-            rationale: 'Dor düzeni, en sade yapıya sahip olup triglif-metop friziyle tanınır ve Arkaik dönemin karakteristiğidir. Başlığı yalnızca abakus ve ekinustan oluşur.',
-            sourceUrl: 'https://arkeoloji.biz'
-        },
-        {
-            id: 'NEOL_02',
-            subject: 'Neolitik Çağ – Özellikler',
-            difficulty: 'Kolay',
-            text: 'Neolitik Çağ\'ın en önemli dönüm noktalarından biri aşağıdakilerden hangisidir?',
-            options: [
-                'Tunç aletlerin yaygınlaşması',
-                'Yerleşik hayata ve tarıma geçiş',
-                'Yazı sisteminin icadı',
-                'Büyük imparatorlukların kurulması',
-                'Demir Çağı teknolojileri'
-            ],
-            correctIndex: 1,
-            rationale: 'Neolitik Çağ (yakl. MÖ 10.000–3000), tarım ve hayvancılığın başlaması ile yerleşik hayata geçişin dönemi olarak tanımlanır. Tunç ve demir ise daha sonraki çağlara aittir.',
-            sourceUrl: 'https://arkeoloji.biz'
-        },
-        {
-            id: 'ANT_02',
-            subject: 'Antik Kentler – Priene Örneği',
-            difficulty: 'Orta',
-            text: 'Hellenistik dönemde ızgara plan (Hippodamos planı) en iyi şekilde korunmuş antik kent aşağıdakilerden hangisidir?',
-            options: [
-                'Assos',
-                'Tios',
-                'Priene',
-                'Miletos',
-                'Efes'
-            ],
-            correctIndex: 2,
-            rationale: 'Priene, Athena Polias Tapınağı ile birlikte ızgara planın klasik örneğidir. Hippodamos\'un ızgara kent anlayışının Hellenistik dönemde en iyi korunmuş uygulamasıdır.',
-            sourceUrl: 'https://arkeoloji.biz'
-        },
-        {
-            id: 'TAR_03',
-            subject: 'Tarih – Osmanlı Ölçü Birimleri',
-            difficulty: 'Kolay',
-            text: 'Osmanlı\'da kumaş ölçümünde kullanılan temel birim aşağıdakilerden hangisidir?',
-            options: [
-                'Okka',
-                'Arşın',
-                'Kantar',
-                'Fersah',
-                'Kulaç'
-            ],
-            correctIndex: 1,
-            rationale: 'Çarşı arşını yaklaşık 68 cm olup Osmanlı\'da kumaş ölçümünde temel birimdir. Okka ve kantar ağırlık, fersah uzunluk (yol ölçümü), kulaç ise denizcilik/derinlik ölçüsüdür.',
-            sourceUrl: 'https://arkeoloji.biz'
-        },
-        {
-            id: 'ARK_05',
-            subject: 'Arkeoloji – Genel Bilgi',
-            difficulty: 'Orta',
-            text: 'Aşağıdakilerden hangisi arkeolojinin temel amaçlarından biri değildir?',
-            options: [
-                'Geçmiş toplumların maddi kültürünü incelemek',
-                'Kazı teknikleriyle buluntuları belgelemek',
-                'Yazılı kaynakların yalnızca ekonomik analizini yapmak',
-                'Tarihin boşluklarını maddi kalıntılarla doldurmak',
-                'Laboratuvar yöntemleriyle yorumlamak'
-            ],
-            correctIndex: 2,
-            rationale: 'Arkeoloji maddi kalıntılarla çalışır; yazılı kaynakların yalnızca ekonomik analizi ise tarih veya iktisat tarihinin alanıdır. Arkeoloji çok daha geniş kapsamlı ve disiplinlerarası bir alandır.',
-            sourceUrl: 'https://arkeoloji.biz'
-        }
+        { id: 'ARK_04', subject: 'Arkeoloji', difficulty: 'Orta', text: 'Arkeoloji bilimi, aşağıdaki disiplinlerden hangisinin "yardımcı bilimi" olarak kabul edilir?', options: ['Felsefe', 'Sosyoloji', 'Kimya (yalnızca)', 'Tarih (yalnızca)', 'Folklor (halkbilimi)'], correctIndex: 0, rationale: 'Arkeoloji, maddi kültür kalıntıları üzerinden geçmişi aydınlatır; bu soru setinde tanımlayıcı bağlam arkeoloji.biz içeriğine göre verilmiştir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Ana Sayfa ve Arkeoloji İçerikleri' },
+        { id: 'MIM_02', topic: 'Antik Mimari', difficulty: 'Orta', text: 'Aşağıdaki sütun düzenlerinden hangisi en sade ve en eski Yunan mimari düzeni olarak bilinir; frizinde triglif ve metoplar bulunur?', options: ['İon Düzeni', 'Korinth Düzeni', 'Dor Düzeni', 'Aiol Düzeni', 'Kompozit Düzen'], correctIndex: 2, rationale: 'Dor düzeni, triglif-metop frizi ve sade başlık yapısıyla ayırt edilir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Antik Mimari İçerikleri' },
+        { id: 'NEOL_02', topic: 'Neolitik Çağ', difficulty: 'Kolay', text: 'Neolitik Çağ\'ın en önemli dönüm noktalarından biri aşağıdakilerden hangisidir?', options: ['Tunç aletlerin yaygınlaşması', 'Yerleşik hayata ve tarıma geçiş', 'Yazı sisteminin icadı', 'Büyük imparatorlukların kurulması', 'Demir Çağı teknolojileri'], correctIndex: 1, rationale: 'Neolitik çağ, tarım ve hayvancılıkla birlikte yerleşik hayata geçişle tanımlanır.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Prehistorya İçerikleri' },
+        { id: 'ANT_02', topic: 'Antik Kentler', difficulty: 'Orta', text: 'Hellenistik dönemde ızgara plan (Hippodamos planı) en iyi şekilde korunmuş antik kent aşağıdakilerden hangisidir?', options: ['Assos', 'Tios', 'Priene', 'Miletos', 'Efes'], correctIndex: 2, rationale: 'Priene, planlanmış kent dokusunun iyi korunduğu en belirgin örneklerden biridir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Antik Kentler İçerikleri' },
+        { id: 'TAR_03', topic: 'Tarih', difficulty: 'Kolay', text: 'Osmanlı\'da kumaş ölçümünde kullanılan temel birim aşağıdakilerden hangisidir?', options: ['Okka', 'Arşın', 'Kantar', 'Fersah', 'Kulaç'], correctIndex: 1, rationale: 'Arşın, kumaş ölçümünde kullanılan temel birimlerden biridir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Kültür Tarihi İçerikleri' },
+        { id: 'ARK_05', topic: 'Arkeoloji', difficulty: 'Orta', text: 'Aşağıdakilerden hangisi arkeolojinin temel amaçlarından biri değildir?', options: ['Geçmiş toplumların maddi kültürünü incelemek', 'Kazı teknikleriyle buluntuları belgelemek', 'Yazılı kaynakların yalnızca ekonomik analizini yapmak', 'Tarihin boşluklarını maddi kalıntılarla doldurmak', 'Laboratuvar yöntemleriyle yorumlamak'], correctIndex: 2, rationale: 'Arkeoloji, maddi kalıntılar ve bağlamları üzerinden geçmişi yorumlar; salt ekonomik metin analizi kendi başına arkeolojinin ana amacı değildir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Arkeoloji Bilimi İçerikleri' },
+        { id: 'SER_01', topic: 'Arkeolojik Yöntem', difficulty: 'Kolay', text: 'Stratigrafi ilkesine göre, bozulmamış bir kazıda en alttaki tabaka genel olarak neyi gösterir?', options: ['En yeni dönemi', 'En zengin buluntu grubunu', 'En eski dönemi', 'Yeniden kullanılmış alanı', 'En kutsal mekânı'], correctIndex: 2, rationale: 'Bozulmamış stratigrafide alt tabakalar üsttekilere göre daha erken dönemlere aittir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Kazı Yöntemleri İçerikleri' },
+        { id: 'KAZ_01', topic: 'Arkeometrik Tarihleme', difficulty: 'Orta', text: 'Karbon-14 tarihleme yöntemi en çok hangi tür materyallerde kullanılır?', options: ['Organik kalıntılar', 'Mermer heykeller', 'Bronz heykeller', 'Demir silahlar', 'Granit sütunlar'], correctIndex: 0, rationale: 'Karbon-14, önceden yaşamış organik materyallerin tarihlemelerinde kullanılır.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Arkeometri İçerikleri' },
+        { id: 'ANT_03', topic: 'Antik Kentler', difficulty: 'Kolay', text: 'Antik Yunan kentlerinde agora temel olarak hangi işlevi görürdü?', options: ['Sadece askeri eğitim alanı', 'Ticari ve kamusal buluşma alanı', 'Mezar alanı', 'Yalnızca dinsel sunak alanı', 'Su depolama sistemi'], correctIndex: 1, rationale: 'Agora, ticaretin, buluşmanın ve kamusal hayatın merkezidir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Antik Kentler İçerikleri' },
+        { id: 'HIT_01', topic: 'Anadolu Uygarlıkları', difficulty: 'Kolay', text: 'Hitit İmparatorluğu\'nun başkenti aşağıdakilerden hangisidir?', options: ['Sardes', 'Gordion', 'Boğazköy Hattusa', 'Troia', 'Miletos'], correctIndex: 2, rationale: 'Hitit İmparatorluğu\'nun merkezi Boğazköy\'deki Hattusa\'dır.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Anadolu Uygarlıkları İçerikleri' },
+        { id: 'ROM_01', topic: 'Roma Kentçiliği', difficulty: 'Orta', text: 'Roma kent planlamasında kuzey-güney doğrultusunda uzanan ana caddenin adı nedir?', options: ['Decumanus Maximus', 'Cardo Maximus', 'Forum', 'Basilica', 'Via Sacra'], correctIndex: 1, rationale: 'Cardo Maximus kuzey-güney, Decumanus Maximus ise doğu-batı ana aksıdır.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Roma Kentleri İçerikleri' },
+        { id: 'MES_01', topic: 'Prehistorya', difficulty: 'Kolay', text: 'Mezolitik Çağ, genel olarak hangi iki dönem arasında yer alır?', options: ['Neolitik ve Kalkolitik', 'Paleolitik ve Neolitik', 'Tunç ve Demir', 'Roma ve Bizans', 'Arkaik ve Klasik'], correctIndex: 1, rationale: 'Mezolitik dönem, Paleolitik\'ten Neolitik\'e geçiş evresisidir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Prehistorya İçerikleri' },
+        { id: 'NEOL_03', topic: 'Neolitik Yerleşimler', difficulty: 'Orta', text: 'Çatalhöyük yerleşimi en çok hangi özelliği ile tanınır?', options: ['Mermer tiyatrosu', 'Çivi yazılı arşivi', 'Birbirine bitişik kerpiç evleri', 'Büyük sur sistemi', 'Liman ticareti'], correctIndex: 2, rationale: 'Çatalhöyük, damdan girişli ve bitişik düzende kerpiç evleriyle tanınır.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Çatalhöyük İçerikleri' },
+        { id: 'EPI_01', topic: 'Yardımcı Bilimler', difficulty: 'Kolay', text: 'Epigrafi bilimi temelde neyi inceler?', options: ['Sikkeleri', 'Yazı taşları ve kitabeleri', 'Kemik kalıntılarını', 'Toprak katmanlarını', 'Mimari planları'], correctIndex: 1, rationale: 'Epigrafi, taş, metal ve benzeri yüzeylerdeki yazı ve kitabeleri inceler.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Yardımcı Bilimler İçerikleri' },
+        { id: 'NUM_01', topic: 'Yardımcı Bilimler', difficulty: 'Kolay', text: 'Numizmatik bilimi aşağıdakilerden hangisiyle ilgilenir?', options: ['Mezar tipleri', 'Antik takılar', 'Sikkeler ve para sistemleri', 'Heykeltıraşlık teknikleri', 'Bitki pollenleri'], correctIndex: 2, rationale: 'Numizmatik, sikkeler ve para tarihi üzerinden ekonomik ve siyasi veri sağlar.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Numizmatik İçerikleri' },
+        { id: 'CER_01', topic: 'Seramik ve Taşıma Kapları', difficulty: 'Kolay', text: 'Amphora antik çağlardaki hangi amaçla en sık kullanılan kap tiplerinden biridir?', options: ['Sadece tapınak süslemesi', 'Sıvı ve ürün taşıma-depolama', 'Mezar taşı yapımı', 'Sikke saklama', 'Yazı tableti üretimi'], correctIndex: 1, rationale: 'Amphoralar zeytinyağı, şarap ve benzeri ürünlerin taşınması ve depolanmasında kullanıldı.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Seramik İçerikleri' },
+        { id: 'TAP_01', topic: 'Tapınak Mimarisi', difficulty: 'Orta', text: 'Bir tapınağın dört çevresinin de sütunlarla sarılı olduğu plan tipine ne ad verilir?', options: ['Megalith', 'Peripteros', 'Stoa', 'Naos', 'Propylon'], correctIndex: 1, rationale: 'Peripteros planda naos yapısı dört yandan sütun dizileriyle çevrilir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Tapınak Mimarisi İçerikleri' },
+        { id: 'MOZ_01', topic: 'Sanat Tarihi', difficulty: 'Kolay', text: 'Mozaik kompozisyonlarını oluşturan küçük taş ya da cam parçacıklarına ne ad verilir?', options: ['Tessera', 'Triglif', 'Stel', 'Orthostat', 'Volut'], correctIndex: 0, rationale: 'Mozaik yüzeyleri meydana getiren küçük birimlere tessera denir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Mozaik ve Sanat İçerikleri' },
+        { id: 'KAL_01', topic: 'Prehistorya', difficulty: 'Orta', text: 'Kalkolitik Çağ\'ı tanımlayan temel gelişme aşağıdakilerden hangisidir?', options: ['Demirin yaygın kullanımı', 'Bakırın kullanılmaya başlanması', 'Yazının icadı', 'Roma hukuku', 'Mermer heykeltçiliğin doruğu'], correctIndex: 1, rationale: 'Kalkolitik, taş aletlerin yanında bakırın da kullanıldığı geçiş dönemidir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Kalkolitik Çağ İçerikleri' },
+        { id: 'URA_01', topic: 'Anadolu Uygarlıkları', difficulty: 'Orta', text: 'Urartu uygarlığının siyasal çekirdeği bölgesi aşağıdakilerden hangisidir?', options: ['Marmara Havzası', 'Van Gölü Çevresi', 'Gediz Ovası', 'Trakya', 'Kilikya'], correctIndex: 1, rationale: 'Urartu Devleti\'nin merkezi Van Gölü havzasıdır.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Urartu İçerikleri' }
     ];
 
     // ===== Arkeoloji Quiz Controller =====
     const arkQuiz = (() => {
-        const TOTAL_SECONDS = 10 * 60; // 10 dakika
+        const TOTAL_SECONDS = 30 * 60; // 30 dakika (20 soru için)
         const LABELS = ['A', 'B', 'C', 'D', 'E'];
+        const SAFE_MILESTONES = [
+            { correct: 3, points: 3, cashLabel: '15 kuruş' },
+            { correct: 10, points: 10, cashLabel: '50 kuruş' },
+            { correct: 15, points: 15, cashLabel: '75 kuruş' },
+            { correct: 20, points: 20, cashLabel: '1 TL' }
+        ];
 
         let questions = [];
         let currentIdx = 0;
@@ -1012,6 +956,16 @@
             }
         }
 
+        function getSafeMilestone(correctCount) {
+            let safe = { correct: 0, cashLabel: '0 TL' };
+            for (let ms of SAFE_MILESTONES) {
+                if (correctCount >= Number(ms.correct)) {
+                    safe = ms;
+                }
+            }
+            return safe;
+        }
+
         function finish() {
             stopTimer();
 
@@ -1025,6 +979,7 @@
 
             const total = questions.length;
             const pct = Math.round((correct / total) * 100);
+            const milestone = getSafeMilestone(correct);
 
             // Update score card
             document.getElementById('arkScoreBig').textContent    = `${correct}/${total}`;
@@ -1032,6 +987,20 @@
             document.getElementById('arkCorrectCount').textContent = correct;
             document.getElementById('arkWrongCount').textContent   = wrong;
             document.getElementById('arkBlankCount').textContent   = blank;
+
+            // Add milestone badge
+            const milestoneHtml = milestone.correct > 0 ? `
+                <div style="margin-top: 1rem; padding: 1rem; background: rgba(201,168,76,0.2); border: 2px solid var(--ark-gold); border-radius: 8px; text-align: center;">
+                    <p style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: var(--ark-dark); font-weight:600;">🏆 Kazandığınız Baraj:</p>
+                    <p style="margin: 0; font-size: 1.5rem; font-weight:800; color: var(--ark-brown);">${milestone.cashLabel}</p>
+                    <p style="margin: 0.3rem 0 0 0; font-size: 0.82rem; color: #6b5a45;">${milestone.correct} doğru soruya ulaştınız</p>
+                </div>
+            ` : '';
+            
+            const scoreCard = document.querySelector('.ark-score-card');
+            if (scoreCard && milestoneHtml) {
+                scoreCard.insertAdjacentHTML('beforeend', milestoneHtml);
+            }
 
             // Build review list
             const reviewList = document.getElementById('arkReviewList');
