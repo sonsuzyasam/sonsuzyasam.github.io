@@ -25,7 +25,7 @@ class Leaderboard {
 
         return [{
             rank: 1,
-            name: app.currentUser.name,
+            name: 'sen (' + (app.currentUser.name || 'kullanici') + ')',
             email: app.currentUser.email,
             points: app.getUserMonthlyPoints()
         }];

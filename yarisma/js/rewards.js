@@ -68,7 +68,7 @@ class Rewards {
 
             await this.loadRewardHistory();
             form.reset();
-            app.showNotification('Odul talebin kaydedildi.', 'success');
+            app.showNotification('Odul talebin kaydedildi. Gereksiz kisisel veri girmediginizden emin olun.', 'success');
         });
     }
 

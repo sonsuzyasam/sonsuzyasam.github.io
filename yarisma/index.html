@@ -88,7 +88,7 @@
             <!-- Leaderboard Page -->
             <section id="leaderboard" class="page">
                 <h2>Aylik Puan Tablosu</h2>
-                <p class="section-lead">Bu ay puan toplayan kullanicilar ve odul karsiliklari.</p>
+                <p class="section-lead">Bu ay puan toplayan kullanicilarin maskelenmis kimlikleri ve odul karsiliklari.</p>
                 <table class="leaderboard-table">
                     <thead>
                         <tr>
@@ -119,10 +119,10 @@
                         <label>Odul Turu</label>
                         <select id="rewardType" required>
                             <option value="">-- Secin --</option>
-                            <option value="phone-bill">Telefon Faturasi Odeme</option>
-                            <option value="internet">Internet Paketi</option>
+                            <option value="gift-card">Dijital Hediye Karti</option>
                             <option value="subscription">Streaming Aboneligi</option>
                             <option value="donation">Hayir Kurumuna Bagis</option>
+                            <option value="book">Kitap / Egitim Destegi</option>
                             <option value="custom">Diger</option>
                         </select>
                     </div>
@@ -132,7 +132,7 @@
 
                     <div class="form-group">
                         <label>Talebin Detaylari</label>
-                        <textarea id="rewardDetails" rows="4" placeholder="Orn: 05xx111222 numarasina 10 GB internet paketi" required></textarea>
+                        <textarea id="rewardDetails" rows="4" placeholder="Orn: 500 TL degerinde dijital hediye karti talep ediyorum. Gereksiz kisisel veri yazmayin." required></textarea>
                     </div>
 
                     <button type="submit" class="btn-primary">Talebi Gonder</button>
@@ -152,7 +152,7 @@
                         <h3>Profil Bilgilerim</h3>
                         <p>Ad: <span id="profileName">-</span></p>
                         <p>Email: <span id="profileEmail">-</span></p>
-                        <p>Telefon: <span id="profilePhone">-</span></p>
+                        <p>Telefon alinmiyor. Gereksiz veri islememek icin kayit sadece ad ve e-posta ile tutulur.</p>
                         <button class="btn-secondary" onclick="editProfile()">Duzenle</button>
                     </div>
 
@@ -162,10 +162,8 @@
                             <input type="checkbox" id="notificationToggle" checked>
                             Bildirimler
                         </label>
-                        <label>
-                            <input type="checkbox" id="privacyToggle" unchecked>
-                            Puan tablosunda gorunsun
-                        </label>
+                        <p style="margin-top: 0.8rem; font-size: 0.92rem; color: #5a4230;">Puan tablosu varsayilan olarak maskelenmis kimlikle yayinlanir. Ek bir telefon veya acik profil verisi tutulmaz.</p>
+                        <p style="margin-top: 0.8rem;"><a href="./kvkk-aydinlatma.html">KVKK Aydinlatma Metni</a> | <a href="./gizlilik-ve-kullanim-kosullari.html">Gizlilik ve Kullanim Kosullari</a></p>
                     </div>
 
                     <div class="card">
@@ -186,17 +184,25 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('loginModal')">&times;</span>
             <h2 id="authTitle">Giriş Yap</h2>
-            <p id="authHint">Parola ile giriş yapabilir veya yeni hesap oluşturabilirsin.</p>
+            <p id="authHint">Parola ile giris yapabilir veya yeni hesap olusturabilirsin.</p>
             <form id="loginForm" data-mode="login">
-                <input type="text" id="loginName" placeholder="Adınız Soyadınız" required>
+                <input type="text" id="loginName" placeholder="Adiniz Soyadiniz" required>
                 <input type="email" id="loginEmail" placeholder="E-posta" required>
                 <input type="password" id="loginPassword" placeholder="Parola" required minlength="6">
                 <input type="password" id="loginPasswordConfirm" placeholder="Parola (Tekrar)">
-                <input type="tel" id="loginPhone" placeholder="Telefon Numarası" required>
-                <button type="submit" id="authSubmitBtn" class="btn-primary">Giriş Yap</button>
-                <button type="button" id="toggleAuthModeBtn" class="btn-secondary">Yeni Hesap Oluştur</button>
-                <button type="button" id="resendVerificationBtn" class="btn-secondary">Doğrulama Mailini Yeniden Gönder</button>
-                <button type="button" id="googleSignInBtn" class="btn-secondary">Google ile Giriş Yap</button>
+                <div id="legalConsentGroup" style="display:none; text-align:left; margin: 0.5rem 0 1rem 0; font-size:0.92rem; color:#5a4230;">
+                    <label style="display:flex; gap:0.6rem; align-items:flex-start; margin-bottom:0.75rem;">
+                        <input type="checkbox" id="kvkkConsent">
+                        <span><a href="./kvkk-aydinlatma.html" target="_blank" rel="noopener">KVKK Aydinlatma Metni</a>'ni okudum ve kisisel verilerimin belirtilen kapsamda islenecegini anladim.</span>
+                    </label>
+                    <label style="display:flex; gap:0.6rem; align-items:flex-start;">
+                        <input type="checkbox" id="termsConsent">
+                        <span><a href="./gizlilik-ve-kullanim-kosullari.html" target="_blank" rel="noopener">Gizlilik Politikasi ve Kullanim Kosullari</a>'ni kabul ediyorum.</span>
+                    </label>
+                </div>
+                <button type="submit" id="authSubmitBtn" class="btn-primary">Giris Yap</button>
+                <button type="button" id="toggleAuthModeBtn" class="btn-secondary">Yeni Hesap Olustur</button>
+                <button type="button" id="resendVerificationBtn" class="btn-secondary">Dogrulama Mailini Yeniden Gonder</button>
             </form>
         </div>
     </div>

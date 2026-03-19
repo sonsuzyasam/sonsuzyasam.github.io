@@ -26,6 +26,7 @@ var DAILY_EXAM_LIMIT = 5;
 var REWARD_POINT_VALUE_TL = 0.05;
 var MIN_REWARD_REQUEST_TL = 500;
 var MIN_REWARD_REQUEST_POINTS = Math.ceil(MIN_REWARD_REQUEST_TL / REWARD_POINT_VALUE_TL);
+var CONSENT_VERSION = '2026-03-19';
 var SAFE_MILESTONES = [
   { correct: 3, points: 3, cashLabel: '15 kurus' },
   { correct: 10, points: 10, cashLabel: '50 kurus' },
@@ -272,8 +273,12 @@ function handleUpsertUser_(auth, body) {
   if (!email || email !== auth.email) throw new Error('Email mismatch');
 
   var name     = String(user.name || '').trim();
-  var phone    = String(user.phone || '').trim();
   var verified = Boolean(user.verified);
+  var consents = user.consents || {};
+  var kvkkApproved = parseBoolean_(consents.kvkkNoticeApproved);
+  var termsApproved = parseBoolean_(consents.termsAccepted);
+  var consentVersion = String(consents.version || CONSENT_VERSION).trim();
+  var consentTs = String(consents.approvedAt || new Date().toISOString()).trim();
 
   var sh = getSheet_(SHEET_NAMES.USERS);
   var values = sh.getDataRange().getValues();
@@ -287,13 +292,32 @@ function handleUpsertUser_(auth, body) {
   }
 
   if (rowIndex === -1) {
-    sh.appendRow([email, name, phone, new Date().toISOString(), String(verified)]);
-  } else {
-    sh.getRange(rowIndex, 2, 1, 4).setValues([[
+    if (!kvkkApproved || !termsApproved) {
+      throw new Error('Consent required for account activation');
+    }
+
+    sh.appendRow([
+      email,
       name,
-      phone,
-      values[rowIndex - 1][3] || new Date().toISOString(),
-      String(verified)
+      '',
+      new Date().toISOString(),
+      String(verified),
+      String(kvkkApproved),
+      String(termsApproved),
+      consentVersion,
+      consentTs
+    ]);
+  } else {
+    var existing = values[rowIndex - 1] || [];
+    sh.getRange(rowIndex, 2, 1, 8).setValues([[
+      name,
+      '',
+      existing[3] || new Date().toISOString(),
+      String(verified),
+      String(kvkkApproved || parseBoolean_(existing[5])),
+      String(termsApproved || parseBoolean_(existing[6])),
+      consentVersion || String(existing[7] || CONSENT_VERSION),
+      (kvkkApproved || termsApproved) ? consentTs : String(existing[8] || '')
     ]]);
   }
 
@@ -534,9 +558,6 @@ function handleGetLeaderboard_(auth, body) {
   var month = String(body.month || getCurrentMonth_());
   var shMonthly = getSheet_(SHEET_NAMES.MONTHLY);
   var monthlyValues = shMonthly.getDataRange().getValues();
-  var userNames = getUserNamesMap_();
-
-  // Aggregate points per email, summing across any duplicate rows for the same month.
   var emailPoints  = {};
   var emailUpdated = {};
 
@@ -559,7 +580,7 @@ function handleGetLeaderboard_(auth, body) {
     if (!emailPoints.hasOwnProperty(mapEmail)) continue;
     items.push({
       email:     mapEmail,
-      name:      userNames[mapEmail] || mapEmail,
+      name:      maskEmail_(mapEmail),
       points:    emailPoints[mapEmail],
       updatedAt: emailUpdated[mapEmail] || ''
     });
@@ -579,24 +600,7 @@ function handleGetLeaderboard_(auth, body) {
 }
 
 function handleRecordScore_(auth, body) {
-  var points = Math.max(0, Number(body.points || 0));
-  var month  = String(body.month || getCurrentMonth_());
-  var examId = String(body.examId || 'legacy');
-
-  var sh = getSheet_(SHEET_NAMES.SCORES);
-  sh.appendRow([
-    new Date().toISOString(),
-    auth.email,
-    examId,
-    points, '', '', '', '', '', '', month
-  ]);
-
-  if (points > 0) adjustMonthlyPoints_(auth.email, month, points);
-
-  return {
-    awardedPoints: points,
-    monthlyPoints: getMonthlyPointsByEmailMonth_(auth.email, month)
-  };
+  throw new Error('Legacy client-side score recording is disabled');
 }
 
 // ============================================================
@@ -783,7 +787,7 @@ function getSheet_(name) {
 }
 
 function addSheetHeaders_(sh, name) {
-  if (name === SHEET_NAMES.USERS)   sh.appendRow(['Email','Ad','Telefon','UyeOlusTarihi','Aktif']);
+  if (name === SHEET_NAMES.USERS)   sh.appendRow(['Email','Ad','Telefon_Legacy','UyeOlusTarihi','Aktif','KvkkAydinlatmaOnayi','KullanimKosullariOnayi','ConsentVersion','ConsentTs']);
   if (name === SHEET_NAMES.SCORES)  sh.appendRow(['Tarih','Email','SinavID','Puan','SoruSayisi','DogruSayisi','YanlisSayisi','BosSayisi','Net','Skor','Ay']);
   if (name === SHEET_NAMES.REWARDS) sh.appendRow(['Tarih','Email','TalepDurumu','OdulTuru','Puan','Detaylar','Ay']);
   if (name === SHEET_NAMES.MONTHLY) sh.appendRow(['Ay','Email','Puan','Guncellendi']);
@@ -835,6 +839,24 @@ function normalizeStatus_(s) {
 
 function normalizeEmail_(email) {
   return String(email || '').trim().toLowerCase();
+}
+
+function parseBoolean_(value) {
+  return value === true || String(value || '').toLowerCase() === 'true';
+}
+
+function maskEmail_(email) {
+  var normalized = normalizeEmail_(email);
+  var parts = normalized.split('@');
+  if (parts.length !== 2) return 'anonim-kullanici';
+
+  var local = parts[0];
+  var domain = parts[1];
+  var localMasked = local.length <= 2
+    ? (local.charAt(0) || '*') + '*'
+    : local.slice(0, 2) + '***';
+
+  return localMasked + '@' + domain;
 }
 
 function getCurrentMonth_() {

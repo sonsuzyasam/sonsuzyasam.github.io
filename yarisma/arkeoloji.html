@@ -674,7 +674,7 @@
     <header class="ark-header">
         <div class="ark-header-left">
             <h1>🏺 Arkeoloji Bilgi Yarışması</h1>
-            <p>arkeoloji.biz × Sonsuz Yaşam Platformu işbirliği</p>
+            
         </div>
         <div class="ark-badge">
             <a href="https://arkeoloji.biz" target="_blank" rel="noopener">arkeoloji.biz →</a>
@@ -717,7 +717,7 @@
                 </ul>
                 <p style="margin: 0.8rem 0 0 0; font-size: 0.88rem; opacity: 0.9;">
                     ℹ️ <strong>Baraj Nedir?</strong> Her doğru soruya ulaştığınızda, o seviyedeki ödül garantidir. Yani 15 doğru yaparsanız 75 kuruş kazanırsınız (15 ve 20 soruluk barajları da açarsınız). <br>
-                    Misafir olarak başlayabilirsiniz. Kazandığınız puan bu tarayıcıda saklanır; sonra <a href="./index.html" style="color: var(--ark-brown); font-weight: 700; text-decoration: underline;">Sonsuz Yaşam platformuna</a> üye olunca hesabınıza aktarılır.
+                    Misafir modunda pratik yapabilirsiniz. Puan ve ödül talebi kaydi icin <a href="./index.html" style="color: var(--ark-brown); font-weight: 700; text-decoration: underline;">Sonsuz Yaşam platformuna</a> uye girisi gerekir.
                 </p>
             </div>
 
@@ -727,7 +727,7 @@
 
             <p style="margin-top: 1.2rem; font-size: 0.85rem; color: #9b8070;">
                 Puanlarınızı kaydetmek ve ödül kazanmak için
-                <a href="./index.html" style="color: var(--ark-brown); font-weight:600;">Sonsuz Yaşam platformuna</a> kayıt olun.
+                <a href="./index.html" style="color: var(--ark-brown); font-weight:600;">Arkeoloji.biz platformuna</a> kayıt olun.
             </p>
         </div>
 
@@ -787,8 +787,8 @@
             <div class="ark-cta">
                 <h3>🏆 Puan Kazan, Ödül Al!</h3>
                 <p>
-                    Misafir olarak oynayip baraj acabilirsiniz. Sonrasinda Sonsuz Yaşam platformuna ücretsiz üye olup,<br>
-                    bu tarayicida saklanan puaninizi hesabınıza aktarabilir ve odul talebi acabilirsiniz.
+                    Misafir olarak oynayip sistemi deneyebilirsiniz. Odul puani kazanmak ve talep acmak icin Sonsuz Yaşam platformunda<br>
+                    dogrulanmis bir hesapla giris yapmaniz gerekir.
                 </p>
                 <div class="ark-cta-btns">
                     <a href="./index.html" class="btn-cta-register">Yarışmaya Kayıt Ol →</a>
@@ -848,7 +848,6 @@
         let correctStreak = 0;
         let streakBroken = false;
         let announcedMilestones = {};
-        let guestPointsStored = false;
 
         const startScreen = () => document.getElementById('arkStartScreen');
         const quizScreen = () => document.getElementById('arkQuizScreen');
@@ -998,27 +997,6 @@
             decisionModal().classList.add('visible');
         }
 
-        function saveGuestPendingPoints(points, milestone) {
-            if (!points || guestPointsStored) return;
-
-            let items = [];
-            try {
-                items = JSON.parse(localStorage.getItem('sonsuzyasam_guest_pending_points') || '[]');
-            } catch (_) {
-                items = [];
-            }
-
-            items.push({
-                examId: 'arkeoloji-guest',
-                points: Number(points || 0),
-                milestoneLabel: milestone.cashLabel || '0 TL',
-                month: new Date().toISOString().slice(0, 7),
-                createdAt: new Date().toISOString()
-            });
-            localStorage.setItem('sonsuzyasam_guest_pending_points', JSON.stringify(items));
-            guestPointsStored = true;
-        }
-
         function start() {
             questions = pickVariedQuestionOrder();
             currentIdx = 0;
@@ -1028,7 +1006,6 @@
             correctStreak = 0;
             streakBroken = false;
             announcedMilestones = {};
-            guestPointsStored = false;
 
             startScreen().style.display = 'none';
             quizScreen().style.display = 'block';
@@ -1254,7 +1231,6 @@
             const total = questions.length;
             const pct = Math.round((correct / total) * 100);
             const milestone = getSafeMilestone(correctStreak);
-            saveGuestPendingPoints(milestone.points || 0, milestone);
 
             document.getElementById('arkScoreBig').textContent = `${correct}/${total}`;
             document.getElementById('arkScorePercent').textContent = `%${pct} Başarı`;
@@ -1269,7 +1245,7 @@
                 : `<div style="margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); border-radius: 8px; text-align: center;"><p style="margin:0; font-size:0.92rem;">Bu turda baraj acilmadi. Istersen tekrar deneyebilir ya da kaynaklara donebilirsin.</p></div>`;
             const shareText = encodeURIComponent(`Arkeoloji Bilgi Yarismasi'nda ${correct}/${total} yaptim. Guvenli kasam: ${milestone.cashLabel}. Sen de dene!`);
             const shareUrl = encodeURIComponent(`${window.location.origin}${window.location.pathname}`);
-            scoreCard.insertAdjacentHTML('beforeend', `<div class="ark-dynamic-summary">${milestoneHtml}<p style="margin-top: 0.75rem; font-size: 0.84rem; opacity: 0.9;">Misafir puani tarayicida saklandi. Uye olunca otomatik aktarilir.</p><p style="margin-top: 0.35rem; font-size: 0.8rem; opacity: 0.75;">Bitis nedeni: ${reason === 'cashout' ? 'Barajda kasaya alma' : reason === 'streak-break' ? 'Hata sonrasi sonlandirma' : reason === 'timeout' ? 'Sure doldu' : 'Tum sorular tamamlandi'}</p><div class="ark-share-actions"><a class="btn-ark-primary" href="https://wa.me/?text=${shareText}%20${shareUrl}" target="_blank" rel="noopener">WhatsApp'ta Paylas</a><a class="btn-ark-secondary" href="https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}" target="_blank" rel="noopener">X'te Paylas</a><button id="arkCopyShareBtn" class="btn-ark-secondary" type="button">Baglantiyi Kopyala</button></div></div>`);
+            scoreCard.insertAdjacentHTML('beforeend', `<div class="ark-dynamic-summary">${milestoneHtml}<p style="margin-top: 0.75rem; font-size: 0.84rem; opacity: 0.9;">Misafir modunda puan yazilmaz. Odul puani icin platform hesabiyla giris yapin.</p><p style="margin-top: 0.35rem; font-size: 0.8rem; opacity: 0.75;">Bitis nedeni: ${reason === 'cashout' ? 'Barajda kasaya alma' : reason === 'streak-break' ? 'Hata sonrasi sonlandirma' : reason === 'timeout' ? 'Sure doldu' : 'Tum sorular tamamlandi'}</p><div class="ark-share-actions"><a class="btn-ark-primary" href="https://wa.me/?text=${shareText}%20${shareUrl}" target="_blank" rel="noopener">WhatsApp'ta Paylas</a><a class="btn-ark-secondary" href="https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}" target="_blank" rel="noopener">X'te Paylas</a><button id="arkCopyShareBtn" class="btn-ark-secondary" type="button">Baglantiyi Kopyala</button></div></div>`);
 
             const reviewList = document.getElementById('arkReviewList');
             reviewList.innerHTML = questions.map((q, i) => {

@@ -48,17 +48,25 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('loginModal')">&times;</span>
             <h2 id="authTitle">Giriş Yap</h2>
-            <p id="authHint">Yalnızca yetkili admin e-postası ile giriş yapabilirsiniz.</p>
+            <p id="authHint">Yalnizca yetkili admin e-postasi ile giris yapabilirsiniz.</p>
             <form id="loginForm" data-mode="login">
-                <input type="text" id="loginName" placeholder="Adınız Soyadınız" required>
+                <input type="text" id="loginName" placeholder="Adiniz Soyadiniz" required>
                 <input type="email" id="loginEmail" placeholder="E-posta" required>
                 <input type="password" id="loginPassword" placeholder="Parola" required minlength="6">
                 <input type="password" id="loginPasswordConfirm" placeholder="Parola (Tekrar)">
-                <input type="tel" id="loginPhone" placeholder="Telefon Numarası" required>
-                <button type="submit" id="authSubmitBtn" class="btn-primary">Giriş Yap</button>
-                <button type="button" id="toggleAuthModeBtn" class="btn-secondary">Yeni Hesap Oluştur</button>
-                <button type="button" id="resendVerificationBtn" class="btn-secondary">Doğrulama Mailini Yeniden Gönder</button>
-                <button type="button" id="googleSignInBtn" class="btn-secondary">Google ile Giriş Yap</button>
+                <div id="legalConsentGroup" style="display:none; text-align:left; margin: 0.5rem 0 1rem 0; font-size:0.92rem; color:#5a4230;">
+                    <label style="display:flex; gap:0.6rem; align-items:flex-start; margin-bottom:0.75rem;">
+                        <input type="checkbox" id="kvkkConsent">
+                        <span><a href="./kvkk-aydinlatma.html" target="_blank" rel="noopener">KVKK Aydinlatma Metni</a>'ni okudum ve anladim.</span>
+                    </label>
+                    <label style="display:flex; gap:0.6rem; align-items:flex-start;">
+                        <input type="checkbox" id="termsConsent">
+                        <span><a href="./gizlilik-ve-kullanim-kosullari.html" target="_blank" rel="noopener">Gizlilik Politikasi ve Kullanim Kosullari</a>'ni kabul ediyorum.</span>
+                    </label>
+                </div>
+                <button type="submit" id="authSubmitBtn" class="btn-primary">Giris Yap</button>
+                <button type="button" id="toggleAuthModeBtn" class="btn-secondary">Yeni Hesap Olustur</button>
+                <button type="button" id="resendVerificationBtn" class="btn-secondary">Dogrulama Mailini Yeniden Gonder</button>
             </form>
         </div>
     </div>

@@ -25,38 +25,7 @@ class App {
     }
 
     async claimGuestPendingPoints() {
-        if (!this.currentUser || !window.sheetsAPI || typeof sheetsAPI.recordScore !== 'function') {
-            return;
-        }
-
-        let pending = [];
-        try {
-            pending = JSON.parse(localStorage.getItem(STORAGE_KEYS.GUEST_PENDING_POINTS) || '[]');
-        } catch (_) {
-            pending = [];
-        }
-
-        if (!Array.isArray(pending) || !pending.length) {
-            return;
-        }
-
-        let claimedTotal = 0;
-        for (const item of pending) {
-            const points = Number(item && item.points || 0);
-            if (points <= 0) continue;
-
-            await sheetsAPI.recordScore(this.currentUser.email, points, {
-                month: item.month || CONFIG.getCurrentMonth(),
-                examId: item.examId || 'arkeoloji-guest'
-            });
-            claimedTotal += points;
-        }
-
-        localStorage.removeItem(STORAGE_KEYS.GUEST_PENDING_POINTS);
-        if (claimedTotal > 0) {
-            await this.refreshMonthlyPointsFromServer();
-            this.showNotification(`Misafirde biriken ${claimedTotal} puan hesabina aktarildi.`, 'success');
-        }
+        return 0;
     }
     // === Event Listeners ===
     setupEventListeners() {
@@ -85,13 +54,12 @@ class App {
         });
 
         // Settings
-        document.getElementById('notificationToggle').addEventListener('change', (e) => {
-            this.saveSetting('notifications', e.target.checked);
-        });
-
-        document.getElementById('privacyToggle').addEventListener('change', (e) => {
-            this.saveSetting('public', e.target.checked);
-        });
+        const notificationToggle = document.getElementById('notificationToggle');
+        if (notificationToggle) {
+            notificationToggle.addEventListener('change', (e) => {
+                this.saveSetting('notifications', e.target.checked);
+            });
+        }
     }
 
     // === User Management ===
@@ -109,12 +77,13 @@ class App {
         if (user) {
             localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
             if (window.sheetsAPI && typeof window.sheetsAPI.appendUser === 'function') {
-                sheetsAPI.appendUser(user);
+                Promise.resolve(sheetsAPI.appendUser(user)).catch((error) => {
+                    console.warn('User profile could not be synced:', error);
+                });
             }
             this.closeModal('loginModal');
             this.refreshMonthlyPointsFromServer();
             this.refreshDailyQuizQuota();
-            this.claimGuestPendingPoints();
         } else {
             localStorage.removeItem(STORAGE_KEYS.USER);
             this.pointsCache = {};
@@ -147,13 +116,11 @@ class App {
             document.getElementById('loginBtn').textContent = 'Cikis Yap';
             document.getElementById('profileName').textContent = this.currentUser.name;
             document.getElementById('profileEmail').textContent = this.currentUser.email;
-            document.getElementById('profilePhone').textContent = this.currentUser.phone;
         } else {
             document.getElementById('userName').textContent = 'Misafir';
             document.getElementById('loginBtn').textContent = 'Giris Yap';
             document.getElementById('profileName').textContent = '-';
             document.getElementById('profileEmail').textContent = '-';
-            document.getElementById('profilePhone').textContent = '-';
         }
     }
 
@@ -375,7 +342,7 @@ function logout() {
 }
 
 function editProfile() {
-    alert('Profil düzenleme özelliği yakında gelecek!');
+    alert('Profil duzenleme ozelligi yakinda gelecek. Telefon verisi sistemden kaldirildi.');
 }
 
 // App başlat

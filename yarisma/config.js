@@ -14,6 +14,12 @@ const CONFIG = {
         REQUIRE_EMAIL_VERIFICATION: true
     },
 
+    LEGAL: {
+        CONSENT_VERSION: '2026-03-19',
+        KVKK_NOTICE_URL: './kvkk-aydinlatma.html',
+        PRIVACY_TERMS_URL: './gizlilik-ve-kullanim-kosullari.html'
+    },
+
     ADMIN_EMAILS: [
         'sdoldur@gmail.com'
     ],
@@ -81,10 +87,10 @@ const CONFIG = {
 
     // Ödül Kategorileri
     REWARD_CATEGORIES: [
-        { value: 'phone-bill', label: '📱 Telefon Faturası Ödeme' },
-        { value: 'internet', label: '🌐 İnternet Paketi' },
+        { value: 'gift-card', label: '🎁 Dijital Hediye Kartı' },
         { value: 'subscription', label: '🎬 Streaming Aboneliği' },
         { value: 'donation', label: '❤️ Hayır Kurumuna Bağış' },
+        { value: 'book', label: '📚 Kitap / Eğitim Desteği' },
         { value: 'custom', label: '✨ Diğer (Özel)' }
     ],
 
@@ -106,9 +112,13 @@ const CONFIG = {
         USERS: {
             A: 'Email',
             B: 'Ad',
-            C: 'Telefon',
+            C: 'Telefon_Legacy',
             D: 'ÜyeOluşTarihi',
-            E: 'Aktif'
+            E: 'Aktif',
+            F: 'KvkkAydinlatmaOnayi',
+            G: 'KullanimKosullariOnayi',
+            H: 'ConsentVersion',
+            I: 'ConsentTs'
         },
         SCORES: {
             A: 'Tarih',
@@ -136,9 +146,9 @@ const STORAGE_KEYS = {
     USER_POINTS: 'sonsuzyasam_points',
     EXAM_STATE: 'sonsuzyasam_exam_state',
     SETTINGS: 'sonsuzyasam_settings',
-    GUEST_PENDING_POINTS: 'sonsuzyasam_guest_pending_points',
     GUEST_ARCH_ORDER: 'sonsuzyasam_guest_arkeoloji_order',
-    LAST_EXAM_ORDER_PREFIX: 'sonsuzyasam_last_exam_order_'
+    LAST_EXAM_ORDER_PREFIX: 'sonsuzyasam_last_exam_order_',
+    CONSENT_DRAFT: 'sonsuzyasam_consent_draft'
 };
 
 console.log('✅ Config Loaded');

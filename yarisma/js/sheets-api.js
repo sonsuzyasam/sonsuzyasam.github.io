@@ -17,21 +17,14 @@ class SheetsAPI {
             user: {
                 email: user.email || '',
                 name: user.name || '',
-                phone: user.phone || '',
-                verified: Boolean(user.verified)
+                verified: Boolean(user.verified),
+                consents: user.consents || {}
             }
         });
     }
 
-    async recordScore(email, points, meta = {}) {
-        // Legacy method retained for backward compatibility.
-        return this.callAppsScript({
-            action: 'recordScore',
-            email: email || '',
-            points: Number(points || 0),
-            month: meta.month || CONFIG.getCurrentMonth(),
-            examId: meta.examId || 'legacy'
-        });
+    async recordScore() {
+        throw new Error('Legacy client-side score recording is disabled.');
     }
 
     async saveRewardRequest(email, rewardType, details, points, meta = {}) {

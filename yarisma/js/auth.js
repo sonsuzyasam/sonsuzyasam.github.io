@@ -32,9 +32,11 @@ class AuthManager {
         this.googleBtn = document.getElementById('googleSignInBtn');
         this.nameInput = document.getElementById('loginName');
         this.emailInput = document.getElementById('loginEmail');
-        this.phoneInput = document.getElementById('loginPhone');
         this.passwordInput = document.getElementById('loginPassword');
         this.passwordConfirmInput = document.getElementById('loginPasswordConfirm');
+        this.kvkkConsentInput = document.getElementById('kvkkConsent');
+        this.termsConsentInput = document.getElementById('termsConsent');
+        this.consentGroup = document.getElementById('legalConsentGroup');
 
         this.applyMode();
     }
@@ -51,18 +53,24 @@ class AuthManager {
             await this.register();
         });
 
-        this.toggleBtn.addEventListener('click', () => {
-            this.mode = this.mode === 'login' ? 'register' : 'login';
-            this.applyMode();
-        });
+        if (this.toggleBtn) {
+            this.toggleBtn.addEventListener('click', () => {
+                this.mode = this.mode === 'login' ? 'register' : 'login';
+                this.applyMode();
+            });
+        }
 
-        this.resendBtn.addEventListener('click', async () => {
-            await this.resendVerificationEmail();
-        });
+        if (this.resendBtn) {
+            this.resendBtn.addEventListener('click', async () => {
+                await this.resendVerificationEmail();
+            });
+        }
 
-        this.googleBtn.addEventListener('click', async () => {
-            await this.signInWithGoogle();
-        });
+        if (this.googleBtn) {
+            this.googleBtn.addEventListener('click', async () => {
+                await this.signInWithGoogle();
+            });
+        }
     }
 
     applyMode() {
@@ -75,53 +83,63 @@ class AuthManager {
         this.toggleBtn.textContent = isRegister ? 'Zaten Hesabim Var' : 'Yeni Hesap Olustur';
 
         this.nameInput.required = isRegister;
-        this.phoneInput.required = isRegister;
         this.passwordConfirmInput.required = isRegister;
+        if (this.kvkkConsentInput) this.kvkkConsentInput.required = isRegister;
+        if (this.termsConsentInput) this.termsConsentInput.required = isRegister;
         this.passwordConfirmInput.style.display = isRegister ? 'block' : 'none';
         this.nameInput.style.display = isRegister ? 'block' : 'none';
-        this.phoneInput.style.display = isRegister ? 'block' : 'none';
-        this.resendBtn.style.display = isRegister ? 'none' : 'inline-block';
+        if (this.consentGroup) this.consentGroup.style.display = isRegister ? 'block' : 'none';
+        if (this.resendBtn) this.resendBtn.style.display = isRegister ? 'none' : 'inline-block';
+        if (this.googleBtn) this.googleBtn.style.display = 'none';
     }
 
     async signInWithGoogle() {
-        try {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            provider.setCustomParameters({ prompt: 'select_account' });
-            const cred = await this.auth.signInWithPopup(provider);
-
-            if (cred && cred.additionalUserInfo && cred.additionalUserInfo.isNewUser) {
-                this.savePhoneByUid(cred.user.uid, '-');
-            }
-
-            this.notify('Google ile giris basarili.', 'success');
-            this.closeLoginModal();
-        } catch (err) {
-            this.notify(this.mapAuthError(err), 'error');
-        }
+        this.notify('Google ile giris gecici olarak kapatildi. Lutfen e-posta ve parola ile kayit olun.', 'info');
     }
 
     async register() {
         const name = this.nameInput.value.trim();
         const email = this.emailInput.value.trim();
-        const phone = this.phoneInput.value.trim();
         const password = this.passwordInput.value;
         const passwordConfirm = this.passwordConfirmInput.value;
+        const kvkkApproved = Boolean(this.kvkkConsentInput && this.kvkkConsentInput.checked);
+        const termsApproved = Boolean(this.termsConsentInput && this.termsConsentInput.checked);
 
         if (password !== passwordConfirm) {
             this.notify('Parola tekrar alani eslesmiyor.', 'error');
             return;
         }
 
+        if (!kvkkApproved || !termsApproved) {
+            this.notify('Kayit icin KVKK aydinlatma metni ve kullanim kosullarini onaylaman gerekiyor.', 'error');
+            return;
+        }
+
         try {
+            const approvedAt = new Date().toISOString();
             const cred = await this.auth.createUserWithEmailAndPassword(email, password);
             await cred.user.updateProfile({ displayName: name });
             await cred.user.sendEmailVerification();
-            this.savePhoneByUid(cred.user.uid, phone);
+
+            if (window.sheetsAPI && typeof window.sheetsAPI.appendUser === 'function') {
+                await sheetsAPI.appendUser({
+                    email,
+                    name,
+                    verified: cred.user.emailVerified,
+                    consents: {
+                        kvkkNoticeApproved: true,
+                        termsAccepted: true,
+                        version: CONFIG.LEGAL.CONSENT_VERSION,
+                        approvedAt
+                    }
+                });
+            }
 
             await this.auth.signOut();
             this.mode = 'login';
             this.applyMode();
-            this.notify('Kayit tamamlandi. E-postani dogrulayıp giris yap.', 'success');
+            this.form.reset();
+            this.notify('Kayit tamamlandi. E-postani dogrulayip giris yap.', 'success');
         } catch (err) {
             this.notify(this.mapAuthError(err), 'error');
         }
@@ -173,12 +191,10 @@ class AuthManager {
                 return;
             }
 
-            const phone = this.getPhoneByUid(user.uid);
             this.dispatchAuthUser({
                 uid: user.uid,
                 name: user.displayName || 'Kullanici',
                 email: user.email,
-                phone: phone,
                 verified: user.emailVerified
             });
         });
@@ -230,19 +246,6 @@ class AuthManager {
         if (window.app && typeof window.app.showNotification === 'function') {
             window.app.showNotification(message, type);
         }
-    }
-
-    savePhoneByUid(uid, phone) {
-        const key = 'sonsuzyasam_phone_map';
-        const map = JSON.parse(localStorage.getItem(key) || '{}');
-        map[uid] = phone;
-        localStorage.setItem(key, JSON.stringify(map));
-    }
-
-    getPhoneByUid(uid) {
-        const key = 'sonsuzyasam_phone_map';
-        const map = JSON.parse(localStorage.getItem(key) || '{}');
-        return map[uid] || '-';
     }
 
     mapAuthError(err) {
