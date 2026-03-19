@@ -562,10 +562,22 @@ function handleGetExamQuota_(auth, body) {
 
 function handleGetLeaderboard_(auth, body) {
   var month = String(body.month || getCurrentMonth_());
+  var shUsers = getSheet_(SHEET_NAMES.USERS);
   var shMonthly = getSheet_(SHEET_NAMES.MONTHLY);
+  var userValues = shUsers.getDataRange().getValues();
   var monthlyValues = shMonthly.getDataRange().getValues();
   var emailPoints  = {};
   var emailUpdated = {};
+
+  // Add all registered users first so users with 0 points are also visible.
+  for (var u = 1; u < userValues.length; u++) {
+    var userEmail = normalizeEmail_(userValues[u][0]);
+    if (!userEmail) continue;
+    if (!emailPoints.hasOwnProperty(userEmail)) {
+      emailPoints[userEmail] = 0;
+      emailUpdated[userEmail] = '';
+    }
+  }
 
   for (var i = 0; i < monthlyValues.length; i++) {
     var row = monthlyValues[i];
