@@ -631,6 +631,38 @@ body {
     cursor: pointer;
 }
 
+.password-tools {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin: 0.15rem 0 0.9rem;
+    flex-wrap: wrap;
+}
+
+.password-tools label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.88rem;
+    color: var(--muted);
+    cursor: pointer;
+}
+
+.btn-link-inline {
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    font-size: 0.88rem;
+    text-decoration: underline;
+    padding: 0;
+}
+
+.btn-link-inline:hover {
+    color: #f3ebd5;
+}
+
 /* ===== Modal ===== */
 .modal {
     display: none;
@@ -980,5 +1012,10 @@ body {
 
     .exam-navigation button {
         width: 100%;
+    }
+
+    .password-tools {
+        align-items: flex-start;
+        flex-direction: column;
     }
 }

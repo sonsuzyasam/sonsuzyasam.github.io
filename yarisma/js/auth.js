@@ -30,10 +30,12 @@ class AuthManager {
         this.toggleBtn = document.getElementById('toggleAuthModeBtn');
         this.resendBtn = document.getElementById('resendVerificationBtn');
         this.googleBtn = document.getElementById('googleSignInBtn');
+        this.forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
         this.nameInput = document.getElementById('loginName');
         this.emailInput = document.getElementById('loginEmail');
         this.passwordInput = document.getElementById('loginPassword');
         this.passwordConfirmInput = document.getElementById('loginPasswordConfirm');
+        this.togglePasswordInput = document.getElementById('togglePasswordVisibility');
         this.kvkkConsentInput = document.getElementById('kvkkConsent');
         this.termsConsentInput = document.getElementById('termsConsent');
         this.consentGroup = document.getElementById('legalConsentGroup');
@@ -71,16 +73,30 @@ class AuthManager {
                 await this.signInWithGoogle();
             });
         }
+
+        if (this.forgotPasswordBtn) {
+            this.forgotPasswordBtn.addEventListener('click', async () => {
+                await this.sendPasswordResetEmail();
+            });
+        }
+
+        if (this.togglePasswordInput) {
+            this.togglePasswordInput.addEventListener('change', () => {
+                const nextType = this.togglePasswordInput.checked ? 'text' : 'password';
+                if (this.passwordInput) this.passwordInput.type = nextType;
+                if (this.passwordConfirmInput) this.passwordConfirmInput.type = nextType;
+            });
+        }
     }
 
     applyMode() {
         const isRegister = this.mode === 'register';
-        this.title.textContent = isRegister ? 'Hesap Olustur' : 'Giris Yap';
+        this.title.textContent = isRegister ? 'Hesap Oluştur' : 'Giriş Yap';
         this.hint.textContent = isRegister
-            ? 'Kayittan sonra dogrulama e-postasi gonderilir.'
-            : 'Giris icin e-posta ve parola girin.';
-        this.submitBtn.textContent = isRegister ? 'Kayit Ol' : 'Giris Yap';
-        this.toggleBtn.textContent = isRegister ? 'Zaten Hesabim Var' : 'Yeni Hesap Olustur';
+            ? 'Kayıttan sonra doğrulama e-postası gönderilir.'
+            : 'Giriş için e-posta ve parola girin.';
+        this.submitBtn.textContent = isRegister ? 'Kayıt Ol' : 'Giriş Yap';
+        this.toggleBtn.textContent = isRegister ? 'Zaten Hesabım Var' : 'Yeni Hesap Oluştur';
 
         this.nameInput.required = isRegister;
         this.passwordConfirmInput.required = isRegister;
@@ -90,11 +106,54 @@ class AuthManager {
         this.nameInput.style.display = isRegister ? 'block' : 'none';
         if (this.consentGroup) this.consentGroup.style.display = isRegister ? 'block' : 'none';
         if (this.resendBtn) this.resendBtn.style.display = isRegister ? 'none' : 'inline-block';
-        if (this.googleBtn) this.googleBtn.style.display = 'none';
+        if (this.googleBtn) this.googleBtn.style.display = isRegister ? 'none' : 'inline-block';
+        if (this.forgotPasswordBtn) this.forgotPasswordBtn.style.display = isRegister ? 'none' : 'inline-block';
+
+        if (this.togglePasswordInput) {
+            this.togglePasswordInput.checked = false;
+            if (this.passwordInput) this.passwordInput.type = 'password';
+            if (this.passwordConfirmInput) this.passwordConfirmInput.type = 'password';
+        }
     }
 
     async signInWithGoogle() {
-        this.notify('Google ile giris gecici olarak kapatildi. Lutfen e-posta ve parola ile kayit olun.', 'info');
+        if (!window.firebase || !firebase.auth) {
+            this.notify('Google giriş şu anda kullanılamıyor.', 'error');
+            return;
+        }
+
+        try {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            provider.setCustomParameters({ prompt: 'select_account' });
+            const result = await this.auth.signInWithPopup(provider);
+
+            const isNewUser = Boolean(result && result.additionalUserInfo && result.additionalUserInfo.isNewUser);
+            if (isNewUser) {
+                await this.auth.signOut();
+                this.notify('Google ile ilk kayıt KVKK onayı nedeniyle kapalıdır. Lütfen e-posta ile kayıt olun.', 'info');
+                return;
+            }
+
+            this.notify('Google hesabınızla giriş başarılı.', 'success');
+            this.closeLoginModal();
+        } catch (err) {
+            this.notify(this.mapAuthError(err), 'error');
+        }
+    }
+
+    async sendPasswordResetEmail() {
+        const email = this.emailInput ? this.emailInput.value.trim() : '';
+        if (!email) {
+            this.notify('Şifre sıfırlama için önce e-posta adresinizi yazın.', 'error');
+            return;
+        }
+
+        try {
+            await this.auth.sendPasswordResetEmail(email);
+            this.notify('Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.', 'success');
+        } catch (err) {
+            this.notify(this.mapAuthError(err), 'error');
+        }
     }
 
     async register() {
@@ -106,12 +165,12 @@ class AuthManager {
         const termsApproved = Boolean(this.termsConsentInput && this.termsConsentInput.checked);
 
         if (password !== passwordConfirm) {
-            this.notify('Parola tekrar alani eslesmiyor.', 'error');
+            this.notify('Parola tekrar alanı eşleşmiyor.', 'error');
             return;
         }
 
         if (!kvkkApproved || !termsApproved) {
-            this.notify('Kayit icin KVKK aydinlatma metni ve kullanim kosullarini onaylaman gerekiyor.', 'error');
+            this.notify('Kayıt için KVKK aydınlatma metni ve kullanım koşullarını onaylamanız gerekiyor.', 'error');
             return;
         }
 
@@ -139,7 +198,7 @@ class AuthManager {
             this.mode = 'login';
             this.applyMode();
             this.form.reset();
-            this.notify('Kayit tamamlandi. E-postani dogrulayip giris yap.', 'success');
+            this.notify('Kayıt tamamlandı. E-postanızı doğrulayıp giriş yapın.', 'success');
         } catch (err) {
             this.notify(this.mapAuthError(err), 'error');
         }
@@ -154,11 +213,11 @@ class AuthManager {
 
             if (CONFIG.AUTH.REQUIRE_EMAIL_VERIFICATION && !cred.user.emailVerified) {
                 await this.auth.signOut();
-                this.notify('E-posta dogrulamasi olmadan giris yapamazsin.', 'error');
+                this.notify('E-posta doğrulaması olmadan giriş yapamazsınız.', 'error');
                 return;
             }
 
-            this.notify('Giris basarili.', 'success');
+            this.notify('Giriş başarılı.', 'success');
             this.closeLoginModal();
         } catch (err) {
             this.notify(this.mapAuthError(err), 'error');
@@ -178,7 +237,7 @@ class AuthManager {
             const cred = await this.auth.signInWithEmailAndPassword(email, password);
             await cred.user.sendEmailVerification();
             await this.auth.signOut();
-            this.notify('Dogrulama e-postasi tekrar gonderildi.', 'success');
+            this.notify('Doğrulama e-postası tekrar gönderildi.', 'success');
         } catch (err) {
             this.notify(this.mapAuthError(err), 'error');
         }
@@ -250,16 +309,16 @@ class AuthManager {
 
     mapAuthError(err) {
         const code = err && err.code ? err.code : '';
-        if (code === 'auth/email-already-in-use') return 'Bu e-posta zaten kayitli.';
-        if (code === 'auth/invalid-email') return 'Gecersiz e-posta adresi.';
-        if (code === 'auth/weak-password') return 'Parola en az 6 karakter olmalidir.';
-        if (code === 'auth/user-not-found') return 'Bu e-posta ile hesap bulunamadi.';
-        if (code === 'auth/wrong-password') return 'Parola hatali.';
-        if (code === 'auth/too-many-requests') return 'Cok fazla deneme yapildi. Daha sonra tekrar deneyin.';
-        if (code === 'auth/popup-closed-by-user') return 'Google giris penceresi kapatildi.';
-        if (code === 'auth/popup-blocked') return 'Tarayici popup engelledi. Izin verip tekrar dene.';
-        if (code === 'auth/account-exists-with-different-credential') return 'Bu e-posta farkli bir yontem ile kayitli.';
-        return 'Islem tamamlanamadi. Lutfen tekrar deneyin.';
+        if (code === 'auth/email-already-in-use') return 'Bu e-posta zaten kayıtlı.';
+        if (code === 'auth/invalid-email') return 'Geçersiz e-posta adresi.';
+        if (code === 'auth/weak-password') return 'Parola en az 6 karakter olmalıdır.';
+        if (code === 'auth/user-not-found') return 'Bu e-posta ile hesap bulunamadı.';
+        if (code === 'auth/wrong-password') return 'Parola hatalı.';
+        if (code === 'auth/too-many-requests') return 'Çok fazla deneme yapıldı. Daha sonra tekrar deneyin.';
+        if (code === 'auth/popup-closed-by-user') return 'Google giriş penceresi kapatıldı.';
+        if (code === 'auth/popup-blocked') return 'Tarayıcı popup engelledi. İzin verip tekrar deneyin.';
+        if (code === 'auth/account-exists-with-different-credential') return 'Bu e-posta farklı bir yöntem ile kayıtlı.';
+        return 'İşlem tamamlanamadı. Lütfen tekrar deneyin.';
     }
 }
 

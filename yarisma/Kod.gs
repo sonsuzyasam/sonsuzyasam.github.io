@@ -205,10 +205,16 @@ function doPost(e) {
     if (!action) throw new Error('Missing action');
 
     validateOrigin_(String(body.origin || ''));
-    var auth = verifyFirebaseToken_(body && body.auth ? body.auth.idToken : '');
-    authEmail = auth.email;
+    var isPublicAction = action === 'getLeaderboard';
+    var auth = { uid: 'public', email: '', verified: false };
 
-    enforceRateLimit_(auth.uid, action);
+    if (isPublicAction) {
+      enforceRateLimit_('public:' + String(body.origin || 'unknown'), action);
+    } else {
+      auth = verifyFirebaseToken_(body && body.auth ? body.auth.idToken : '');
+      authEmail = auth.email;
+      enforceRateLimit_(auth.uid, action);
+    }
 
     var result;
     switch (action) {

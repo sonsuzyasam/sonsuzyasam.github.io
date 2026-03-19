@@ -266,6 +266,24 @@
             flex-wrap: wrap;
         }
 
+        .ark-source-search {
+            display: flex;
+            gap: 0.6rem;
+            width: 100%;
+            margin-top: 0.35rem;
+        }
+
+        .ark-source-search input {
+            flex: 1;
+            min-width: 160px;
+            border: 1px solid rgba(139,94,60,0.28);
+            border-radius: 8px;
+            padding: 0.55rem 0.7rem;
+            font-size: 0.9rem;
+            color: #4f3929;
+            background: rgba(255,255,255,0.95);
+        }
+
         .ark-source-link {
             color: var(--ark-brown);
             font-weight: 700;
@@ -601,6 +619,12 @@
             animation: pulse 1s infinite;
         }
 
+        .ark-timer-bottom {
+            display: inline-flex;
+            margin-top: 0.8rem;
+            margin-bottom: 0;
+        }
+
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50%       { opacity: 0.6; }
@@ -659,11 +683,20 @@
         }
 
         /* ===== Responsive ===== */
+        @media (max-width: 900px) {
+            .ark-question-card { padding: 1.1rem; }
+            .ark-source-actions { gap: 0.5rem; }
+        }
+
         @media (max-width: 600px) {
             .ark-header { padding: 1rem; }
             .ark-quiz-wrap { padding: 1rem; }
             .ark-score-big { font-size: 2.5rem; }
             .ark-nav { flex-direction: column; }
+            .ark-source-actions { flex-direction: column; align-items: stretch; }
+            .ark-source-search { flex-direction: column; }
+            .ark-source-search input { width: 100%; }
+            .ark-timer-bottom { align-self: center; }
             .btn-ark-primary, .btn-ark-secondary { width: 100%; text-align: center; }
         }
     </style>
@@ -756,6 +789,7 @@
                     Sonuçları Gör
                 </button>
             </div>
+            <div id="arkTimerBottom" class="ark-timer ark-timer-bottom">⏱ 20:00</div>
         </div>
 
         <!-- Results Screen -->
@@ -827,6 +861,7 @@
     <script>
     // ===== Arkeoloji Quiz Questions =====
     const ARK_QUESTIONS = (window.QUESTION_BANKS && window.QUESTION_BANKS.arkeoloji) || [];
+    const SHARE_TARGET_URL = 'https://www.arkeoloji.biz/2026/03/dunyayi-kurtarmak.html';
 
     // ===== Arkeoloji Quiz Controller =====
     const arkQuiz = (() => {
@@ -852,7 +887,7 @@
         const startScreen = () => document.getElementById('arkStartScreen');
         const quizScreen = () => document.getElementById('arkQuizScreen');
         const resultsScreen = () => document.getElementById('arkResultsScreen');
-        const timerEl = () => document.getElementById('arkTimer');
+        const timerEls = () => [document.getElementById('arkTimer'), document.getElementById('arkTimerBottom')].filter(Boolean);
         const progressBar = () => document.getElementById('arkProgressBar');
         const progressLabel = () => document.getElementById('arkProgressLabel');
         const qContainer = () => document.getElementById('arkQuestionContainer');
@@ -877,6 +912,14 @@
         function getSearchUrl(question) {
             const query = encodeURIComponent(String(question.sourceTitle || question.topic || question.subject || question.text || 'arkeoloji').trim());
             return `https://www.arkeoloji.biz/search?q=${query}`;
+        }
+
+        function getSearchUrlByQuery(queryText, fallbackQuestion) {
+            const raw = String(queryText || '').trim();
+            if (raw) {
+                return `https://www.arkeoloji.biz/search?q=${encodeURIComponent(raw)}`;
+            }
+            return getSearchUrl(fallbackQuestion || {});
         }
 
         function getSourceDestination(question) {
@@ -1046,9 +1089,10 @@
             const safe = Math.max(0, timeLeft);
             const m = String(Math.floor(safe / 60)).padStart(2, '0');
             const s = String(safe % 60).padStart(2, '0');
-            const el = timerEl();
-            el.textContent = `⏱ ${m}:${s}`;
-            el.classList.toggle('warning', timeLeft <= 60);
+            timerEls().forEach((el) => {
+                el.textContent = `⏱ ${m}:${s}`;
+                el.classList.toggle('warning', timeLeft <= 60);
+            });
         }
 
         function renderQuestion() {
@@ -1074,11 +1118,15 @@
                     </div>
                     <div class="ark-q-number">Soru ${currentIdx + 1}</div>
                     <div class="ark-source-panel">
-                        <p><strong>Arkeoloji.biz Uyarani</strong></p>
-                        <p>Sorunun kaynagini gormek istersen once ilgili icerige bakip sonra soruya don.</p>
+                        <p><strong>Arkeoloji.biz Uyarısı</strong></p>
+                        <p>İpuçları için arkeoloji.biz sekmesini açık tut. Aşağıdan istediğin kelimeyi yazarak ara.</p>
                         <div class="ark-source-actions">
                             <a class="ark-source-link" href="${getSourceDestination(q)}" target="_blank" rel="noopener">${getSourceLabel(q)}</a>
-                            <a class="ark-source-link secondary" href="${getSearchUrl(q)}" target="_blank" rel="noopener">Arkeoloji.biz aramasinda konuya bak</a>
+                            <a class="ark-source-link secondary" href="${getSearchUrl(q)}" target="_blank" rel="noopener">Arkeoloji.biz aramasında konuya bak</a>
+                            <div class="ark-source-search">
+                                <input id="arkSearchInput" type="text" placeholder="Aramak istediğiniz kelime">
+                                <button id="arkSearchBtn" class="btn-ark-secondary" type="button">Ara</button>
+                            </div>
                         </div>
                     </div>
                     <div class="ark-q-text">${q.text}</div>
@@ -1101,6 +1149,25 @@
             document.querySelectorAll('#arkOptions .ark-option').forEach((el) => {
                 el.addEventListener('click', () => selectOption(Number(el.dataset.idx)));
             });
+
+            const searchBtn = document.getElementById('arkSearchBtn');
+            const searchInput = document.getElementById('arkSearchInput');
+            const openSearch = () => {
+                const url = getSearchUrlByQuery(searchInput ? searchInput.value : '', q);
+                window.open(url, '_blank', 'noopener');
+            };
+
+            if (searchBtn) {
+                searchBtn.addEventListener('click', openSearch);
+            }
+            if (searchInput) {
+                searchInput.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        openSearch();
+                    }
+                });
+            }
 
             answerBtn().style.display = 'inline-flex';
             answerBtn().disabled = selectedIdx === undefined;
@@ -1166,8 +1233,8 @@
             if (!isLast && !streakBroken && currentMilestone.correct > previousMilestone.correct && !announcedMilestones[currentMilestone.correct]) {
                 announcedMilestones[currentMilestone.correct] = true;
                 showDecision({
-                    title: `Tebrikler, ${currentMilestone.correct}. baraji gectin`,
-                    body: `Guvenli kasan su an <strong>${currentMilestone.cashLabel}</strong>. Istersen burada sonucu alabilir, istersen siradaki baraj icin devam edebilirsin.`,
+                    title: `Tebrikler, ${currentMilestone.correct}. barajı geçtin`,
+                    body: `Güvenli kasan şu an <strong>${currentMilestone.cashLabel}</strong>. İstersen burada sonucu alabilir, istersen sıradaki baraj için devam edebilirsin.`,
                     primaryLabel: 'Devam et',
                     secondaryLabel: 'Tamam, sonucu al',
                     onPrimary: () => {
@@ -1180,11 +1247,11 @@
 
             if (!isLast && !isCorrect) {
                 showDecision({
-                    title: previousMilestone.correct > 0 ? 'Seri bozuldu' : 'Ilk hata geldi',
+                    title: previousMilestone.correct > 0 ? 'Seri bozuldu' : 'İlk hata geldi',
                     body: previousMilestone.correct > 0
-                        ? `Guvenli kasan <strong>${previousMilestone.cashLabel}</strong> seviyesinde kaldi. Bundan sonra devam edersen sadece ogrenme modunda ilerlersin.`
-                        : 'Henuz bir baraj acilmadan hata yaptin. Istersen sonucu gorebilir, istersen kalan sorulari ogrenme modunda tamamlayabilirsin.',
-                    primaryLabel: 'Ogrenme modunda devam et',
+                        ? `Güvenli kasan <strong>${previousMilestone.cashLabel}</strong> seviyesinde kaldı. Bundan sonra devam edersen sadece öğrenme modunda ilerlersin.`
+                        : 'Henüz bir baraj açılmadan hata yaptın. İstersen sonucu görebilir, istersen kalan soruları öğrenme modunda tamamlayabilirsin.',
+                    primaryLabel: 'Öğrenme modunda devam et',
                     secondaryLabel: 'Tamam, sonucu al',
                     onPrimary: () => {
                         nextBtn().style.display = 'inline-flex';
@@ -1195,7 +1262,7 @@
             }
 
             if (isLast) {
-                finishBtn().style.display = 'inline-flex';
+                finish('completed');
             } else {
                 nextBtn().style.display = 'inline-flex';
             }
@@ -1243,9 +1310,10 @@
             const milestoneHtml = milestone.correct > 0
                 ? `<div style="margin-top: 1rem; padding: 1rem; background: rgba(201,168,76,0.2); border: 2px solid var(--ark-gold); border-radius: 8px; text-align: center;"><p style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: var(--ark-dark); font-weight:600;">🏆 Kazandığınız Baraj:</p><p style="margin: 0; font-size: 1.5rem; font-weight:800; color: var(--ark-brown);">${milestone.cashLabel}</p><p style="margin: 0.3rem 0 0 0; font-size: 0.82rem; color: #6b5a45;">Kesintisiz ${milestone.correct} dogruya ulastiniz</p></div>`
                 : `<div style="margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); border-radius: 8px; text-align: center;"><p style="margin:0; font-size:0.92rem;">Bu turda baraj acilmadi. Istersen tekrar deneyebilir ya da kaynaklara donebilirsin.</p></div>`;
-            const shareText = encodeURIComponent(`Arkeoloji Bilgi Yarismasi'nda ${correct}/${total} yaptim. Guvenli kasam: ${milestone.cashLabel}. Sen de dene!`);
-            const shareUrl = encodeURIComponent(`${window.location.origin}${window.location.pathname}`);
-            scoreCard.insertAdjacentHTML('beforeend', `<div class="ark-dynamic-summary">${milestoneHtml}<p style="margin-top: 0.75rem; font-size: 0.84rem; opacity: 0.9;">Misafir modunda puan yazilmaz. Odul puani icin platform hesabiyla giris yapin.</p><p style="margin-top: 0.35rem; font-size: 0.8rem; opacity: 0.75;">Bitis nedeni: ${reason === 'cashout' ? 'Barajda kasaya alma' : reason === 'streak-break' ? 'Hata sonrasi sonlandirma' : reason === 'timeout' ? 'Sure doldu' : 'Tum sorular tamamlandi'}</p><div class="ark-share-actions"><a class="btn-ark-primary" href="https://wa.me/?text=${shareText}%20${shareUrl}" target="_blank" rel="noopener">WhatsApp'ta Paylas</a><a class="btn-ark-secondary" href="https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}" target="_blank" rel="noopener">X'te Paylas</a><button id="arkCopyShareBtn" class="btn-ark-secondary" type="button">Baglantiyi Kopyala</button></div></div>`);
+            const shareMessage = `Arkeoloji Biz Quiz yarışında ${correct}/${total} yaptım. Güvenli kasam: ${milestone.cashLabel}. Sen de dene! Bir kişi 1 lira kazanırken, 1 milyon kişi bir fabrika kurar. Hem bilginizi sınayın, hem de linki sevdiklerinizle paylaşarak dijital imeceye katkıda bulunun.`;
+            const shareText = encodeURIComponent(shareMessage);
+            const shareUrl = encodeURIComponent(SHARE_TARGET_URL);
+            scoreCard.insertAdjacentHTML('beforeend', `<div class="ark-dynamic-summary">${milestoneHtml}<p style="margin-top: 0.75rem; font-size: 0.84rem; opacity: 0.9;">Misafir modunda puan yazılmaz. Ödül puanı için platform hesabıyla giriş yapın.</p><p style="margin-top: 0.35rem; font-size: 0.8rem; opacity: 0.75;">Bitiş nedeni: ${reason === 'cashout' ? 'Barajda kasaya alma' : reason === 'streak-break' ? 'Hata sonrası sonlandırma' : reason === 'timeout' ? 'Süre doldu' : 'Tüm sorular tamamlandı'}</p><div class="ark-share-actions"><a class="btn-ark-primary" href="https://wa.me/?text=${shareText}%20${shareUrl}" target="_blank" rel="noopener">WhatsApp'ta Paylaş</a><a class="btn-ark-secondary" href="https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${shareText}" target="_blank" rel="noopener">Facebook'ta Paylaş</a><a class="btn-ark-secondary" href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram'da Paylaş</a><button id="arkCopyShareBtn" class="btn-ark-secondary" type="button">Paylaşım Metnini Kopyala</button></div></div>`);
 
             const reviewList = document.getElementById('arkReviewList');
             reviewList.innerHTML = questions.map((q, i) => {
@@ -1285,7 +1353,7 @@
             if (copyBtn) {
                 copyBtn.addEventListener('click', async () => {
                     try {
-                        await navigator.clipboard.writeText(`Arkeoloji Bilgi Yarismasi'nda ${correct}/${total} yaptim. Guvenli kasam: ${milestone.cashLabel}. ${window.location.origin}${window.location.pathname}`);
+                        await navigator.clipboard.writeText(`${shareMessage} ${SHARE_TARGET_URL}`);
                         alert('Paylasim metni panoya kopyalandi.');
                     } catch (_) {
                         alert('Pano kopyalama basarisiz oldu.');
