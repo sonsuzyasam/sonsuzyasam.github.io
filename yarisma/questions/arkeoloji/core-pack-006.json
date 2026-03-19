@@ -1,0 +1,362 @@
+[
+  {
+    "id": "ARK100_081",
+    "subject": "Kazida Buluntu Tanimlama - Kemik",
+    "difficulty": "Orta",
+    "question": "Hayvan kemigi buluntulari arkeologlara en dogrudan hangi konuda bilgi saglayabilir?",
+    "options": {
+      "A": "Toplumun beslenme ve hayvancilik uygulamalari",
+      "B": "Gezegenlerin hareketi",
+      "C": "Roma yol olculeri",
+      "D": "Mermer ocagi verimi",
+      "E": "Sadece modern kirlilik"
+    },
+    "answer": "A",
+    "rationale": "Zooarkeolojik calismalar, kemik kalintilarindan beslenme, ekonomi ve hayvancilik hakkinda veri uretir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=kemik%20buluntu%20arkeoloji",
+    "sourceTitle": "Arkeoloji.biz aramasinda: kemik buluntular",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_082",
+    "subject": "Anadolu Inanc Dunyasi - Ana Tanrica",
+    "difficulty": "Zor",
+    "question": "Anadolu ana tanrica kultleri baglaminda adi sikca anilan figurlardan biri hangisidir?",
+    "options": {
+      "A": "Kybele",
+      "B": "Athena",
+      "C": "Poseidon",
+      "D": "Ares",
+      "E": "Helios"
+    },
+    "answer": "A",
+    "rationale": "Kybele, Anadolu kokenli ana tanrica gelenekleriyle sikca iliskilendirilir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=ana%20tanrica%20Kybele",
+    "sourceTitle": "Arkeoloji.biz aramasinda: ana tanrica ve Kybele",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_083",
+    "subject": "Anadolu Inanc Dunyasi - Tapinak Ekonomisi",
+    "difficulty": "Zor",
+    "question": "Tapinak ekonomisi kavrami en cok hangi durumu anlatir?",
+    "options": {
+      "A": "Tapinagin yalnizca ibadet mekani olmasini",
+      "B": "Depolama, dagitim ve kaynak yonetiminde de rol ustlenmesini",
+      "C": "Kent planindan tamamen bagimsiz olmasini",
+      "D": "Yalnizca mezar yapisi gibi kullanilmasini",
+      "E": "Sikke basmanin yasak olmasini"
+    },
+    "answer": "B",
+    "rationale": "Bircok antik toplumda tapinaklar ekonomik depolama ve dagitim merkezleri olarak da islev gorebilirdi.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=tapinak%20ekonomisi",
+    "sourceTitle": "Arkeoloji.biz aramasinda: tapinak ekonomisi",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_084",
+    "subject": "Su Sistemleri - Sarnic",
+    "difficulty": "Orta",
+    "question": "Sarnic yapilarinin temel islevi nedir?",
+    "options": {
+      "A": "Su depolamak",
+      "B": "Ates yakmak",
+      "C": "Tahil ogutmek",
+      "D": "Mezar odasi olmak",
+      "E": "Sikke basmak"
+    },
+    "answer": "A",
+    "rationale": "Sarniclar, suyun depolanmasi ve dagitimi icin tasarlanan altyapi unsurlaridir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=sarnic",
+    "sourceTitle": "Arkeoloji.biz aramasinda: sarnic",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_085",
+    "subject": "Su Sistemleri - Su Kemeri",
+    "difficulty": "Kolay",
+    "question": "Asagidaki yapilardan hangisi suyu uzak kaynaktan kente getirmek icin tasarlanmistir?",
+    "options": {
+      "A": "Stoa",
+      "B": "Su kemeri",
+      "C": "Lahit",
+      "D": "Bouleuterion",
+      "E": "Tumulus"
+    },
+    "answer": "B",
+    "rationale": "Su kemeri, topografyaya uyumlu bir sekilde su iletimine hizmet eder.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=su%20kemeri%20roma",
+    "sourceTitle": "Arkeoloji.biz aramasinda: su kemeri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_086",
+    "subject": "Su Sistemleri - Hamam Tesisati",
+    "difficulty": "Orta",
+    "question": "Roma hamamlarinda tabandan isitma saglayan sistem hangisidir?",
+    "options": {
+      "A": "Atrium",
+      "B": "Hypocaust",
+      "C": "Stylobat",
+      "D": "Triglif",
+      "E": "Volut"
+    },
+    "answer": "B",
+    "rationale": "Hypocaust sistemi, sicak havanin taban altinda dolasmasiyla isitma saglar.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=hypocaust%20roma%20hamami",
+    "sourceTitle": "Arkeoloji.biz aramasinda: hypocaust",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_087",
+    "subject": "Yazi ve Belgeler - Civi Yazisi",
+    "difficulty": "Kolay",
+    "question": "Civi yazisi en cok hangi malzeme uzerine basilarak olusturulmustur?",
+    "options": {
+      "A": "Kil tablet",
+      "B": "Celik levha",
+      "C": "Kagit tomar",
+      "D": "Cam siseler",
+      "E": "Kiremit cati"
+    },
+    "answer": "A",
+    "rationale": "Civi yazisi, yumusak kil uzerine kamis kalemle iz birakilarak yazilirdi.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=civi%20yazisi%20tablet",
+    "sourceTitle": "Arkeoloji.biz aramasinda: civi yazisi ve tablet",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_088",
+    "subject": "Yazi ve Belgeler - Hiyeroglif",
+    "difficulty": "Kolay",
+    "question": "Hiyeroglif terimi genel olarak nasil bir yaziyi ifade eder?",
+    "options": {
+      "A": "Tamamen sayisal kodlari",
+      "B": "Resimsel/sekilsel isaretlere dayali yaziyi",
+      "C": "Yalnizca Latin harflerini",
+      "D": "Modern stenografi sistemini",
+      "E": "Morse alfabesini"
+    },
+    "answer": "B",
+    "rationale": "Hiyeroglif, goruntusel isaretlerin yazisal anlam tasidigi sistemleri tanimlar.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=hiyeroglif",
+    "sourceTitle": "Arkeoloji.biz aramasinda: hiyeroglif",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_089",
+    "subject": "Yazi ve Belgeler - Tablet Arsivleri",
+    "difficulty": "Orta",
+    "question": "Anadolu arkeolojisinde cok sayida tablet arsiviyle taninan merkezlerden biri hangisidir?",
+    "options": {
+      "A": "Hattusa",
+      "B": "Patara",
+      "C": "Kaunos",
+      "D": "Aigai",
+      "E": "Sidyma"
+    },
+    "answer": "A",
+    "rationale": "Hattusa'da ortaya cikarilan tablet arsivleri Hitit idaresi ve yazisi icin temel kaynaklardandir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Hattusa%20tablet%20arsivi",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Hattusa tablet arsivi",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_090",
+    "subject": "Denizcilik Arkeolojisi - Batiklar",
+    "difficulty": "Orta",
+    "question": "Denizcilik arkeolojisi en temelde hangi tur kalintilarla ilgilenir?",
+    "options": {
+      "A": "Yalnizca dag kaleleriyle",
+      "B": "Su alti batiklari ve kiyi baglantili kalintilarla",
+      "C": "Sadece tapinak yazitlariyla",
+      "D": "Yalnizca tarim aletleriyle",
+      "E": "Sadece modern limanlarla"
+    },
+    "answer": "B",
+    "rationale": "Denizcilik arkeolojisi, su alti kultur varliklarini ve deniz ticaret baglantilarini inceler.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=denizcilik%20arkeolojisi%20batik",
+    "sourceTitle": "Arkeoloji.biz aramasinda: denizcilik arkeolojisi ve batiklar",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_091",
+    "subject": "Denizcilik Arkeolojisi - Yuk Analizi",
+    "difficulty": "Zor",
+    "question": "Bir batik geminin yukunun analizi arkeologlara en cok hangi konuda bilgi verir?",
+    "options": {
+      "A": "Yalnizca geminin boya rengini",
+      "B": "Ticaret rotalari ve ekonomik iliskileri",
+      "C": "Muzik geleneklerini",
+      "D": "Meteorolojik tahminleri",
+      "E": "Sadece modern liman kurallarini"
+    },
+    "answer": "B",
+    "rationale": "Yuk turleri ve dagilimi, ticaret aglari ile ekonomik iliskiler hakkinda guclu kanitlar sunar.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=batik%20yuk%20analizi",
+    "sourceTitle": "Arkeoloji.biz aramasinda: batik yuk analizi",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_092",
+    "subject": "Koruma ve Restorasyon - Belgeleme",
+    "difficulty": "Kolay",
+    "question": "Koruma ve restorasyon uygulamalarinda temel ilke olarak once hangisi yapilmalidir?",
+    "options": {
+      "A": "Anlik boya uygulamasi",
+      "B": "Belgeleme ve durum tespiti",
+      "C": "Tum yuzeyin taslanmasi",
+      "D": "Muze vitrini secimi",
+      "E": "Yeni parca uretimi"
+    },
+    "answer": "B",
+    "rationale": "Saglikli koruma kararlari icin once eserin mevcut durumu ayrintili bicimde belgelenir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=koruma%20belgeleme",
+    "sourceTitle": "Arkeoloji.biz aramasinda: koruma ve belgeleme",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_093",
+    "subject": "Koruma ve Restorasyon - Anastylosis",
+    "difficulty": "Zor",
+    "question": "Anastylosis terimi koruma pratiğinde neyi ifade eder?",
+    "options": {
+      "A": "Orijinal bloklari kullanarak yapinin yeniden ayaga kaldirilmasini",
+      "B": "Tumuyle betonla yeniden insa etmeyi",
+      "C": "Tarihi yapinin tasinmasini",
+      "D": "Buluntularin yakilarak sterilize edilmesini",
+      "E": "Kaziyi durdurma kararini"
+    },
+    "answer": "A",
+    "rationale": "Anastylosis, mevcut ozgun mimari elemanlarin bilimsel bicimde tekrar birlestirilmesidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=anastylosis",
+    "sourceTitle": "Arkeoloji.biz aramasinda: anastylosis",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_094",
+    "subject": "Koruma ve Restorasyon - Yerinde Koruma",
+    "difficulty": "Orta",
+    "question": "Yerinde koruma yaklasimi hangi dusunceye dayanir?",
+    "options": {
+      "A": "Tum eserlerin mutlaka depoya kaldirilmasina",
+      "B": "Buluntunun kendi baglaminda korunmasinin tercih edilmesine",
+      "C": "Her buluntunun satisa cikarilmasina",
+      "D": "Kazinin sadece kis aylarinda yapilmasina",
+      "E": "Yazitlarin silinmesine"
+    },
+    "answer": "B",
+    "rationale": "Yerinde koruma, eserin baglamini ve cevresel iliskilerini korumayi onceler.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=yerinde%20koruma",
+    "sourceTitle": "Arkeoloji.biz aramasinda: yerinde koruma",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_095",
+    "subject": "Muze ve Sergileme - Envanter",
+    "difficulty": "Kolay",
+    "question": "Muze envanter kaydinin temel amaci asagidakilerden hangisidir?",
+    "options": {
+      "A": "Eserin takibini ve temel bilgilerinin resmi kaydini saglamak",
+      "B": "Eseri daha agir gostermek",
+      "C": "Yalnizca vitrinin rengini belirlemek",
+      "D": "Buluntuyu anonimlestirmek",
+      "E": "Sergi metnini kisa tutmak"
+    },
+    "answer": "A",
+    "rationale": "Envanter, kimliklendirme, takip ve koruma surecinin temel kayit adimidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=muze%20envanter",
+    "sourceTitle": "Arkeoloji.biz aramasinda: muze envanteri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_096",
+    "subject": "Muze ve Sergileme - Etiketleme",
+    "difficulty": "Kolay",
+    "question": "Bir muze eser etiketinde bulunmasi beklenen temel bilgilerden biri hangisidir?",
+    "options": {
+      "A": "Eserin baglami veya donemi",
+      "B": "Sergi gorevlisinin telefon numarasi",
+      "C": "Anlik hava durumu",
+      "D": "Bina kira bedeli",
+      "E": "Sadece vitrinin uretici markasi"
+    },
+    "answer": "A",
+    "rationale": "Etiketleme, ziyaretciye eserin donemi, yeri ve islevine dair temel yorumlama bilgisini sunar.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=muze%20etiketleme",
+    "sourceTitle": "Arkeoloji.biz aramasinda: muze etiketleme",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_097",
+    "subject": "Muze ve Sergileme - Buluntu Baglami",
+    "difficulty": "Orta",
+    "question": "Bir eserin muzede sadece guzel bir nesne olarak degil de anlamli bir tarihsel kanit olarak sunulmasini saglayan en onemli unsur hangisidir?",
+    "options": {
+      "A": "Vitrinin parlakligi",
+      "B": "Buluntu baglami ve yorumlayici bilgi",
+      "C": "Sadece eserin buyuklugu",
+      "D": "Fotograf sayisinin coklugu",
+      "E": "Bilet fiyatinin dusuklugu"
+    },
+    "answer": "B",
+    "rationale": "Muze anlatisi, eserin baglamiyla birlikte verildiginde bilimsel anlam kazanir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=buluntu%20baglami%20muze",
+    "sourceTitle": "Arkeoloji.biz aramasinda: buluntu baglami ve muze",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_098",
+    "subject": "Genel Tekrar - Karisik",
+    "difficulty": "Orta",
+    "question": "Asagidaki eslestirmelerden hangisi dogrudur?",
+    "options": {
+      "A": "Epigrafi - seramik firinlari",
+      "B": "Numizmatik - sikkeler",
+      "C": "Naos - tiyatro oturma siralari",
+      "D": "Agora - mezar odasi",
+      "E": "Tumulus - su kemeri"
+    },
+    "answer": "B",
+    "rationale": "Numizmatik, sikke ve para tarihini inceleyen yardimci bilimdir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=numizmatik",
+    "sourceTitle": "Arkeoloji.biz aramasinda: numizmatik",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_099",
+    "subject": "Genel Tekrar - Karisik",
+    "difficulty": "Orta",
+    "question": "Asagidakilerden hangisi tarihleme yontemi ile malzeme arasinda dogru bir iliski kurar?",
+    "options": {
+      "A": "Dendrokronoloji - agac",
+      "B": "Termoluminesans - tunel duvari boyasi",
+      "C": "Karbon-14 - granit sutun",
+      "D": "Epigrafi - insan disi",
+      "E": "Numizmatik - polen"
+    },
+    "answer": "A",
+    "rationale": "Dendrokronoloji, agac halkalari uzerinden calisir; diger eslesmeler yanlistir veya baglam disidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=dendrokronoloji",
+    "sourceTitle": "Arkeoloji.biz aramasinda: dendrokronoloji",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_100",
+    "subject": "Genel Tekrar - Final",
+    "difficulty": "Zor",
+    "question": "Bir arkeolog icin asagidakilerden hangisi bilimsel yorumun en saglam temelini olusturur?",
+    "options": {
+      "A": "Buluntuyu baglamindan koparip yalnizca estetik degerine bakmak",
+      "B": "Buluntuyu baglami, tabakasi ve iliskili verileriyle birlikte degerlendirmek",
+      "C": "Yalnizca sosyal medya paylasimlarina dayanmak",
+      "D": "Eski eserlere modern isimler vermek",
+      "E": "Benzer renkli tum eserleri ayni doneme koymak"
+    },
+    "answer": "B",
+    "rationale": "Arkeolojik yorumun gucu, nesneyi baglamiyla birlikte incelemekten gelir; tekil nesne bilgisi yeterli degildir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=buluntu%20baglami",
+    "sourceTitle": "Arkeoloji.biz aramasinda: buluntu baglami",
+    "reviewStatus": "approved"
+  }
+]

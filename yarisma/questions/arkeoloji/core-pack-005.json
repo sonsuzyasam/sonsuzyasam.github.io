@@ -1,0 +1,362 @@
+[
+  {
+    "id": "ARK100_061",
+    "subject": "Seramik - Amphora",
+    "difficulty": "Kolay",
+    "question": "Amphora tipi kaplar antik dunyada en cok hangi amacla kullanilmistir?",
+    "options": {
+      "A": "Tahkimat duvari yapmak",
+      "B": "Sivi ve urun depolama/tasima",
+      "C": "Muzik aleti olarak",
+      "D": "Yildiz gozlemi icin",
+      "E": "Silah uretmek icin"
+    },
+    "answer": "B",
+    "rationale": "Amphoralar, zeytinyagi, sarap ve benzeri urunlerin depolanmasi ve tasinmasinda kullanilmistir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=amphora%20seramik",
+    "sourceTitle": "Arkeoloji.biz aramasinda: amphora ve seramik",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_062",
+    "subject": "Seramik - Krater",
+    "difficulty": "Orta",
+    "question": "Krater olarak adlandirilan seramik kaplar en cok hangi islevle iliskilidir?",
+    "options": {
+      "A": "Su saklama ve olculendirme",
+      "B": "Sarap ile suyu karistirma",
+      "C": "Tahil pisirme",
+      "D": "Parfum katilastirma",
+      "E": "Mumyalama"
+    },
+    "answer": "B",
+    "rationale": "Krater, ziyafet kulturunde sarap ile suyun karistirildigi kap turudur.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=krater%20seramik",
+    "sourceTitle": "Arkeoloji.biz aramasinda: krater",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_063",
+    "subject": "Seramik - Lekythos",
+    "difficulty": "Zor",
+    "question": "Lekythos tipi kaplar asagidaki kullanimlardan hangisiyle daha cok bagdastirilir?",
+    "options": {
+      "A": "Yag ve kimi zaman mezar baglami",
+      "B": "Askeri erzak depolama",
+      "C": "Maden eritme",
+      "D": "Su kemeri olcumu",
+      "E": "Baharat ogutme"
+    },
+    "answer": "A",
+    "rationale": "Lekythos, ince boyunlu formu ve yag ile iliskili kullanimiyla bilinir; cenaze baglamlarinda da gorulur.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=lekythos",
+    "sourceTitle": "Arkeoloji.biz aramasinda: lekythos",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_064",
+    "subject": "Seramik - Kirmizi Figurlu Teknik",
+    "difficulty": "Orta",
+    "question": "Kirmizi figurlu Yunan seramiginde figurlar ve zemin arasindaki temel renk iliskisi nasildir?",
+    "options": {
+      "A": "Figurlar siyah, zemin beyaz",
+      "B": "Figurlar kil renginde, zemin siyah",
+      "C": "Figurlar mavi, zemin yesil",
+      "D": "Figurlar beyaz, zemin mavi",
+      "E": "Tum yuzey altin varakla kapli"
+    },
+    "answer": "B",
+    "rationale": "Kirmizi figurlu teknikte figurlar kilin dogal renginde birakilir, arka plan koyu renklenir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=kirmizi%20figurlu%20seramik",
+    "sourceTitle": "Arkeoloji.biz aramasinda: kirmizi figurlu seramik",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_065",
+    "subject": "Mezar Arkeolojisi - Tumulus",
+    "difficulty": "Orta",
+    "question": "Tumulus icin en uygun tanim hangisidir?",
+    "options": {
+      "A": "Tas kemerli su kanali",
+      "B": "Toprak yigini altina yerlestirilmis anitsal mezar",
+      "C": "Tapinak giris kapisi",
+      "D": "Acik pazar alani",
+      "E": "Kayaya islenmis yazit paneli"
+    },
+    "answer": "B",
+    "rationale": "Tumulus, ustu toprak yigini ile ortulen mezar yapisi olarak tanimlanir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=tumulus%20mezar",
+    "sourceTitle": "Arkeoloji.biz aramasinda: tumulus mezarlar",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_066",
+    "subject": "Mezar Arkeolojisi - Lahit",
+    "difficulty": "Kolay",
+    "question": "Lahit terimi hangi nesneyi ifade eder?",
+    "options": {
+      "A": "Tas veya mermer tabut",
+      "B": "Roma hamami kazan dairesi",
+      "C": "Tapinak sunaq tasi",
+      "D": "Sikke basim kalibi",
+      "E": "Ticari ambar"
+    },
+    "answer": "A",
+    "rationale": "Lahit, genellikle tas veya mermerden yapilmis tabut tipidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=lahit",
+    "sourceTitle": "Arkeoloji.biz aramasinda: lahit",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_067",
+    "subject": "Mezar Arkeolojisi - Kaya Mezarlari",
+    "difficulty": "Orta",
+    "question": "Anadolu'da anitsal cepheli kaya mezarlariyla ozellikle hangi bolge one cikar?",
+    "options": {
+      "A": "Likya",
+      "B": "Bithynia",
+      "C": "Troas",
+      "D": "Pamphylia",
+      "E": "Kilikia Pedias"
+    },
+    "answer": "A",
+    "rationale": "Likya bolgesi, kaya mezari gelenegiyle arkeoloji literaturunde ozel bir yere sahiptir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Likya%20kaya%20mezari",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Likya kaya mezarlari",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_068",
+    "subject": "Din ve Rituel - Sunak",
+    "difficulty": "Kolay",
+    "question": "Sunak yapilari arkeolojik olarak en cok hangi isle iliskilendirilir?",
+    "options": {
+      "A": "Su depolama",
+      "B": "Rituel ve adak uygulamalari",
+      "C": "Askeri tatbikat",
+      "D": "Kumas dokuma",
+      "E": "Yol olcumu"
+    },
+    "answer": "B",
+    "rationale": "Sunak, kurban ve adak gibi rituel etkinliklerin odak noktasidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=sunak%20rituel",
+    "sourceTitle": "Arkeoloji.biz aramasinda: sunak ve rituel",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_069",
+    "subject": "Din ve Rituel - Kult Heykeli",
+    "difficulty": "Orta",
+    "question": "Bir tapinagin ana tanrisal temsilini olusturan kult heykeli en cok hangi mekanda bulunur?",
+    "options": {
+      "A": "Stoa",
+      "B": "Agora",
+      "C": "Naos",
+      "D": "Forum",
+      "E": "Gymnasium"
+    },
+    "answer": "C",
+    "rationale": "Kult heykelinin yeri genellikle tapinagin ana kutsal mekani olan naostur.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=kult%20heykeli%20naos",
+    "sourceTitle": "Arkeoloji.biz aramasinda: kult heykeli ve naos",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_070",
+    "subject": "Din ve Rituel - Nekropol",
+    "difficulty": "Kolay",
+    "question": "Nekropol terimi en dogru bicimde neyi tanimlar?",
+    "options": {
+      "A": "Kent ici kapali pazar yerini",
+      "B": "Kentin disindaki mezarlik alanini",
+      "C": "Yonetim sarayini",
+      "D": "Askeri depo alanini",
+      "E": "Yeralti su deposunu"
+    },
+    "answer": "B",
+    "rationale": "Nekropol, oluler sehri anlaminda mezarlik alanlarini ifade eder.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=nekropol",
+    "sourceTitle": "Arkeoloji.biz aramasinda: nekropol",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_071",
+    "subject": "Ekonomi ve Ticaret - Obsidyen",
+    "difficulty": "Orta",
+    "question": "Prehistorik donemde uzak mesafeli degisim aglarinda degerli bir hammadde olarak tasinan malzemelerden biri hangisidir?",
+    "options": {
+      "A": "Obsidyen",
+      "B": "Plastik",
+      "C": "Cimento",
+      "D": "Aluminyum folyo",
+      "E": "Paslanmaz celik"
+    },
+    "answer": "A",
+    "rationale": "Obsidyen, keskin kenar verebildigi icin tarihoncesinde onemli bir degisim malzemesidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=obsidyen%20ticareti",
+    "sourceTitle": "Arkeoloji.biz aramasinda: obsidyen ticareti",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_072",
+    "subject": "Ekonomi ve Ticaret - Liman Kentleri",
+    "difficulty": "Orta",
+    "question": "Antik bir liman kentinin ekonomik onemini artiran temel unsur hangisidir?",
+    "options": {
+      "A": "Ic tarima tamamen kapanik olmasi",
+      "B": "Deniz ticareti aglarina baglanmasi",
+      "C": "Yazisiz olmasi",
+      "D": "Yuksek dag zirvesinde kurulmasi",
+      "E": "Sadece mezar alani barindirmasi"
+    },
+    "answer": "B",
+    "rationale": "Liman kentleri, mal ve insan hareketini deniz uzerinden yonettikleri icin ekonomik guc kazanir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=liman%20kentleri%20antik",
+    "sourceTitle": "Arkeoloji.biz aramasinda: liman kentleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_073",
+    "subject": "Anadolu Cografyasi - Ege Bolgesi",
+    "difficulty": "Orta",
+    "question": "Asagidaki antik kentlerden hangisi Ege bolgesiyle en dogrudan iliskilidir?",
+    "options": {
+      "A": "Hattusa",
+      "B": "Efes",
+      "C": "Carchemish",
+      "D": "Samosata",
+      "E": "Hasankeyf"
+    },
+    "answer": "B",
+    "rationale": "Efes, Bati Anadolu ve Ege kiyisindaki en onemli antik merkezlerden biridir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Ege%20antik%20kentleri%20Efes",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Ege antik kentleri ve Efes",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_074",
+    "subject": "Anadolu Cografyasi - Ic Anadolu",
+    "difficulty": "Orta",
+    "question": "Catalhoyuk asagidaki cografi bolgelerden hangisinde yer alir?",
+    "options": {
+      "A": "Karadeniz",
+      "B": "Marmara",
+      "C": "Ic Anadolu",
+      "D": "Dogu Karadeniz",
+      "E": "Trakya"
+    },
+    "answer": "C",
+    "rationale": "Catalhoyuk, Konya ovasinda yer alan bir Ic Anadolu yerlesimidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Catalhoyuk",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Catalhoyuk",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_075",
+    "subject": "Anadolu Cografyasi - Guneydogu",
+    "difficulty": "Orta",
+    "question": "Gobeklitepe'nin bulundugu bolge asagidakilerden hangisidir?",
+    "options": {
+      "A": "Ege kiyilari",
+      "B": "Guneydogu Anadolu",
+      "C": "Balkanlar",
+      "D": "Ic Ege",
+      "E": "Dogu Karadeniz"
+    },
+    "answer": "B",
+    "rationale": "Gobeklitepe, Sanliurfa yakinlarinda, Guneydogu Anadolu'da yer alir.",
+    "sourceUrl": "https://www.arkeoloji.biz/2026/01/gobeklitepe-nedir-tarihin-sifir-noktasi.html",
+    "sourceTitle": "Gobeklitepe ve tarihin sifir noktasi",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_076",
+    "subject": "Osmanli Kultur Tarihi - Arsin",
+    "difficulty": "Kolay",
+    "question": "Arsin olcu birimi daha cok hangi tur olcumlerde kullanilmistir?",
+    "options": {
+      "A": "Uzunluk, ozellikle kumas olcumu",
+      "B": "Agirlik olcumu",
+      "C": "Hacim olcumu",
+      "D": "Sicaklik olcumu",
+      "E": "Zaman olcumu"
+    },
+    "answer": "A",
+    "rationale": "Arsin, Osmanli doneminde uzunluk olcumunde ve ozellikle kumasta kullanilmistir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=arsin%20okka%20kantar%20osmanli",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Osmanli olcu birimleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_077",
+    "subject": "Osmanli Kultur Tarihi - Okka",
+    "difficulty": "Kolay",
+    "question": "Okka birimi asagidakilerden hangisi icin kullanilirdi?",
+    "options": {
+      "A": "Agirlik",
+      "B": "Alan",
+      "C": "Uzaklik",
+      "D": "Acisal yon",
+      "E": "Hiz"
+    },
+    "answer": "A",
+    "rationale": "Okka, agirlik olcumunde kullanilan klasik Osmanli birimlerinden biridir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=arsin%20okka%20kantar%20osmanli",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Osmanli olcu birimleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_078",
+    "subject": "Osmanli Kultur Tarihi - Kantar",
+    "difficulty": "Kolay",
+    "question": "Kantar terimi geleneksel baglamda en cok neyle iliskilidir?",
+    "options": {
+      "A": "Agirligi tartma ve buyuk yuk olcumu",
+      "B": "Deniz seviyesini olcme",
+      "C": "Yildiz haritasi cizme",
+      "D": "Mezar planlama",
+      "E": "Duvar boyasi yapma"
+    },
+    "answer": "A",
+    "rationale": "Kantar, agir yuklerin tartiminda kullanilan olcu ve aygit baglamina sahiptir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=arsin%20okka%20kantar%20osmanli",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Osmanli olcu birimleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_079",
+    "subject": "Kazida Buluntu Tanimlama - Cam",
+    "difficulty": "Orta",
+    "question": "Cam buluntularin arkeolojik onemi asagidakilerden hangisiyle en iyi aciklanir?",
+    "options": {
+      "A": "Yalnizca renkleri nedeniyle",
+      "B": "Uretim teknolojisi ve ticaret aglarina dair ipucu vermeleriyle",
+      "C": "Her zaman tas eserden daha eski olmalariyla",
+      "D": "Sadece modern doneme ait olmalariyla",
+      "E": "Yazisiz olduklari icin yorumlanamamalariyla"
+    },
+    "answer": "B",
+    "rationale": "Cam eserler, uretim merkezleri, teknoloji transferi ve ticaret konusunda veri sunar.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=cam%20buluntu%20arkeoloji",
+    "sourceTitle": "Arkeoloji.biz aramasinda: cam buluntular",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_080",
+    "subject": "Kazida Buluntu Tanimlama - Metal",
+    "difficulty": "Orta",
+    "question": "Bronz, arkeolojik metal buluntular arasinda genellikle hangi iki metalin alasimi olarak tanimlanir?",
+    "options": {
+      "A": "Demir ve kursun",
+      "B": "Bakir ve kalay",
+      "C": "Altin ve gumus",
+      "D": "Nikel ve cinko",
+      "E": "Aluminyum ve magnezyum"
+    },
+    "answer": "B",
+    "rationale": "Bronz, temel olarak bakir ve kalayin alasimidir ve Tunc Cagi'na adini vermistir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=bronz%20bakir%20kalay",
+    "sourceTitle": "Arkeoloji.biz aramasinda: bronz, bakir ve kalay",
+    "reviewStatus": "approved"
+  }
+]

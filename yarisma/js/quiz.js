@@ -46,14 +46,142 @@ class Quiz {
     getEngagementPrompt(question, questionNumber) {
         const prompts = CONFIG.QUIZ_POLICY.ENGAGEMENT_PROMPTS || [];
         const basePrompt = prompts[(questionNumber - 1) % Math.max(prompts.length, 1)] || 'Ipuclari icin arkeoloji.biz iceriklerine goz at.';
-        const sourceTitle = question.sourceTitle || 'Arkeoloji.biz kaynagi';
-        const sourceUrl = question.sourceUrl || 'https://www.arkeoloji.biz/';
+        const sourceUrl = this.getSourceDestination(question);
 
         return `
             <div class="engagement-panel card">
                 <p class="eyebrow">Arkeoloji.biz Uyarani</p>
                 <p>${basePrompt}</p>
-                <a class="btn-outline-link" href="${sourceUrl}" target="_blank" rel="noopener noreferrer">${sourceTitle}</a>
+                <a class="btn-outline-link" href="${sourceUrl}" target="_blank" rel="noopener noreferrer">${this.getSourceLabel(question)}</a>
+            </div>
+        `;
+    }
+
+    getSourceDestination(question) {
+        const rawUrl = String(question && question.sourceUrl || '').trim();
+        if (rawUrl && rawUrl !== 'https://www.arkeoloji.biz/' && rawUrl !== 'https://arkeoloji.biz/') {
+            return rawUrl;
+        }
+
+        const query = encodeURIComponent(String(question.sourceTitle || question.topic || question.text || 'arkeoloji').trim());
+        return `https://www.arkeoloji.biz/search?q=${query}`;
+    }
+
+    getSourceLabel(question) {
+        const rawUrl = String(question && question.sourceUrl || '').trim();
+        if (rawUrl && rawUrl !== 'https://www.arkeoloji.biz/' && rawUrl !== 'https://arkeoloji.biz/') {
+            return question.sourceTitle || 'Ilgili kaynaga git';
+        }
+        return `Arkeoloji.biz'de ara: ${question.topic || question.sourceTitle || 'Ilgili konu'}`;
+    }
+
+    getLastOrderKey(examId) {
+        return `${STORAGE_KEYS.LAST_EXAM_ORDER_PREFIX}${examId}`;
+    }
+
+    getDailyAttemptPlanKey(examId) {
+        return `${this.getLastOrderKey(examId)}:daily-plan:${this.getCurrentDayKey()}`;
+    }
+
+    getCurrentDayKey() {
+        const now = new Date();
+        return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    }
+
+    hashString(input) {
+        let hash = 0;
+        const text = String(input || '');
+        for (let i = 0; i < text.length; i += 1) {
+            hash = ((hash << 5) - hash) + text.charCodeAt(i);
+            hash |= 0;
+        }
+        return Math.abs(hash);
+    }
+
+    seededShuffle(list, seedText) {
+        let seed = this.hashString(seedText) || 1;
+        const nextRandom = () => {
+            seed = (seed * 1664525 + 1013904223) % 4294967296;
+            return seed / 4294967296;
+        };
+
+        const clone = [...list];
+        for (let i = clone.length - 1; i > 0; i -= 1) {
+            const j = Math.floor(nextRandom() * (i + 1));
+            [clone[i], clone[j]] = [clone[j], clone[i]];
+        }
+        return clone;
+    }
+
+    getPlannedAttemptIndex() {
+        const used = Number(window.app && app.dailyQuota ? app.dailyQuota.used || 0 : 0);
+        return Math.max(0, used);
+    }
+
+    getQuestionSetWithVariedOrder(examId, bank, requiredQuestions) {
+        const neededForDailyUniqueRuns = requiredQuestions * Number(CONFIG.QUIZ_POLICY.DAILY_ATTEMPT_LIMIT || 5);
+        if (bank.length >= neededForDailyUniqueRuns) {
+            const attemptIndex = this.getPlannedAttemptIndex();
+            const key = this.getDailyAttemptPlanKey(examId);
+            const seed = `${examId}:${this.getCurrentDayKey()}`;
+            let plannedIds = [];
+
+            try {
+                plannedIds = JSON.parse(localStorage.getItem(key) || '[]');
+            } catch (_) {
+                plannedIds = [];
+            }
+
+            if (!Array.isArray(plannedIds) || !plannedIds.length) {
+                const shuffled = this.seededShuffle(bank, seed);
+                plannedIds = shuffled.map((item) => item.id || '');
+                localStorage.setItem(key, JSON.stringify(plannedIds));
+            }
+
+            const orderedBank = plannedIds
+                .map((id) => bank.find((item) => String(item.id) === String(id)))
+                .filter(Boolean);
+            const sliceStart = attemptIndex * requiredQuestions;
+            const sliceEnd = sliceStart + requiredQuestions;
+            const sliced = orderedBank.slice(sliceStart, sliceEnd);
+            if (sliced.length === requiredQuestions) {
+                return sliced;
+            }
+        }
+
+        const key = this.getLastOrderKey(examId);
+        const lastOrder = localStorage.getItem(key) || '';
+        let selected = [];
+        let nextOrder = '';
+
+        for (let attempt = 0; attempt < 6; attempt += 1) {
+            const candidate = this.shuffle([...bank]).slice(0, requiredQuestions);
+            const candidateOrder = candidate.map((item) => item.id || '').join('|');
+            selected = candidate;
+            nextOrder = candidateOrder;
+            if (candidateOrder !== lastOrder) {
+                break;
+            }
+        }
+
+        if (nextOrder) {
+            localStorage.setItem(key, nextOrder);
+        }
+
+        return selected;
+    }
+
+    buildShareActions(examName, correct, total, milestoneLabel) {
+        const text = `${examName} yarisinda ${correct}/${total} yaptim. Guvenli kasam: ${milestoneLabel}. Sen de dene!`;
+        const url = `${window.location.origin}${window.location.pathname}`;
+        const encodedText = encodeURIComponent(text);
+        const encodedUrl = encodeURIComponent(url);
+
+        return `
+            <div class="exam-details" style="margin-top: 1rem; gap: 0.75rem; flex-wrap: wrap;">
+                <a class="btn-primary" href="https://wa.me/?text=${encodedText}%20${encodedUrl}" target="_blank" rel="noopener noreferrer">WhatsApp'ta Paylas</a>
+                <a class="btn-primary" href="https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}" target="_blank" rel="noopener noreferrer">X'te Paylas</a>
+                <button id="copyShareLinkBtn" class="btn-secondary" type="button">Baglantiyi Kopyala</button>
             </div>
         `;
     }
@@ -83,7 +211,7 @@ class Quiz {
         this.resetSession();
 
         this.currentExam = exam;
-        this.questions = this.shuffle([...bank]).slice(0, requiredQuestions);
+        this.questions = this.getQuestionSetWithVariedOrder(exam.id, bank, requiredQuestions);
         this.currentIndex = 0;
         this.timeLeft = (Number(exam.duration) || 60) * 60;
         this.sessionStartedAt = new Date().toISOString();
@@ -116,9 +244,9 @@ class Quiz {
             <div class="question-container">
                 <p id="questionNumber" class="question-number"></p>
                 <div id="questionPassage" class="question-passage" style="display:none;"></div>
-                <h3 id="questionText" class="question-text"></h3>
                 <div id="questionMeta" class="exam-details"></div>
                 <div id="questionEngagement"></div>
+                <h3 id="questionText" class="question-text"></h3>
                 <div id="questionOptions" class="options"></div>
             </div>
 
@@ -351,6 +479,7 @@ class Quiz {
                 <p><strong>Kazanilan Puan:</strong> ${pointsEarned}</p>
                 <p><strong>Puan Kaynagi:</strong> ${serverScored ? 'Sunucu dogrulamasi' : 'Kaydedilemedi'}</p>
                 <p><strong>Gunluk kalan hak:</strong> ${dailyQuota ? dailyQuota.remaining : (app.dailyQuota ? app.dailyQuota.remaining : CONFIG.QUIZ_POLICY.DAILY_ATTEMPT_LIMIT)}</p>
+                ${this.buildShareActions(this.currentExam.name, correct, total, effectiveSafeMilestone.cashLabel)}
             </div>
 
             <div class="result-review-list">${questionReview}</div>
@@ -368,6 +497,18 @@ class Quiz {
             app.closeModal('examModal');
             this.resetSession();
         });
+        const copyShareLinkBtn = document.getElementById('copyShareLinkBtn');
+        if (copyShareLinkBtn) {
+            copyShareLinkBtn.addEventListener('click', async () => {
+                const text = `${this.currentExam.name} yarisinda ${correct}/${total} yaptim. Guvenli kasam: ${effectiveSafeMilestone.cashLabel}. ${window.location.origin}${window.location.pathname}`;
+                try {
+                    await navigator.clipboard.writeText(text);
+                    app.showNotification('Paylasim metni panoya kopyalandi.', 'success');
+                } catch (_) {
+                    app.showNotification('Pano kopyalama basarisiz oldu.', 'error');
+                }
+            });
+        }
     }
 
     onModalClosed() {

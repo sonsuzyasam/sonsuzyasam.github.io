@@ -1,7 +1,7 @@
 {
   "examId": "arkeoloji",
   "version": 1,
-  "totalQuestions": 20,
+  "totalQuestions": 100,
   "reviewPolicy": "approved-only",
   "packs": [
     {
@@ -13,6 +13,26 @@
       "file": "core-pack-002.json",
       "count": 14,
       "topic": "Yarismayi 20 soruya tamamlayan genisletme paketi"
+    },
+    {
+      "file": "core-pack-003.json",
+      "count": 20,
+      "topic": "Anadolu uygarliklari, antik kentler ve mimari genisletme paketi"
+    },
+    {
+      "file": "core-pack-004.json",
+      "count": 20,
+      "topic": "Yunan-Roma, sanat tarihi ve yardimci bilimler paketi"
+    },
+    {
+      "file": "core-pack-005.json",
+      "count": 20,
+      "topic": "Seramik, rituel, ticaret ve buluntu tanimlama paketi"
+    },
+    {
+      "file": "core-pack-006.json",
+      "count": 20,
+      "topic": "Koruma, denizcilik, yazi sistemleri ve genel tekrar paketi"
     }
   ]
 }

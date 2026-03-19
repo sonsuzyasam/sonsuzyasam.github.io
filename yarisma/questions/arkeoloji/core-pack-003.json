@@ -1,0 +1,362 @@
+[
+  {
+    "id": "ARK100_021",
+    "subject": "Anadolu Uygarliklari - Hititler",
+    "difficulty": "Kolay",
+    "question": "Hitit Devleti'nin baskenti olarak bilinen antik merkez asagidakilerden hangisidir?",
+    "options": {
+      "A": "Gordion",
+      "B": "Hattusa",
+      "C": "Sardes",
+      "D": "Pergamon",
+      "E": "Xanthos"
+    },
+    "answer": "B",
+    "rationale": "Bogazkoy'deki Hattusa, Hitit Devleti'nin siyasi merkezi olarak bilinir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Hitit%20Hattusa",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Hititler ve Hattusa",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_022",
+    "subject": "Anadolu Uygarliklari - Hitit Kult Alani",
+    "difficulty": "Orta",
+    "question": "Hitit kaya kabartmalari ve acik hava kutsal alaniyla taninan merkez hangisidir?",
+    "options": {
+      "A": "Yazilikaya",
+      "B": "Alacahoyuk",
+      "C": "Catalhoyuk",
+      "D": "Patara",
+      "E": "Myrina"
+    },
+    "answer": "A",
+    "rationale": "Yazilikaya, Hitit panteonunu betimleyen kaya kabartmalariyla unlu bir kutsal alandir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Yazilikaya%20Hitit",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Yazilikaya ve Hitit kutsal alani",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_023",
+    "subject": "Anadolu Uygarliklari - Frigler",
+    "difficulty": "Kolay",
+    "question": "Frig uygarliginin en cok bilinen siyasi merkezi asagidakilerden hangisidir?",
+    "options": {
+      "A": "Gordion",
+      "B": "Troya",
+      "C": "Knidos",
+      "D": "Tarsus",
+      "E": "Miletos"
+    },
+    "answer": "A",
+    "rationale": "Ankara yakinlarindaki Gordion, Frigler ile ozdeslesmis baslica merkezdir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Frigler%20Gordion",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Frigler ve Gordion",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_024",
+    "subject": "Anadolu Uygarliklari - Lidyalilar",
+    "difficulty": "Kolay",
+    "question": "Tarihte standardize metal sikkenin kullanimi en cok hangi Anadolu uygarligi ile iliskilendirilir?",
+    "options": {
+      "A": "Urartular",
+      "B": "Lidyalilar",
+      "C": "Frigler",
+      "D": "Hattiler",
+      "E": "Likyalilar"
+    },
+    "answer": "B",
+    "rationale": "Lidyalilar, para tarihindeki erken standardize sikke kullanimi ile anilir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Lidyalilar%20sikke",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Lidyalilar ve sikke",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_025",
+    "subject": "Anadolu Uygarliklari - Urartu",
+    "difficulty": "Orta",
+    "question": "Urartu Kralligi asagidaki cografi alanlardan hangisiyle en dogrudan iliskilidir?",
+    "options": {
+      "A": "Van Golu havzasi",
+      "B": "Trakya ovalari",
+      "C": "Gediz deltasi",
+      "D": "Bafra ovasi",
+      "E": "Marmara kiyilari"
+    },
+    "answer": "A",
+    "rationale": "Urartu siyasi ve kulturel cekirdegi Van Golu cevresinde sekillenmistir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Urartu%20Van%20Golu",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Urartu ve Van Golu",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_026",
+    "subject": "Anadolu Uygarliklari - Likya",
+    "difficulty": "Orta",
+    "question": "Likya bolgesinde yaygin olarak gorulen karakteristik mezar tipi hangisidir?",
+    "options": {
+      "A": "Dolmen",
+      "B": "Kaya mezari",
+      "C": "Kremasyon cucesi",
+      "D": "Tholos",
+      "E": "Katakomp"
+    },
+    "answer": "B",
+    "rationale": "Likya, kaya mezarlari ve anitsal mezar cepheleriyle taninir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Likya%20kaya%20mezari",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Likya kaya mezarlari",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_027",
+    "subject": "Antik Kentler - Miletos",
+    "difficulty": "Orta",
+    "question": "Antik kent planlamasi denince adi sikca anilan Hippodamos hangi kentle ozdeslesir?",
+    "options": {
+      "A": "Miletos",
+      "B": "Side",
+      "C": "Sagalassos",
+      "D": "Aizanoi",
+      "E": "Tios"
+    },
+    "answer": "A",
+    "rationale": "Hippodamos gelenegi en cok Miletos ile birlikte anilir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Miletos%20Hippodamos",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Miletos ve Hippodamos",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_028",
+    "subject": "Antik Kentler - Efes",
+    "difficulty": "Orta",
+    "question": "Efes antik kentinde cephesiyle un kazanan ve Roma donemi kamusal yapisi olarak bilinen yapi hangisidir?",
+    "options": {
+      "A": "Artemis Tapinagi",
+      "B": "Celsus Kutuphanesi",
+      "C": "Bouleuterion",
+      "D": "Stadion",
+      "E": "Nymphaeum"
+    },
+    "answer": "B",
+    "rationale": "Celsus Kutuphanesi, Efes'in en taninan anitsal cephelerinden biridir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Efes%20Celsus%20Kutuphanesi",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Efes ve Celsus Kutuphanesi",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_029",
+    "subject": "Antik Kentler - Pergamon",
+    "difficulty": "Orta",
+    "question": "Dik yamaca kurulu akropol duzeniyle taninan antik kent hangisidir?",
+    "options": {
+      "A": "Pergamon",
+      "B": "Aphrodisias",
+      "C": "Soli Pompeiopolis",
+      "D": "Myra",
+      "E": "Labraunda"
+    },
+    "answer": "A",
+    "rationale": "Pergamon akropolisi, teraslama ve yuksek kotlu yerlesimiyle dikkat ceker.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Pergamon%20akropol",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Pergamon akropolisi",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_030",
+    "subject": "Antik Kentler - Assos",
+    "difficulty": "Orta",
+    "question": "Assos'taki unlu tapinak hangi tanri veya tanricaya adanmistir?",
+    "options": {
+      "A": "Apollon",
+      "B": "Athena",
+      "C": "Artemis",
+      "D": "Zeus",
+      "E": "Demeter"
+    },
+    "answer": "B",
+    "rationale": "Assos Athena Tapinagi, kentin en bilinen anitsal yapilarindandir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Assos%20Athena%20Tapinagi",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Assos Athena Tapinagi",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_031",
+    "subject": "Antik Kentler - Forum",
+    "difficulty": "Kolay",
+    "question": "Roma kentlerinde agoranin islevsel karsiligi sayilabilecek kamusal alan hangisidir?",
+    "options": {
+      "A": "Forum",
+      "B": "Naos",
+      "C": "Atrium",
+      "D": "Vestibulum",
+      "E": "Peristyl"
+    },
+    "answer": "A",
+    "rationale": "Forum, Roma kent yasaminda ticari ve idari merkez gorevi gorur.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=forum%20roma%20kenti",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Roma forumu",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_032",
+    "subject": "Antik Kentler - Tiyatro",
+    "difficulty": "Kolay",
+    "question": "Antik tiyatrolarda seyircilerin oturdugu yarim dairesel bolume genel olarak ne ad verilir?",
+    "options": {
+      "A": "Skene",
+      "B": "Orkestra",
+      "C": "Cavea",
+      "D": "Naos",
+      "E": "Basilica"
+    },
+    "answer": "C",
+    "rationale": "Cavea, antik tiyatrolarda oturma siralarinin bulundugu bolumu ifade eder.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=antik%20tiyatro%20cavea",
+    "sourceTitle": "Arkeoloji.biz aramasinda: antik tiyatro ve cavea",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_033",
+    "subject": "Antik Kentler - Stoa",
+    "difficulty": "Orta",
+    "question": "Stoa terimi antik kentlerde asagidaki yapi tiplerinden hangisini tanimlar?",
+    "options": {
+      "A": "Kapali sutunlu galeriyi",
+      "B": "Yer alti su kanalini",
+      "C": "Kral sarayini",
+      "D": "Mezar odasini",
+      "E": "Savunma kulesini"
+    },
+    "answer": "A",
+    "rationale": "Stoa, agoralarin kenarinda uzanan kapali veya yari acik sutunlu gecis alanidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=stoa%20antik%20kent",
+    "sourceTitle": "Arkeoloji.biz aramasinda: stoa",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_034",
+    "subject": "Antik Kentler - Gymnasium",
+    "difficulty": "Orta",
+    "question": "Gymnasium, antik kentlerde en dogru bicimde hangi islevle iliskilendirilir?",
+    "options": {
+      "A": "Yalnizca dini adak depolama",
+      "B": "Bedensel egitim ve kimi zaman entelektuel etkinlikler",
+      "C": "Tahil ogutme",
+      "D": "Denizcilik egitimi",
+      "E": "Sikke basimi"
+    },
+    "answer": "B",
+    "rationale": "Gymnasium, egitim ve beden calismalarinin birlikte yurudugu kamusal bir yapi tipidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=gymnasium%20antik%20kent",
+    "sourceTitle": "Arkeoloji.biz aramasinda: gymnasium",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_035",
+    "subject": "Antik Mimari - Ion Duzeni",
+    "difficulty": "Kolay",
+    "question": "Ion duzeni sutun basliklarinin ayirt edici ozelligi asagidakilerden hangisidir?",
+    "options": {
+      "A": "Akanthus yapraklari",
+      "B": "Volutler",
+      "C": "Triglifler",
+      "D": "Piramidal baslik",
+      "E": "Hayvan bicimli protomlar"
+    },
+    "answer": "B",
+    "rationale": "Ion duzeni, iki yanda kivrimli volutlere sahip basligiyla taninir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Ion%20duzeni%20volut",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Ion duzeni ve volut",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_036",
+    "subject": "Antik Mimari - Korinth Duzeni",
+    "difficulty": "Kolay",
+    "question": "Korinth duzeni sutun basligi en cok hangi bezeme ogesiyle taninir?",
+    "options": {
+      "A": "Akanthus yapraklari",
+      "B": "Lotus tomurcuklari",
+      "C": "Triskel motifleri",
+      "D": "Sfenks ciftleri",
+      "E": "Rosetli bloklar"
+    },
+    "answer": "A",
+    "rationale": "Korinth basligi, akanthus yapragi kompozisyonuyla ayirt edilir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Korinth%20duzeni%20akanthus",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Korinth duzeni",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_037",
+    "subject": "Antik Mimari - Peripteros",
+    "difficulty": "Orta",
+    "question": "Peripteros planli bir tapinak icin en dogru tanim hangisidir?",
+    "options": {
+      "A": "Cevresi tek sira sutunla kusatilmis tapinak",
+      "B": "Catisiz acik hava sunagi",
+      "C": "Yer altina oyulmus kutsal mekan",
+      "D": "Yalnizca giris cephesinde sutun bulunan tapinak",
+      "E": "Savunma amacli kapili kule"
+    },
+    "answer": "A",
+    "rationale": "Peripteros, naosun cevresinin sutun dizileriyle dolastigi plan tipidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=peripteros%20tapinak",
+    "sourceTitle": "Arkeoloji.biz aramasinda: peripteros ve tapinak mimarisi",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_038",
+    "subject": "Antik Mimari - Naos",
+    "difficulty": "Orta",
+    "question": "Antik Yunan tapinaginda kutsal heykelin veya ana kult unsurunun bulundugu ic mekana ne ad verilir?",
+    "options": {
+      "A": "Naos",
+      "B": "Agora",
+      "C": "Stoa",
+      "D": "Prytaneion",
+      "E": "Cavea"
+    },
+    "answer": "A",
+    "rationale": "Naos, tapinagin ana kutsal mekani olarak tanimlanir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=naos%20tapinak",
+    "sourceTitle": "Arkeoloji.biz aramasinda: naos",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_039",
+    "subject": "Antik Mimari - Propylon",
+    "difficulty": "Orta",
+    "question": "Propylon terimi antik mimaride genellikle neyi ifade eder?",
+    "options": {
+      "A": "Anitsal giris yapisini",
+      "B": "Tapinagin cati ortusunu",
+      "C": "Mezar ic odasini",
+      "D": "Su dagitim havuzunu",
+      "E": "Pazar olcusunu"
+    },
+    "answer": "A",
+    "rationale": "Propylon, kutsal alanlara veya anitsal komplekslere girisi belirleyen yapi tipidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=propylon%20antik%20mimari",
+    "sourceTitle": "Arkeoloji.biz aramasinda: propylon",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_040",
+    "subject": "Antik Mimari - Tympanon",
+    "difficulty": "Zor",
+    "question": "Klasik tapinak cephesinde ucgen alinligin icinde kalan bolume ne ad verilir?",
+    "options": {
+      "A": "Stylobat",
+      "B": "Tympanon",
+      "C": "Peristasis",
+      "D": "Opisthodomos",
+      "E": "Cella"
+    },
+    "answer": "B",
+    "rationale": "Tympanon, pedimentin icte kalan ucgensel yuzeyidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=tympanon%20pediment",
+    "sourceTitle": "Arkeoloji.biz aramasinda: tympanon",
+    "reviewStatus": "approved"
+  }
+]

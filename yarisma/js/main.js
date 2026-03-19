@@ -24,6 +24,40 @@ class App {
         }
     }
 
+    async claimGuestPendingPoints() {
+        if (!this.currentUser || !window.sheetsAPI || typeof sheetsAPI.recordScore !== 'function') {
+            return;
+        }
+
+        let pending = [];
+        try {
+            pending = JSON.parse(localStorage.getItem(STORAGE_KEYS.GUEST_PENDING_POINTS) || '[]');
+        } catch (_) {
+            pending = [];
+        }
+
+        if (!Array.isArray(pending) || !pending.length) {
+            return;
+        }
+
+        let claimedTotal = 0;
+        for (const item of pending) {
+            const points = Number(item && item.points || 0);
+            if (points <= 0) continue;
+
+            await sheetsAPI.recordScore(this.currentUser.email, points, {
+                month: item.month || CONFIG.getCurrentMonth(),
+                examId: item.examId || 'arkeoloji-guest'
+            });
+            claimedTotal += points;
+        }
+
+        localStorage.removeItem(STORAGE_KEYS.GUEST_PENDING_POINTS);
+        if (claimedTotal > 0) {
+            await this.refreshMonthlyPointsFromServer();
+            this.showNotification(`Misafirde biriken ${claimedTotal} puan hesabina aktarildi.`, 'success');
+        }
+    }
     // === Event Listeners ===
     setupEventListeners() {
         // Navigation
@@ -80,6 +114,7 @@ class App {
             this.closeModal('loginModal');
             this.refreshMonthlyPointsFromServer();
             this.refreshDailyQuizQuota();
+            this.claimGuestPendingPoints();
         } else {
             localStorage.removeItem(STORAGE_KEYS.USER);
             this.pointsCache = {};

@@ -13,8 +13,8 @@
     },
     "answer": "A",
     "rationale": "Arkeoloji, maddi kultur kalintilari uzerinden gecmisi aydinlatir; bu soru setinde tanimlayici baglam arkeoloji.biz icerigine gore verilmistir.",
-    "sourceUrl": "https://www.arkeoloji.biz/",
-    "sourceTitle": "Arkeoloji.biz Ana Sayfa ve Arkeoloji Icerikleri",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=arkeoloji%20yardimci%20bilimler",
+    "sourceTitle": "Arkeoloji.biz aramasinda: arkeoloji ve yardimci bilimler",
     "reviewStatus": "approved"
   },
   {
@@ -31,8 +31,8 @@
     },
     "answer": "C",
     "rationale": "Dor duzeni, triglif-metop frizi ve sade baslik yapisiyla ayirt edilir.",
-    "sourceUrl": "https://www.arkeoloji.biz/",
-    "sourceTitle": "Arkeoloji.biz Antik Mimari Icerikleri",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=dor%20duzeni%20triglif%20metop",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Dor duzeni ve triglif-metop",
     "reviewStatus": "approved"
   },
   {
@@ -49,8 +49,8 @@
     },
     "answer": "B",
     "rationale": "Neolitik cag, tarim ve hayvancilikla birlikte yerlesik hayata gecisle tanimlanir.",
-    "sourceUrl": "https://www.arkeoloji.biz/",
-    "sourceTitle": "Arkeoloji.biz Prehistorya Icerikleri",
+    "sourceUrl": "https://www.arkeoloji.biz/2026/01/gobeklitepe-nedir-tarihin-sifir-noktasi.html#gobeklitepe-nedir",
+    "sourceTitle": "Gobeklitepe ve Neolitik donusum",
     "reviewStatus": "approved"
   },
   {
@@ -67,8 +67,8 @@
     },
     "answer": "C",
     "rationale": "Priene, planli kent dokusunun iyi korundugu en belirgin orneklerden biridir.",
-    "sourceUrl": "https://www.arkeoloji.biz/",
-    "sourceTitle": "Arkeoloji.biz Antik Kentler Icerikleri",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Priene%20Hippodamos%20plani",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Priene ve Hippodamos plani",
     "reviewStatus": "approved"
   },
   {
@@ -85,8 +85,8 @@
     },
     "answer": "B",
     "rationale": "Arsin, kumas olcumunde kullanilan temel birimlerden biridir.",
-    "sourceUrl": "https://www.arkeoloji.biz/",
-    "sourceTitle": "Arkeoloji.biz Kultur Tarihi Icerikleri",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=arsin%20okka%20kantar%20osmanli",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Osmanli olcu birimleri",
     "reviewStatus": "approved"
   },
   {
@@ -103,8 +103,8 @@
     },
     "answer": "C",
     "rationale": "Arkeoloji, maddi kalintilar ve baglamlari uzerinden gecmisi yorumlar; salt ekonomik metin analizi kendi basina arkeolojinin ana amaci degildir.",
-    "sourceUrl": "https://www.arkeoloji.biz/",
-    "sourceTitle": "Arkeoloji.biz Arkeoloji Bilimi Icerikleri",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=arkeoloji%20nedir%20kazi%20yontemleri",
+    "sourceTitle": "Arkeoloji.biz aramasinda: arkeolojinin amaci ve kazi yontemleri",
     "reviewStatus": "approved"
   }
 ]

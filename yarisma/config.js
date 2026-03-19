@@ -72,7 +72,7 @@ const CONFIG = {
             id: 'arkeoloji',
             name: 'Arkeoloji Biz Quiz',
             description: '20 soruluk, barajli ve odullu arkeoloji yarismasi',
-            duration: 30,
+            duration: 20,
             questions: 20,
             difficulty: 'Orta',
             category: 'Odullu Quiz'
@@ -135,7 +135,10 @@ const STORAGE_KEYS = {
     USER: 'sonsuzyasam_user',
     USER_POINTS: 'sonsuzyasam_points',
     EXAM_STATE: 'sonsuzyasam_exam_state',
-    SETTINGS: 'sonsuzyasam_settings'
+    SETTINGS: 'sonsuzyasam_settings',
+    GUEST_PENDING_POINTS: 'sonsuzyasam_guest_pending_points',
+    GUEST_ARCH_ORDER: 'sonsuzyasam_guest_arkeoloji_order',
+    LAST_EXAM_ORDER_PREFIX: 'sonsuzyasam_last_exam_order_'
 };
 
 console.log('✅ Config Loaded');

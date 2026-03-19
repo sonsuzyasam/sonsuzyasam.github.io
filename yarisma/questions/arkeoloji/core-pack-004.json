@@ -1,0 +1,362 @@
+[
+  {
+    "id": "ARK100_041",
+    "subject": "Roma Dunyasi - Cardo Maximus",
+    "difficulty": "Orta",
+    "question": "Roma kent planlamasinda cardo maximus genellikle hangi yonelimdeki ana caddeyi ifade eder?",
+    "options": {
+      "A": "Kuzey-guney",
+      "B": "Dogu-bati",
+      "C": "Dairesel",
+      "D": "Liman-ic kale",
+      "E": "Yalnizca kutsal alan ici"
+    },
+    "answer": "A",
+    "rationale": "Cardo maximus klasik Roma planinda kuzey-guney aksini temsil eder.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Cardo%20Maximus%20Decumanus",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Cardo ve Decumanus",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_042",
+    "subject": "Roma Dunyasi - Decumanus",
+    "difficulty": "Orta",
+    "question": "Roma kent planlamasinda decumanus maximus hangi yonelimle iliskilendirilir?",
+    "options": {
+      "A": "Kuzey-guney",
+      "B": "Dogu-bati",
+      "C": "Spiral",
+      "D": "Liman baglantili capraz aks",
+      "E": "Sadece konut sokagi"
+    },
+    "answer": "B",
+    "rationale": "Decumanus maximus, Roma kent planinda dogu-bati dogrultusundaki ana aks kabul edilir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Cardo%20Maximus%20Decumanus",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Cardo ve Decumanus",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_043",
+    "subject": "Roma Dunyasi - Basilica",
+    "difficulty": "Kolay",
+    "question": "Roma basilicalari asagidaki islevlerden hangisiyle en cok bagdastirilir?",
+    "options": {
+      "A": "Mahkeme ve ticari toplanti alanlari",
+      "B": "Yalnizca gladyator savaslari",
+      "C": "Tahil depolama",
+      "D": "Askeri tersane",
+      "E": "Su kemeri bakim merkezi"
+    },
+    "answer": "A",
+    "rationale": "Basilica, Roma kamusal yasaminda hukuki ve ticari etkinliklere ev sahipligi yapardi.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Roma%20basilica",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Roma basilicasi",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_044",
+    "subject": "Roma Dunyasi - Hamam",
+    "difficulty": "Kolay",
+    "question": "Roma hamamlarinda sogukluk bolumu olarak bilinen mekan hangisidir?",
+    "options": {
+      "A": "Caldarium",
+      "B": "Tepidarium",
+      "C": "Frigidarium",
+      "D": "Atrium",
+      "E": "Peribolos"
+    },
+    "answer": "C",
+    "rationale": "Frigidarium, soguk su ve dusuk isi ile iliskili hamam bolumudur.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Roma%20hamami%20frigidarium",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Roma hamamlari ve frigidarium",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_045",
+    "subject": "Roma Dunyasi - Su Kemerleri",
+    "difficulty": "Orta",
+    "question": "Su kemerlerinin temel amaci asagidakilerden hangisidir?",
+    "options": {
+      "A": "Ticaret mallarini depolamak",
+      "B": "Kentlere su tasimak",
+      "C": "Tapinaklari isitmak",
+      "D": "Mezar odalarini havalandirmak",
+      "E": "Yol agini genisletmek"
+    },
+    "answer": "B",
+    "rationale": "Su kemerleri, suyu kaynaktan kente tasiyan altyapi sistemleridir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=su%20kemeri%20roma",
+    "sourceTitle": "Arkeoloji.biz aramasinda: su kemeri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_046",
+    "subject": "Yunan Dunyasi - Polis",
+    "difficulty": "Kolay",
+    "question": "Polis kavrami Antik Yunan baglaminda en dogru bicimde neyi anlatir?",
+    "options": {
+      "A": "Yalnizca askeri birlik",
+      "B": "Bagimsiz kent devleti",
+      "C": "Tapinak ic odasi",
+      "D": "Deniz ticaret filosu",
+      "E": "Ciftlik yerlesimi"
+    },
+    "answer": "B",
+    "rationale": "Polis, siyasal ve toplumsal kimligi olan kent devleti modelidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=polis%20antik%20yunan",
+    "sourceTitle": "Arkeoloji.biz aramasinda: polis",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_047",
+    "subject": "Yunan Dunyasi - Akropolis",
+    "difficulty": "Kolay",
+    "question": "Akropolis terimi antik kentte genellikle hangi alani tanimlar?",
+    "options": {
+      "A": "Liman bolgesini",
+      "B": "Alt sehir pazar yerini",
+      "C": "Yuksek ve savunmali kutsal/yonetsel alani",
+      "D": "Mezarliklar toplulugunu",
+      "E": "Atolye mahallesini"
+    },
+    "answer": "C",
+    "rationale": "Akropolis, kentin yuksek ve stratejik bolgesidir; siklikla kutsal yapilar barindirir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=akropolis%20antik%20kent",
+    "sourceTitle": "Arkeoloji.biz aramasinda: akropolis",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_048",
+    "subject": "Yunan Dunyasi - Kolonizasyon",
+    "difficulty": "Orta",
+    "question": "Arkaik donemde Yunan kolonizasyonunun onemli nedenlerinden biri asagidakilerden hangisidir?",
+    "options": {
+      "A": "Demirin tamamen terk edilmesi",
+      "B": "Nufus baskisi ve ticaret arayisi",
+      "C": "Yazinin unutulmasi",
+      "D": "Tapinaklarin kaldirilmasi",
+      "E": "Karasal ulasimin yasaklanmasi"
+    },
+    "answer": "B",
+    "rationale": "Nufus artisi, tarimsal baski ve ticari aglari genisletme istegi kolonizasyonu desteklemistir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Yunan%20kolonizasyon",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Yunan kolonizasyonu",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_049",
+    "subject": "Yunan Dunyasi - Hellenistik Donem",
+    "difficulty": "Orta",
+    "question": "Hellenistik donemin belirgin ozelliklerinden biri asagidakilerden hangisidir?",
+    "options": {
+      "A": "Kent yasaminin tamamen kapanmasi",
+      "B": "Kulturlerin daha genis cografyada etkilesime girmesi",
+      "C": "Yalnizca koy temelli ekonomi",
+      "D": "Bronz kullanimina donulmesi",
+      "E": "Yazisiz topluma geri donus"
+    },
+    "answer": "B",
+    "rationale": "Hellenistik donem, buyuk kralliklar ve kulturlerarasi etkilesimle tanimlanir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=Hellenistik%20donem",
+    "sourceTitle": "Arkeoloji.biz aramasinda: Hellenistik donem",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_050",
+    "subject": "Sanat Tarihi - Fresko",
+    "difficulty": "Kolay",
+    "question": "Fresko teknigi en dogru bicimde nasil tanimlanir?",
+    "options": {
+      "A": "Mermere oyma heykel yapma",
+      "B": "Islak siva uzerine boyama",
+      "C": "Cam eritip mozaik dizme",
+      "D": "Altin varak kaplama",
+      "E": "Tunc dokum kalibi hazirlama"
+    },
+    "answer": "B",
+    "rationale": "Fresko, pigmentlerin islak siva uzerine uygulanmasina dayanan duvar resmi teknigidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=fresko%20teknigi",
+    "sourceTitle": "Arkeoloji.biz aramasinda: fresko teknigi",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_051",
+    "subject": "Sanat Tarihi - Heykel",
+    "difficulty": "Orta",
+    "question": "Klasik donem heykelciliginde sik kullanilan malzemelerden biri asagidakilerden hangisidir?",
+    "options": {
+      "A": "Plastik",
+      "B": "Mermer",
+      "C": "Betonarme",
+      "D": "Kagit hamuru",
+      "E": "Aluminyum"
+    },
+    "answer": "B",
+    "rationale": "Mermer, ozellikle klasik donem heykelciliginde yaygin kullanilan bir malzemedir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=antik%20heykel%20mermer",
+    "sourceTitle": "Arkeoloji.biz aramasinda: antik heykel ve mermer",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_052",
+    "subject": "Sanat Tarihi - Kabartma",
+    "difficulty": "Orta",
+    "question": "Kabartma sanati icin en uygun tanim hangisidir?",
+    "options": {
+      "A": "Tumuyle serbest duran heykel",
+      "B": "Bir yuzeyden kismen yukselen figurlu tasvir",
+      "C": "Yalnizca duvar boyasi",
+      "D": "Dokuma sanati teknigi",
+      "E": "Cam usuleme yontemi"
+    },
+    "answer": "B",
+    "rationale": "Kabartma, figurlarin zemin yuzeyinden kismen cikti verdigi bir tasvir turudur.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=kabartma%20sanati",
+    "sourceTitle": "Arkeoloji.biz aramasinda: kabartma sanati",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_053",
+    "subject": "Yardimci Bilimler - Epigrafi",
+    "difficulty": "Kolay",
+    "question": "Epigrafi disiplini temel olarak neyi inceler?",
+    "options": {
+      "A": "Tas, metal ya da diger yuzeyler uzerindeki yazitlari",
+      "B": "Sadece deniz canlisi kalintilarini",
+      "C": "Bitki polenlerini",
+      "D": "Maden eritme firinlarini",
+      "E": "Yalnizca mezar hediyelerini"
+    },
+    "answer": "A",
+    "rationale": "Epigrafi, yazitlarin okunmasi ve yorumlanmasi ile ilgilenir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=epigrafi",
+    "sourceTitle": "Arkeoloji.biz aramasinda: epigrafi",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_054",
+    "subject": "Yardimci Bilimler - Paleografi",
+    "difficulty": "Orta",
+    "question": "Paleografi asagidakilerden hangisini calisir?",
+    "options": {
+      "A": "Eski yazi bicimlerini ve yazi stillerini",
+      "B": "Tarih oncesi hayvan kemiklerini",
+      "C": "Yalnizca seramik yuzey bezemelerini",
+      "D": "Tapinak cephe oranlarini",
+      "E": "Roma yol aglarini"
+    },
+    "answer": "A",
+    "rationale": "Paleografi, el yazisi ve eski yazi sistemlerinin bicimsel incelenmesidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=paleografi",
+    "sourceTitle": "Arkeoloji.biz aramasinda: paleografi",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_055",
+    "subject": "Yardimci Bilimler - Antropoloji",
+    "difficulty": "Orta",
+    "question": "Arkeolojik insan kalintilarinin yas, cinsiyet ve saglik verileriyle yorumlanmasinda en cok hangi disiplin devreye girer?",
+    "options": {
+      "A": "Numizmatik",
+      "B": "Antropoloji",
+      "C": "Sismoloji",
+      "D": "Heraldik",
+      "E": "Kartografya"
+    },
+    "answer": "B",
+    "rationale": "Fiziksel antropoloji ve bioarkeoloji, insan iskeletleri uzerinden toplumsal veriler saglar.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=arkeoloji%20antropoloji",
+    "sourceTitle": "Arkeoloji.biz aramasinda: arkeoloji ve antropoloji",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_056",
+    "subject": "Arkeometri - Dendrokronoloji",
+    "difficulty": "Orta",
+    "question": "Dendrokronoloji hangi malzeme turu uzerinden tarihleme yapar?",
+    "options": {
+      "A": "Tas bloklar",
+      "B": "Kemik kolajen",
+      "C": "Agac halkalari",
+      "D": "Cam yuzeyler",
+      "E": "Bronz karisimlari"
+    },
+    "answer": "C",
+    "rationale": "Dendrokronoloji, agac halkalarinin diziliminden tarihleme uretir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=dendrokronoloji",
+    "sourceTitle": "Arkeoloji.biz aramasinda: dendrokronoloji",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_057",
+    "subject": "Arkeometri - Termoluminesans",
+    "difficulty": "Zor",
+    "question": "Termoluminesans yontemi en cok hangi malzeme grubunun tarihlenmesinde kullanilir?",
+    "options": {
+      "A": "Pismis kil ve seramik",
+      "B": "Canli bitki yapraklari",
+      "C": "Dokuma kumaslar",
+      "D": "Altin sikkeler",
+      "E": "Mermer sutunlar"
+    },
+    "answer": "A",
+    "rationale": "Termoluminesans, isiya maruz kalmis mineral yapilar icin ozellikle seramikte kullanilir.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=termoluminesans%20seramik",
+    "sourceTitle": "Arkeoloji.biz aramasinda: termoluminesans ve seramik",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_058",
+    "subject": "Kazi Yontemleri - Stratigrafi",
+    "difficulty": "Kolay",
+    "question": "Stratigrafi kavrami kazida en temelde neyi ifade eder?",
+    "options": {
+      "A": "Yalnizca eserlerin temizlenmesini",
+      "B": "Tabakalarin ve birikim siralarinin incelenmesini",
+      "C": "Sikke sayimini",
+      "D": "Mezar cizimlerini",
+      "E": "Yazi cozumlemesini"
+    },
+    "answer": "B",
+    "rationale": "Stratigrafi, arkeolojik tabakalarin olusum sirasi ve iliskilerini anlamaya yarar.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=stratigrafi%20kazi%20yontemleri",
+    "sourceTitle": "Arkeoloji.biz aramasinda: stratigrafi ve kazi yontemleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_059",
+    "subject": "Kazi Yontemleri - Belgeleme",
+    "difficulty": "Orta",
+    "question": "Bir buluntunun koordinat, tabaka ve buluntu yeri bilgilerinin kaydi neden onemlidir?",
+    "options": {
+      "A": "Yalnizca depoda daha hizli bulunmasi icin",
+      "B": "Baglaminin korunup yorumun guclenmesi icin",
+      "C": "Agirligini azaltmak icin",
+      "D": "Rengini belirlemek icin",
+      "E": "Maliyeti arttirmak icin"
+    },
+    "answer": "B",
+    "rationale": "Arkeolojide anlam, eserin kendisi kadar buluntu baglamindan da dogar.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=buluntu%20baglami%20belgeleme",
+    "sourceTitle": "Arkeoloji.biz aramasinda: buluntu baglami ve belgeleme",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK100_060",
+    "subject": "Kazi Yontemleri - Buluntu Baglami",
+    "difficulty": "Orta",
+    "question": "Arkeolojide 'baglam' kavrami en dogru bicimde hangi secenekte aciklanir?",
+    "options": {
+      "A": "Yalnizca eserin maddi degeri",
+      "B": "Buluntunun ciktigi mekan, tabaka ve iliskili veriler butunu",
+      "C": "Sadece buluntunun katalog numarasi",
+      "D": "Buluntunun muzede sergilendigi vitrin",
+      "E": "Buluntunun fotograf kagidi"
+    },
+    "answer": "B",
+    "rationale": "Baglam, nesnenin arkeolojik yorumunu mumkun kilan iliskiler butunudur.",
+    "sourceUrl": "https://www.arkeoloji.biz/search?q=buluntu%20baglami",
+    "sourceTitle": "Arkeoloji.biz aramasinda: buluntu baglami",
+    "reviewStatus": "approved"
+  }
+]

@@ -23,13 +23,14 @@ class SheetsAPI {
         });
     }
 
-    async recordScore(email, points) {
+    async recordScore(email, points, meta = {}) {
         // Legacy method retained for backward compatibility.
         return this.callAppsScript({
             action: 'recordScore',
             email: email || '',
             points: Number(points || 0),
-            month: CONFIG.getCurrentMonth()
+            month: meta.month || CONFIG.getCurrentMonth(),
+            examId: meta.examId || 'legacy'
         });
     }
 
