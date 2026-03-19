@@ -201,11 +201,12 @@ class Quiz {
         const encodedUrl = encodeURIComponent(url);
 
         return `
-            <div class="exam-details" style="margin-top: 1rem; gap: 0.75rem; flex-wrap: wrap;">
+            <div class="exam-details" style="margin-top: 1rem; gap: 0.75rem; flex-wrap: wrap; align-items:flex-start;">
                 <a class="btn-primary" href="https://wa.me/?text=${encodedText}%20${encodedUrl}" target="_blank" rel="noopener noreferrer">WhatsApp'ta Paylaş</a>
                 <a class="btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}" target="_blank" rel="noopener noreferrer">Facebook'ta Paylaş</a>
+                <a class="btn-primary" href="https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}" target="_blank" rel="noopener noreferrer">X'te Paylaş</a>
                 <a class="btn-primary" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram'da Paylaş</a>
-                <button id="copyShareLinkBtn" class="btn-secondary" type="button">Paylaşım Metnini Kopyala</button>
+                <button id="copyShareLinkBtn" class="btn-secondary" type="button" style="flex-basis:100%; max-width: 320px;">Paylaşım Metnini Kopyala</button>
             </div>
         `;
     }
@@ -278,13 +279,15 @@ class Quiz {
 
             <div class="exam-navigation">
                 <button id="prevQuestionBtn" class="btn-prev" type="button">Geri</button>
-                <button id="nextQuestionBtn" class="btn-next" type="button">Ileri</button>
-                <button id="finishExamBtn" class="btn-finish" type="button">Sinavi Bitir</button>
+                <button id="answerQuestionBtn" class="btn-next" type="button">Cevabı Onayla</button>
+                <button id="nextQuestionBtn" class="btn-next" type="button" style="display:none;">Ileri</button>
+                <button id="finishExamBtn" class="btn-finish" type="button" style="display:none;">Sinavi Bitir</button>
             </div>
             <div id="examTimerBottom" class="exam-timer exam-timer-bottom">Süre: 00:00</div>
         `;
 
         document.getElementById('prevQuestionBtn').addEventListener('click', () => this.changeQuestion(-1));
+        document.getElementById('answerQuestionBtn').addEventListener('click', () => this.submitAnswer());
         document.getElementById('nextQuestionBtn').addEventListener('click', () => this.changeQuestion(1));
         document.getElementById('finishExamBtn').addEventListener('click', () => this.finishExam(false));
         this.updateTimerText();
@@ -368,8 +371,13 @@ class Quiz {
 
         const prevBtn = document.getElementById('prevQuestionBtn');
         const nextBtn = document.getElementById('nextQuestionBtn');
+        const answerBtn = document.getElementById('answerQuestionBtn');
+        const finishBtn = document.getElementById('finishExamBtn');
         prevBtn.disabled = this.currentIndex === 0;
-        nextBtn.disabled = this.currentIndex >= this.questions.length - 1;
+        nextBtn.style.display = 'none';
+        finishBtn.style.display = 'none';
+        answerBtn.style.display = 'inline-block';
+        answerBtn.disabled = selected === undefined;
     }
 
     changeQuestion(step) {
@@ -623,13 +631,9 @@ class Quiz {
 
         if (!isLast && previousStreak === this.currentIndex && !isCorrect && !this.streakBreakPrompted) {
             this.streakBreakPrompted = true;
-            const shouldContinueAfterBreak = window.confirm(
-                `Seri bozuldu. Güvenli barajınız ${previousMilestone.cashLabel}.\n\nÖğrenme modunda devam etmek için Tamam'a, yarışmayı bitirmek için İptal'e basın.`
-            );
-            if (!shouldContinueAfterBreak) {
-                this.finishExam(false);
-                return;
-            }
+            app.showNotification(`Yanlış cevap geldi. Yarışma ${previousMilestone.cashLabel} güvenli kasayla bitirildi.`, 'info');
+            this.finishExam(false);
+            return;
         }
 
         if (isLast) {
