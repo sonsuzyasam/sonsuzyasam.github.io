@@ -1,0 +1,18 @@
+{
+  "examId": "arkeoloji",
+  "version": 1,
+  "totalQuestions": 20,
+  "reviewPolicy": "approved-only",
+  "packs": [
+    {
+      "file": "core-pack-001.json",
+      "count": 6,
+      "topic": "Genel Baslangic Paketi"
+    },
+    {
+      "file": "core-pack-002.json",
+      "count": 14,
+      "topic": "Yarismayi 20 soruya tamamlayan genisletme paketi"
+    }
+  ]
+}

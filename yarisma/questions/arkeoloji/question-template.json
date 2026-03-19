@@ -1,0 +1,20 @@
+[
+  {
+    "id": "ARK_1001",
+    "subject": "Konu - Alt Baslik",
+    "difficulty": "Orta",
+    "question": "Soru metni",
+    "options": {
+      "A": "Secenek A",
+      "B": "Secenek B",
+      "C": "Secenek C",
+      "D": "Secenek D",
+      "E": "Secenek E"
+    },
+    "answer": "A",
+    "rationale": "Dogru cevabin neden dogru oldugunu kisa ve net acikla.",
+    "sourceUrl": "https://www.arkeoloji.biz/ornek-yazi",
+    "sourceTitle": "Kaynak yazi basligi",
+    "reviewStatus": "approved"
+  }
+]

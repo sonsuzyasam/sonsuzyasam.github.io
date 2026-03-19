@@ -1,0 +1,62 @@
+﻿[
+    {
+        "sourceId":  "arkbiz_0001",
+        "url":  "https://www.arkeoloji.biz/ornek-yazi-1",
+        "title":  "Priene ve Hippodamos Plani",
+        "topic":  "Antik Kentler",
+        "period":  "Hellenistik",
+        "region":  "Anadolu",
+        "difficultyHint":  "Orta",
+        "facts":  [
+                      "Makaledeki birincil bilgi parcasi",
+                      "Makaledeki ikincil bilgi parcasi",
+                      "Makaledeki karsilastirmaya uygun bilgi parcasi"
+                  ],
+        "candidateQuestionAngles":  [
+                                        "temel kavram",
+                                        "yanlisi bul",
+                                        "karsilastirma",
+                                        "donem ozelligi"
+                                    ]
+    },
+    {
+        "sourceId":  "arkbiz_0002",
+        "url":  "https://www.arkeoloji.biz/ornek-yazi-2",
+        "title":  "Dor Duzeni Nedir",
+        "topic":  "Antik Mimari",
+        "period":  "Arkaik",
+        "region":  "Yunan Dunyasi",
+        "difficultyHint":  "Kolay",
+        "facts":  [
+                      "Makaledeki birincil bilgi parcasi",
+                      "Makaledeki ikincil bilgi parcasi",
+                      "Makaledeki karsilastirmaya uygun bilgi parcasi"
+                  ],
+        "candidateQuestionAngles":  [
+                                        "temel kavram",
+                                        "yanlisi bul",
+                                        "karsilastirma",
+                                        "donem ozelligi"
+                                    ]
+    },
+    {
+        "sourceId":  "arkbiz_0003",
+        "url":  "https://www.arkeoloji.biz/ornek-yazi-3",
+        "title":  "Catalhoyuk Yerlesimi",
+        "topic":  "Prehistorya",
+        "period":  "Neolitik",
+        "region":  "Anadolu",
+        "difficultyHint":  "Orta",
+        "facts":  [
+                      "Makaledeki birincil bilgi parcasi",
+                      "Makaledeki ikincil bilgi parcasi",
+                      "Makaledeki karsilastirmaya uygun bilgi parcasi"
+                  ],
+        "candidateQuestionAngles":  [
+                                        "temel kavram",
+                                        "yanlisi bul",
+                                        "karsilastirma",
+                                        "donem ozelligi"
+                                    ]
+    }
+]

@@ -5,6 +5,11 @@ class App {
         this.currentUser = null;
         this.currentMonth = CONFIG.getCurrentMonth();
         this.pointsCache = {};
+        this.dailyQuota = {
+            used: 0,
+            remaining: CONFIG.QUIZ_POLICY.DAILY_ATTEMPT_LIMIT,
+            limit: CONFIG.QUIZ_POLICY.DAILY_ATTEMPT_LIMIT
+        };
         this.init();
     }
 
@@ -13,6 +18,10 @@ class App {
         this.setupEventListeners();
         this.loadExams();
         this.updateDashboard();
+        if (this.currentUser) {
+            this.refreshMonthlyPointsFromServer();
+            this.refreshDailyQuizQuota();
+        }
     }
 
     // === Event Listeners ===
@@ -70,9 +79,15 @@ class App {
             }
             this.closeModal('loginModal');
             this.refreshMonthlyPointsFromServer();
+            this.refreshDailyQuizQuota();
         } else {
             localStorage.removeItem(STORAGE_KEYS.USER);
             this.pointsCache = {};
+            this.dailyQuota = {
+                used: 0,
+                remaining: CONFIG.QUIZ_POLICY.DAILY_ATTEMPT_LIMIT,
+                limit: CONFIG.QUIZ_POLICY.DAILY_ATTEMPT_LIMIT
+            };
         }
 
         this.updateUserUI();
@@ -143,6 +158,7 @@ class App {
         grid.innerHTML = '';
         
         CONFIG.EXAMS.forEach(exam => {
+            const milestones = (CONFIG.POINTS_SYSTEM.SAFE_MILESTONES || []).map((item) => item.cashLabel).join(' / ');
             const card = document.createElement('div');
             card.className = 'exam-card';
             card.innerHTML = `
@@ -155,17 +171,30 @@ class App {
                 <div class="exam-details">
                     <span>📈 Zorluk: ${exam.difficulty}</span>
                 </div>
+                <div class="exam-details">
+                    <span>🏁 Barajlar: ${milestones}</span>
+                </div>
+                <div class="exam-details">
+                    <span>🎯 Gunluk hak: ${CONFIG.QUIZ_POLICY.DAILY_ATTEMPT_LIMIT}</span>
+                </div>
                 <button class="exam-button" onclick="app.startExam('${exam.id}')">Sorulari Cevapla</button>
             `;
             grid.appendChild(card);
         });
     }
 
-    startExam(examId) {
+    async startExam(examId) {
         if (!this.currentUser) {
             this.showModal('loginModal');
             return;
         }
+
+        const quota = await this.refreshDailyQuizQuota();
+        if (quota && Number(quota.remaining || 0) <= 0) {
+            this.showNotification('Bugunku 5 yarisma hakkin doldu. Yarin tekrar dene.', 'error');
+            return;
+        }
+
         quiz.startExam(examId);
     }
 
@@ -174,6 +203,8 @@ class App {
         if (!this.currentUser) {
             document.getElementById('monthPoints').textContent = '--';
             document.getElementById('rewardValue').textContent = '₺--';
+            const quotaEl = document.getElementById('dailyQuotaRemaining');
+            if (quotaEl) quotaEl.textContent = '--';
             return;
         }
 
@@ -184,6 +215,10 @@ class App {
         document.getElementById('rewardValue').textContent = `₺${value}`;
         document.getElementById('currentPoints').textContent = points;
         document.getElementById('availableReward').textContent = `₺${value}`;
+        const quotaEl = document.getElementById('dailyQuotaRemaining');
+        if (quotaEl) {
+            quotaEl.textContent = Number(this.dailyQuota.remaining || 0);
+        }
     }
 
     getUserMonthlyPoints() {
@@ -218,6 +253,26 @@ class App {
         } catch (error) {
             console.warn('Monthly points could not be loaded from server:', error);
             return 0;
+        }
+    }
+
+    async refreshDailyQuizQuota() {
+        if (!this.currentUser || !window.sheetsAPI || typeof sheetsAPI.getExamQuota !== 'function') {
+            return this.dailyQuota;
+        }
+
+        try {
+            const quota = await sheetsAPI.getExamQuota();
+            this.dailyQuota = {
+                used: Number(quota.used || 0),
+                remaining: Number(quota.remaining || 0),
+                limit: Number(quota.limit || CONFIG.QUIZ_POLICY.DAILY_ATTEMPT_LIMIT)
+            };
+            this.updateDashboard();
+            return this.dailyQuota;
+        } catch (error) {
+            console.warn('Daily quiz quota could not be loaded:', error);
+            return this.dailyQuota;
         }
     }
 

@@ -1,0 +1,254 @@
+[
+  {
+    "id": "SER_01",
+    "subject": "Arkeolojik Yontem - Stratigrafi",
+    "difficulty": "Kolay",
+    "question": "Stratigrafi ilkesine gore, bozulmamis bir kazida en alttaki tabaka genel olarak neyi gosterir?",
+    "options": {
+      "A": "En yeni donemi",
+      "B": "En zengin buluntu grubunu",
+      "C": "En eski donemi",
+      "D": "Yeniden kullanilmis alani",
+      "E": "En kutsal mekani"
+    },
+    "answer": "C",
+    "rationale": "Bozulmamis stratigrafide alt tabakalar usttekilere gore daha erken donemlere aittir.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Kazi Yontemleri Icerikleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "KAZ_01",
+    "subject": "Arkeometrik Tarihleme - Karbon 14",
+    "difficulty": "Orta",
+    "question": "Karbon-14 tarihleme yontemi en cok hangi tur materyallerde kullanilir?",
+    "options": {
+      "A": "Organik kalintilar",
+      "B": "Mermer heykeller",
+      "C": "Bronz heykeller",
+      "D": "Demir silahlar",
+      "E": "Granit sutunlar"
+    },
+    "answer": "A",
+    "rationale": "Karbon-14, once yasamis organik materyallerin tarihlemelerinde kullanilir.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Arkeometri Icerikleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ANT_03",
+    "subject": "Antik Kentler - Kamusal Alanlar",
+    "difficulty": "Kolay",
+    "question": "Antik Yunan kentlerinde agora temel olarak hangi islevi gorurdu?",
+    "options": {
+      "A": "Sadece askeri egitim alani",
+      "B": "Ticari ve kamusal bulusma alani",
+      "C": "Mezar alani",
+      "D": "Yalnizca dinsel sunak alani",
+      "E": "Su depolama sistemi"
+    },
+    "answer": "B",
+    "rationale": "Agora, ticaretin, bulusmanin ve kamusal hayatın merkeziydi.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Antik Kentler Icerikleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "HIT_01",
+    "subject": "Anadolu Uygarliklari - Hititler",
+    "difficulty": "Kolay",
+    "question": "Hitit Imparatorlugu'nun baskenti asagidakilerden hangisidir?",
+    "options": {
+      "A": "Sardes",
+      "B": "Gordion",
+      "C": "Bogazkoy Hattusa",
+      "D": "Troya",
+      "E": "Miletos"
+    },
+    "answer": "C",
+    "rationale": "Hitit Imparatorlugu'nun baskenti Bogazkoy'deki Hattusa'dir.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Anadolu Uygarliklari Icerikleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ROM_01",
+    "subject": "Roma Kentciligi - Sokak Plani",
+    "difficulty": "Orta",
+    "question": "Roma kent planlamasinda kuzey-guney dogrultusunda uzanan ana caddenin adi nedir?",
+    "options": {
+      "A": "Decumanus Maximus",
+      "B": "Cardo Maximus",
+      "C": "Forum",
+      "D": "Basilica",
+      "E": "Via Sacra"
+    },
+    "answer": "B",
+    "rationale": "Cardo Maximus kuzey-guney, Decumanus Maximus ise dogu-bati ana aksidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Roma Kentleri Icerikleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "MES_01",
+    "subject": "Prehistorya - Donemleme",
+    "difficulty": "Kolay",
+    "question": "Mezolitik Cag, genel olarak hangi iki donem arasinda yer alir?",
+    "options": {
+      "A": "Neolitik ve Kalkolitik",
+      "B": "Paleolitik ve Neolitik",
+      "C": "Tunç ve Demir",
+      "D": "Roma ve Bizans",
+      "E": "Arkaik ve Klasik"
+    },
+    "answer": "B",
+    "rationale": "Mezolitik donem, Paleolitik'ten Neolitik'e gecis evresidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Prehistorya Icerikleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "NEOL_03",
+    "subject": "Neolitik Yerlesimler - Catalhoyuk",
+    "difficulty": "Orta",
+    "question": "Catalhoyuk yerlesimi en cok hangi ozelligi ile taninir?",
+    "options": {
+      "A": "Mermer tiyatrosu",
+      "B": "Civi yazili arsivi",
+      "C": "Birbirine bitisik kerpic evleri",
+      "D": "Buyuk sur sistemi",
+      "E": "Liman ticareti"
+    },
+    "answer": "C",
+    "rationale": "Catalhoyuk, damdan girisli ve bitisik duzende kerpic evleriyle taninir.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Catalhoyuk Icerikleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "EPI_01",
+    "subject": "Yardimci Bilimler - Epigrafi",
+    "difficulty": "Kolay",
+    "question": "Epigrafi bilimi temelde neyi inceler?",
+    "options": {
+      "A": "Sikkeleri",
+      "B": "Yazi tlari ve kitabeleri",
+      "C": "Kemik kalintilarini",
+      "D": "Toprak katmanlarini",
+      "E": "Mimari planlari"
+    },
+    "answer": "B",
+    "rationale": "Epigrafi, tas, metal ve benzeri yuzeylerdeki yazi ve kitabeleri inceler.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Yardimci Bilimler Icerikleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "NUM_01",
+    "subject": "Yardimci Bilimler - Numizmatik",
+    "difficulty": "Kolay",
+    "question": "Numizmatik bilimi asagidakilerden hangisiyle ilgilenir?",
+    "options": {
+      "A": "Mezar tipleri",
+      "B": "Antik takilar",
+      "C": "Sikkeler ve para sistemleri",
+      "D": "Heykeltraşlik teknikleri",
+      "E": "Bitki polenleri"
+    },
+    "answer": "C",
+    "rationale": "Numizmatik, sikkeler ve para tarihi uzerinden ekonomik ve siyasi veri saglar.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Numizmatik Icerikleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "CER_01",
+    "subject": "Seramik ve Tasima Kaplari",
+    "difficulty": "Kolay",
+    "question": "Amphora antik caglardaki hangi amacla en sik kullanilan kap tiplerinden biridir?",
+    "options": {
+      "A": "Sadece tapinak suslemesi",
+      "B": "Sivi ve urun tasima-depolama",
+      "C": "Mezar tasi yapimi",
+      "D": "Sikke saklama",
+      "E": "Yazi tableti uretimi"
+    },
+    "answer": "B",
+    "rationale": "Amphoralar zeytinyagi, sarap ve benzeri urunlerin tasinmasi ve depolanmasinda kullanildi.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Seramik Icerikleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "TAP_01",
+    "subject": "Tapinak Mimarisi - Plan Tipleri",
+    "difficulty": "Orta",
+    "question": "Bir tapinagin dort cevresinin de sutunlarla sarili oldugu plan tipine ne ad verilir?",
+    "options": {
+      "A": "Megalith",
+      "B": "Peripteros",
+      "C": "Stoa",
+      "D": "Naos",
+      "E": "Propylon"
+    },
+    "answer": "B",
+    "rationale": "Peripteros planinda naos yapisi dort yandan sutun dizileriyle cevrilir.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Tapinak Mimarisi Icerikleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "MOZ_01",
+    "subject": "Sanat Tarihi - Mozaik",
+    "difficulty": "Kolay",
+    "question": "Mozaik kompozisyonlarini olusturan kucuk tas ya da cam parcaciklarina ne ad verilir?",
+    "options": {
+      "A": "Tessera",
+      "B": "Triglif",
+      "C": "Stel",
+      "D": "Orthostat",
+      "E": "Volut"
+    },
+    "answer": "A",
+    "rationale": "Mozaik yuzeyleri meydana getiren kucuk birimlere tessera denir.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Mozaik ve Sanat Icerikleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "KAL_01",
+    "subject": "Prehistorya - Kalkolitik Cag",
+    "difficulty": "Orta",
+    "question": "Kalkolitik Cag'i tanimlayan temel gelisme asagidakilerden hangisidir?",
+    "options": {
+      "A": "Demirin yaygin kullanimi",
+      "B": "Bakirin kullanilmaya baslanmasi",
+      "C": "Yazinin icadi",
+      "D": "Roma hukuku",
+      "E": "Mermer heykelciligin dorugu"
+    },
+    "answer": "B",
+    "rationale": "Kalkolitik, tas aletlerin yaninda bakirin da kullanildigi gecis donemidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Kalkolitik Cag Icerikleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "URA_01",
+    "subject": "Anadolu Uygarliklari - Urartu",
+    "difficulty": "Orta",
+    "question": "Urartu uygarliginin siyasal cekirdek bolgesi asagidakilerden hangisidir?",
+    "options": {
+      "A": "Marmara Havzasi",
+      "B": "Van Golu Cevresi",
+      "C": "Gediz Ovasi",
+      "D": "Trakya",
+      "E": "Kilikya"
+    },
+    "answer": "B",
+    "rationale": "Urartu Devleti'nin merkezi Van Golu havzasidir.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Urartu Icerikleri",
+    "reviewStatus": "approved"
+  }
+]

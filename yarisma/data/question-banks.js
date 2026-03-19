@@ -1,4 +1,4 @@
-// ===== QUESTION BANKS =====
+﻿// ===== QUESTION BANKS =====
 
 window.QUESTION_BANKS = {
     tyt: [
@@ -84,65 +84,25 @@ window.QUESTION_BANKS = {
     ],
 
     arkeoloji: [
-        {
-            id: 'ARK_04',
-            topic: 'Arkeoloji – Tanım ve Yardımcı Bilimler',
-            difficulty: 'Orta',
-            text: 'Arkeoloji bilimi, aşağıdaki disiplinlerden hangisinin "yardımcı bilimi" olarak kabul edilir?',
-            options: ['Felsefe', 'Sosyoloji', 'Kimya (yalnızca)', 'Tarih (yalnızca)', 'Folklor (halkbilimi)'],
-            correctIndex: 0,
-            rationale: 'Arkeoloji, Tarih biliminin yardımcı bilimi olarak da tanımlanmakla birlikte genel sınıflamada "yardımcı bilimler" olan felsefe geleneğiyle iç içe geçer; maddi kültür kalıntıları üzerinden geçmişe ışık tutar.'
-        },
-        {
-            id: 'MIM_02',
-            topic: 'Antik Mimari – Sütun Düzenleri',
-            difficulty: 'Orta',
-            text: 'Aşağıdaki sütun düzenlerinden hangisi en sade ve en eski Yunan mimari düzeni olarak bilinir; frizinde triglif ve metoplar bulunur?',
-            options: ['İon Düzeni', 'Korinth Düzeni', 'Dor Düzeni', 'Aiol Düzeni', 'Kompozit Düzen'],
-            correctIndex: 2,
-            rationale: 'Dor düzeni, en sade yapıya sahip olup triglif-metop friziyle tanınır ve Arkaik dönemin karakteristiğidir. Başlığı yalnızca abakus ve ekinustan oluşur.'
-        },
-        {
-            id: 'NEOL_02',
-            topic: 'Neolitik Çağ – Özellikler',
-            difficulty: 'Kolay',
-            text: 'Neolitik Çağ\'ın en önemli dönüm noktalarından biri aşağıdakilerden hangisidir?',
-            options: ['Tunç aletlerin yaygınlaşması', 'Yerleşik hayata ve tarıma geçiş', 'Yazı sisteminin icadı', 'Büyük imparatorlukların kurulması', 'Demir Çağı teknolojileri'],
-            correctIndex: 1,
-            rationale: 'Neolitik Çağ (yakl. MÖ 10.000–3000), tarım ve hayvancılığın başlaması ile yerleşik hayata geçişin dönemi olarak tanımlanır.'
-        },
-        {
-            id: 'ANT_02',
-            topic: 'Antik Kentler – Priene Örneği',
-            difficulty: 'Orta',
-            text: 'Hellenistik dönemde ızgara plan (Hippodamos planı) en iyi şekilde korunmuş antik kent aşağıdakilerden hangisidir?',
-            options: ['Assos', 'Tios', 'Priene', 'Miletos', 'Efes'],
-            correctIndex: 2,
-            rationale: 'Priene, Athena Polias Tapınağı ile birlikte ızgara planın klasik örneğidir ve Hellenistik dönemin en iyi korunmuş antik kentidir.'
-        },
-        {
-            id: 'TAR_03',
-            topic: 'Tarih – Osmanlı Ölçü Birimleri',
-            difficulty: 'Kolay',
-            text: 'Osmanlı\'da kumaş ölçümünde kullanılan temel birim aşağıdakilerden hangisidir?',
-            options: ['Okka', 'Arşın', 'Kantar', 'Fersah', 'Kulaç'],
-            correctIndex: 1,
-            rationale: 'Çarşı arşını yaklaşık 68 cm olup Osmanlı\'da kumaş ölçümünde temel birimdir. Okka ve kantar ağırlık, fersah uzunluk, kulaç ise denizcilik ölçüsüdür.'
-        },
-        {
-            id: 'ARK_05',
-            topic: 'Arkeoloji – Genel Bilgi',
-            difficulty: 'Orta',
-            text: 'Aşağıdakilerden hangisi arkeolojinin temel amaçlarından biri değildir?',
-            options: [
-                'Geçmiş toplumların maddi kültürünü incelemek',
-                'Kazı teknikleriyle buluntuları belgelemek',
-                'Yazılı kaynakların yalnızca ekonomik analizini yapmak',
-                'Tarihin boşluklarını maddi kalıntılarla doldurmak',
-                'Laboratuvar yöntemleriyle yorumlamak'
-            ],
-            correctIndex: 2,
-            rationale: 'Arkeoloji maddi kalıntılarla çalışır; yazılı kaynakların yalnızca ekonomik analizi ise tarih veya iktisat tarihinin alanıdır.'
-        }
+        { id: 'ARK_04', topic: 'Arkeoloji', difficulty: 'Orta', text: 'Arkeoloji bilimi, asagidaki disiplinlerden hangisinin \'yardimci bilimi\' olarak kabul edilir?', options: ['Felsefe', 'Sosyoloji', 'Kimya (yalnizca)', 'Tarih (yalnizca)', 'Folklor (halkbilimi)'], correctIndex: 0, rationale: 'Arkeoloji, maddi kultur kalintilari uzerinden gecmisi aydinlatir; bu soru setinde tanimlayici baglam arkeoloji.biz icerigine gore verilmistir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Ana Sayfa ve Arkeoloji Icerikleri' },
+        { id: 'MIM_02', topic: 'Antik Mimari', difficulty: 'Orta', text: 'Asagidaki sutun duzenlerinden hangisi en sade ve en eski Yunan mimari duzeni olarak bilinir; frizinde triglif ve metoplar bulunur?', options: ['Ion Duzeni', 'Korinth Duzeni', 'Dor Duzeni', 'Aiol Duzeni', 'Kompozit Duzen'], correctIndex: 2, rationale: 'Dor duzeni, triglif-metop frizi ve sade baslik yapisiyla ayirt edilir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Antik Mimari Icerikleri' },
+        { id: 'NEOL_02', topic: 'Neolitik Cag', difficulty: 'Kolay', text: 'Neolitik Cag\'in en onemli donum noktalarindan biri asagidakilerden hangisidir?', options: ['Tunc aletlerin yayginlasmasi', 'Yerlesik hayata ve tarima gecis', 'Yazi sisteminin icadi', 'Buyuk imparatorluklarin kurulmasi', 'Demir Cagi teknolojileri'], correctIndex: 1, rationale: 'Neolitik cag, tarim ve hayvancilikla birlikte yerlesik hayata gecisle tanimlanir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Prehistorya Icerikleri' },
+        { id: 'ANT_02', topic: 'Antik Kentler', difficulty: 'Orta', text: 'Hellenistik donemde izgara plan (Hippodamos plani) en iyi sekilde korunmus antik kent asagidakilerden hangisidir?', options: ['Assos', 'Tios', 'Priene', 'Miletos', 'Efes'], correctIndex: 2, rationale: 'Priene, planli kent dokusunun iyi korundugu en belirgin orneklerden biridir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Antik Kentler Icerikleri' },
+        { id: 'TAR_03', topic: 'Tarih', difficulty: 'Kolay', text: 'Osmanli\'da kumas olcumunde kullanilan temel birim asagidakilerden hangisidir?', options: ['Okka', 'Arsin', 'Kantar', 'Fersah', 'Kulac'], correctIndex: 1, rationale: 'Arsin, kumas olcumunde kullanilan temel birimlerden biridir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Kultur Tarihi Icerikleri' },
+        { id: 'ARK_05', topic: 'Arkeoloji', difficulty: 'Orta', text: 'Asagidakilerden hangisi arkeolojinin temel amaclarindan biri degildir?', options: ['Gecmis toplumlarin maddi kulturunu incelemek', 'Kazi teknikleriyle buluntulari belgelemek', 'Yazili kaynaklarin yalnizca ekonomik analizini yapmak', 'Tarihin bosluklarini maddi kalintilarla doldurmak', 'Laboratuvar yontemleriyle yorumlamak'], correctIndex: 2, rationale: 'Arkeoloji, maddi kalintilar ve baglamlari uzerinden gecmisi yorumlar; salt ekonomik metin analizi kendi basina arkeolojinin ana amaci degildir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Arkeoloji Bilimi Icerikleri' },
+        { id: 'SER_01', topic: 'Arkeolojik Yontem', difficulty: 'Kolay', text: 'Stratigrafi ilkesine gore, bozulmamis bir kazida en alttaki tabaka genel olarak neyi gosterir?', options: ['En yeni donemi', 'En zengin buluntu grubunu', 'En eski donemi', 'Yeniden kullanilmis alani', 'En kutsal mekani'], correctIndex: 2, rationale: 'Bozulmamis stratigrafide alt tabakalar usttekilere gore daha erken donemlere aittir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Kazi Yontemleri Icerikleri' },
+        { id: 'KAZ_01', topic: 'Arkeometrik Tarihleme', difficulty: 'Orta', text: 'Karbon-14 tarihleme yontemi en cok hangi tur materyallerde kullanilir?', options: ['Organik kalintilar', 'Mermer heykeller', 'Bronz heykeller', 'Demir silahlar', 'Granit sutunlar'], correctIndex: 0, rationale: 'Karbon-14, once yasamis organik materyallerin tarihlemelerinde kullanilir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Arkeometri Icerikleri' },
+        { id: 'ANT_03', topic: 'Antik Kentler', difficulty: 'Kolay', text: 'Antik Yunan kentlerinde agora temel olarak hangi islevi gorurdu?', options: ['Sadece askeri egitim alani', 'Ticari ve kamusal bulusma alani', 'Mezar alani', 'Yalnizca dinsel sunak alani', 'Su depolama sistemi'], correctIndex: 1, rationale: 'Agora, ticaretin, bulusmanin ve kamusal hayatın merkeziydi.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Antik Kentler Icerikleri' },
+        { id: 'HIT_01', topic: 'Anadolu Uygarliklari', difficulty: 'Kolay', text: 'Hitit Imparatorlugu\'nun baskenti asagidakilerden hangisidir?', options: ['Sardes', 'Gordion', 'Bogazkoy Hattusa', 'Troya', 'Miletos'], correctIndex: 2, rationale: 'Hitit Imparatorlugu\'nun baskenti Bogazkoy\'deki Hattusa\'dir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Anadolu Uygarliklari Icerikleri' },
+        { id: 'ROM_01', topic: 'Roma Kentciligi', difficulty: 'Orta', text: 'Roma kent planlamasinda kuzey-guney dogrultusunda uzanan ana caddenin adi nedir?', options: ['Decumanus Maximus', 'Cardo Maximus', 'Forum', 'Basilica', 'Via Sacra'], correctIndex: 1, rationale: 'Cardo Maximus kuzey-guney, Decumanus Maximus ise dogu-bati ana aksidir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Roma Kentleri Icerikleri' },
+        { id: 'MES_01', topic: 'Prehistorya', difficulty: 'Kolay', text: 'Mezolitik Cag, genel olarak hangi iki donem arasinda yer alir?', options: ['Neolitik ve Kalkolitik', 'Paleolitik ve Neolitik', 'Tunç ve Demir', 'Roma ve Bizans', 'Arkaik ve Klasik'], correctIndex: 1, rationale: 'Mezolitik donem, Paleolitik\'ten Neolitik\'e gecis evresidir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Prehistorya Icerikleri' },
+        { id: 'NEOL_03', topic: 'Neolitik Yerlesimler', difficulty: 'Orta', text: 'Catalhoyuk yerlesimi en cok hangi ozelligi ile taninir?', options: ['Mermer tiyatrosu', 'Civi yazili arsivi', 'Birbirine bitisik kerpic evleri', 'Buyuk sur sistemi', 'Liman ticareti'], correctIndex: 2, rationale: 'Catalhoyuk, damdan girisli ve bitisik duzende kerpic evleriyle taninir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Catalhoyuk Icerikleri' },
+        { id: 'EPI_01', topic: 'Yardimci Bilimler', difficulty: 'Kolay', text: 'Epigrafi bilimi temelde neyi inceler?', options: ['Sikkeleri', 'Yazi tlari ve kitabeleri', 'Kemik kalintilarini', 'Toprak katmanlarini', 'Mimari planlari'], correctIndex: 1, rationale: 'Epigrafi, tas, metal ve benzeri yuzeylerdeki yazi ve kitabeleri inceler.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Yardimci Bilimler Icerikleri' },
+        { id: 'NUM_01', topic: 'Yardimci Bilimler', difficulty: 'Kolay', text: 'Numizmatik bilimi asagidakilerden hangisiyle ilgilenir?', options: ['Mezar tipleri', 'Antik takilar', 'Sikkeler ve para sistemleri', 'Heykeltraşlik teknikleri', 'Bitki polenleri'], correctIndex: 2, rationale: 'Numizmatik, sikkeler ve para tarihi uzerinden ekonomik ve siyasi veri saglar.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Numizmatik Icerikleri' },
+        { id: 'CER_01', topic: 'Seramik ve Tasima Kaplari', difficulty: 'Kolay', text: 'Amphora antik caglardaki hangi amacla en sik kullanilan kap tiplerinden biridir?', options: ['Sadece tapinak suslemesi', 'Sivi ve urun tasima-depolama', 'Mezar tasi yapimi', 'Sikke saklama', 'Yazi tableti uretimi'], correctIndex: 1, rationale: 'Amphoralar zeytinyagi, sarap ve benzeri urunlerin tasinmasi ve depolanmasinda kullanildi.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Seramik Icerikleri' },
+        { id: 'TAP_01', topic: 'Tapinak Mimarisi', difficulty: 'Orta', text: 'Bir tapinagin dort cevresinin de sutunlarla sarili oldugu plan tipine ne ad verilir?', options: ['Megalith', 'Peripteros', 'Stoa', 'Naos', 'Propylon'], correctIndex: 1, rationale: 'Peripteros planinda naos yapisi dort yandan sutun dizileriyle cevrilir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Tapinak Mimarisi Icerikleri' },
+        { id: 'MOZ_01', topic: 'Sanat Tarihi', difficulty: 'Kolay', text: 'Mozaik kompozisyonlarini olusturan kucuk tas ya da cam parcaciklarina ne ad verilir?', options: ['Tessera', 'Triglif', 'Stel', 'Orthostat', 'Volut'], correctIndex: 0, rationale: 'Mozaik yuzeyleri meydana getiren kucuk birimlere tessera denir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Mozaik ve Sanat Icerikleri' },
+        { id: 'KAL_01', topic: 'Prehistorya', difficulty: 'Orta', text: 'Kalkolitik Cag\'i tanimlayan temel gelisme asagidakilerden hangisidir?', options: ['Demirin yaygin kullanimi', 'Bakirin kullanilmaya baslanmasi', 'Yazinin icadi', 'Roma hukuku', 'Mermer heykelciligin dorugu'], correctIndex: 1, rationale: 'Kalkolitik, tas aletlerin yaninda bakirin da kullanildigi gecis donemidir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Kalkolitik Cag Icerikleri' },
+        { id: 'URA_01', topic: 'Anadolu Uygarliklari', difficulty: 'Orta', text: 'Urartu uygarliginin siyasal cekirdek bolgesi asagidakilerden hangisidir?', options: ['Marmara Havzasi', 'Van Golu Cevresi', 'Gediz Ovasi', 'Trakya', 'Kilikya'], correctIndex: 1, rationale: 'Urartu Devleti\'nin merkezi Van Golu havzasidir.', sourceUrl: 'https://www.arkeoloji.biz/', sourceTitle: 'Arkeoloji.biz Urartu Icerikleri' }
     ]
 };

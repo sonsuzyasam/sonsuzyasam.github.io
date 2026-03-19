@@ -112,6 +112,26 @@ class SheetsAPI {
         return Array.isArray(data.items) ? data.items : [];
     }
 
+    async getExamQuota() {
+        if (!this.isConfigured()) {
+            return {
+                used: 0,
+                remaining: CONFIG.QUIZ_POLICY.DAILY_ATTEMPT_LIMIT,
+                limit: CONFIG.QUIZ_POLICY.DAILY_ATTEMPT_LIMIT
+            };
+        }
+
+        const data = await this.callAppsScriptExpectJson({
+            action: 'getExamQuota'
+        });
+
+        return {
+            used: Number(data.used || 0),
+            remaining: Number(data.remaining || 0),
+            limit: Number(data.limit || CONFIG.QUIZ_POLICY.DAILY_ATTEMPT_LIMIT)
+        };
+    }
+
     async callAppsScript(payload) {
         try {
             const enriched = await this.withAuth(payload);

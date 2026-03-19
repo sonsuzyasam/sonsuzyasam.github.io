@@ -11,6 +11,53 @@ class Quiz {
         this.sessionStartedAt = null;
     }
 
+    getMilestones() {
+        return Array.isArray(CONFIG.POINTS_SYSTEM.SAFE_MILESTONES)
+            ? CONFIG.POINTS_SYSTEM.SAFE_MILESTONES
+            : [];
+    }
+
+    getSafeMilestone(correctStreak) {
+        let safe = { correct: 0, points: 0, cashLabel: '0 TL' };
+        this.getMilestones().forEach((milestone) => {
+            if (correctStreak >= Number(milestone.correct || 0)) {
+                safe = milestone;
+            }
+        });
+        return safe;
+    }
+
+    getNextMilestone(correctStreak) {
+        return this.getMilestones().find((milestone) => Number(milestone.correct || 0) > correctStreak) || null;
+    }
+
+    buildMilestoneLadder(activeCorrect = 0) {
+        return this.getMilestones().map((milestone) => {
+            const passed = activeCorrect >= Number(milestone.correct || 0);
+            return `
+                <div class="milestone-item ${passed ? 'passed' : ''}">
+                    <strong>${milestone.correct}. soru</strong>
+                    <span>${milestone.cashLabel}</span>
+                </div>
+            `;
+        }).join('');
+    }
+
+    getEngagementPrompt(question, questionNumber) {
+        const prompts = CONFIG.QUIZ_POLICY.ENGAGEMENT_PROMPTS || [];
+        const basePrompt = prompts[(questionNumber - 1) % Math.max(prompts.length, 1)] || 'Ipuclari icin arkeoloji.biz iceriklerine goz at.';
+        const sourceTitle = question.sourceTitle || 'Arkeoloji.biz kaynagi';
+        const sourceUrl = question.sourceUrl || 'https://www.arkeoloji.biz/';
+
+        return `
+            <div class="engagement-panel card">
+                <p class="eyebrow">Arkeoloji.biz Uyarani</p>
+                <p>${basePrompt}</p>
+                <a class="btn-outline-link" href="${sourceUrl}" target="_blank" rel="noopener noreferrer">${sourceTitle}</a>
+            </div>
+        `;
+    }
+
     startExam(examId) {
         const exam = CONFIG.EXAMS.find((item) => item.id === examId);
         if (!exam) {
@@ -24,13 +71,19 @@ class Quiz {
             return;
         }
 
-        const pass = confirm(`${exam.name} sinavi baslatilsin mi?\nToplam ${bank.length} soru cozeceksin.`);
+        const requiredQuestions = Number(exam.questions || CONFIG.QUIZ_POLICY.QUESTIONS_PER_GAME || 20);
+        if (bank.length < requiredQuestions) {
+            app.showNotification(`Bu yarisma icin en az ${requiredQuestions} onayli soru gerekli. Su an ${bank.length} soru var.`, 'error');
+            return;
+        }
+
+        const pass = confirm(`${exam.name} baslatilsin mi?\n20 soruluk bu oyunda guvenli barajlar: 3/10/15/20.`);
         if (!pass) return;
 
         this.resetSession();
 
         this.currentExam = exam;
-        this.questions = this.shuffle([...bank]);
+        this.questions = this.shuffle([...bank]).slice(0, requiredQuestions);
         this.currentIndex = 0;
         this.timeLeft = (Number(exam.duration) || 60) * 60;
         this.sessionStartedAt = new Date().toISOString();
@@ -52,6 +105,10 @@ class Quiz {
                 <div id="examTimer" class="exam-timer">Sure: 00:00</div>
             </div>
 
+            <div class="milestone-ladder">
+                ${this.buildMilestoneLadder(0)}
+            </div>
+
             <div class="exam-progress">
                 <div id="examProgressBar" class="exam-progress-bar" style="width:0%"></div>
             </div>
@@ -61,6 +118,7 @@ class Quiz {
                 <div id="questionPassage" class="question-passage" style="display:none;"></div>
                 <h3 id="questionText" class="question-text"></h3>
                 <div id="questionMeta" class="exam-details"></div>
+                <div id="questionEngagement"></div>
                 <div id="questionOptions" class="options"></div>
             </div>
 
@@ -85,8 +143,10 @@ class Quiz {
         const passageEl = document.getElementById('questionPassage');
         const textEl = document.getElementById('questionText');
         const metaEl = document.getElementById('questionMeta');
+        const engagementEl = document.getElementById('questionEngagement');
         const optionsEl = document.getElementById('questionOptions');
         const progressEl = document.getElementById('examProgressBar');
+        const ladderEl = document.querySelector('.milestone-ladder');
 
         numberEl.textContent = `Soru ${this.currentIndex + 1} / ${this.questions.length}`;
 
@@ -100,6 +160,12 @@ class Quiz {
 
         textEl.textContent = question.text;
         metaEl.textContent = `${question.topic || '-'} | Zorluk: ${question.difficulty || '-'}`;
+        if (engagementEl) {
+            engagementEl.innerHTML = this.getEngagementPrompt(question, this.currentIndex + 1);
+        }
+        if (ladderEl) {
+            ladderEl.innerHTML = this.buildMilestoneLadder(this.currentIndex);
+        }
 
         const labels = ['A', 'B', 'C', 'D', 'E'];
         const selected = this.answers[this.currentIndex];
@@ -173,26 +239,41 @@ class Quiz {
 
         this.stopTimer();
 
+        let correctStreak = 0;
         let correct = 0;
         let wrong = 0;
+        let blank = 0;
+        let failedAt = null;
 
         this.questions.forEach((q, idx) => {
             const answer = this.answers[idx];
-            if (answer === undefined) return;
+            if (answer === undefined) {
+                blank += 1;
+                if (failedAt === null && correctStreak === idx) {
+                    failedAt = idx + 1;
+                }
+                return;
+            }
             if (Number(answer) === Number(q.correctIndex)) {
                 correct += 1;
+                if (failedAt === null && correctStreak === idx) {
+                    correctStreak += 1;
+                }
             } else {
                 wrong += 1;
+                if (failedAt === null && correctStreak === idx) {
+                    failedAt = idx + 1;
+                }
             }
         });
 
         const total = this.questions.length;
-        const blank = total - (correct + wrong);
-        const net = correct - (wrong / 3);
-        const score = Math.max(0, Math.min(100, ((net * 100) / total) + 50));
-        const passed = score >= Number(CONFIG.POINTS_SYSTEM.PASS_SCORE || 45);
+        const net = correct - wrong;
+        const safeMilestone = this.getSafeMilestone(correctStreak);
+        const nextMilestone = this.getNextMilestone(correctStreak);
         let pointsEarned = 0;
         let serverScored = false;
+        let dailyQuota = null;
 
         if (window.sheetsAPI && typeof sheetsAPI.submitExamResult === 'function') {
             try {
@@ -210,6 +291,16 @@ class Quiz {
 
                 pointsEarned = Number(result.awardedPoints || 0);
                 serverScored = true;
+                correctStreak = Number(result.correctStreak || correctStreak);
+                dailyQuota = {
+                    used: Number(result.dailyAttemptsUsed || 0),
+                    remaining: Number(result.dailyAttemptsRemaining || 0),
+                    limit: Number(result.dailyAttemptLimit || CONFIG.QUIZ_POLICY.DAILY_ATTEMPT_LIMIT)
+                };
+
+                if (window.app) {
+                    app.dailyQuota = dailyQuota;
+                }
 
                 if (typeof app.refreshMonthlyPointsFromServer === 'function') {
                     await app.refreshMonthlyPointsFromServer();
@@ -219,6 +310,24 @@ class Quiz {
             }
         }
 
+        const effectiveSafeMilestone = this.getSafeMilestone(correctStreak);
+        const effectiveNextMilestone = this.getNextMilestone(correctStreak);
+        const questionReview = this.questions.map((question, idx) => {
+            const selected = this.answers[idx];
+            const isCorrect = Number(selected) === Number(question.correctIndex);
+            const status = selected === undefined ? 'Bos' : (isCorrect ? 'Dogru' : 'Yanlis');
+            const labels = ['A', 'B', 'C', 'D', 'E'];
+            return `
+                <div class="result-item ${isCorrect ? 'correct' : selected === undefined ? 'blank' : 'incorrect'}">
+                    <p><strong>${idx + 1}. soru:</strong> ${question.text}</p>
+                    <p>Senin cevabin: ${selected === undefined ? '-' : labels[selected]}</p>
+                    <p>Dogru cevap: ${labels[question.correctIndex]}</p>
+                    <p>${question.rationale || ''}</p>
+                    <a href="${question.sourceUrl || 'https://www.arkeoloji.biz/'}" target="_blank" rel="noopener noreferrer">${question.sourceTitle || 'Arkeoloji.biz kaynagina git'}</a>
+                </div>
+            `;
+        }).join('');
+
         const container = document.getElementById('examContainer');
         container.innerHTML = `
             <div class="exam-header">
@@ -226,23 +335,32 @@ class Quiz {
                 <p>${autoFinish ? 'Sure doldu, sinav otomatik bitirildi.' : 'Sinav tamamlandi.'}</p>
             </div>
 
+            <div class="milestone-ladder results-ladder">
+                ${this.buildMilestoneLadder(correctStreak)}
+            </div>
+
             <div class="card" style="margin-bottom: 1rem;">
-                <p><strong>Dogru:</strong> ${correct}</p>
+                <p><strong>Ilk hata/terk noktasi:</strong> ${failedAt || 'Tum sorular gecildi'}</p>
+                <p><strong>Kesintisiz dogru:</strong> ${correctStreak}</p>
+                <p><strong>Toplam dogru:</strong> ${correct}</p>
                 <p><strong>Yanlis:</strong> ${wrong}</p>
                 <p><strong>Bos:</strong> ${blank}</p>
-                <p><strong>Net:</strong> ${net.toFixed(2)}</p>
-                <p><strong>Skor:</strong> ${score.toFixed(2)}</p>
-                <p><strong>Baraj:</strong> ${passed ? 'Gecti' : 'Gecemedi'} (${CONFIG.POINTS_SYSTEM.PASS_SCORE})</p>
+                <p><strong>Net deneyim puani:</strong> ${net}</p>
+                <p><strong>Guvenli kasa:</strong> ${effectiveSafeMilestone.cashLabel}</p>
+                <p><strong>Siradaki baraj:</strong> ${effectiveNextMilestone ? `${effectiveNextMilestone.correct}. soru / ${effectiveNextMilestone.cashLabel}` : 'Tum barajlar tamamlandi'}</p>
                 <p><strong>Kazanilan Puan:</strong> ${pointsEarned}</p>
                 <p><strong>Puan Kaynagi:</strong> ${serverScored ? 'Sunucu dogrulamasi' : 'Kaydedilemedi'}</p>
+                <p><strong>Gunluk kalan hak:</strong> ${dailyQuota ? dailyQuota.remaining : (app.dailyQuota ? app.dailyQuota.remaining : CONFIG.QUIZ_POLICY.DAILY_ATTEMPT_LIMIT)}</p>
             </div>
+
+            <div class="result-review-list">${questionReview}</div>
 
             <button id="closeExamResultBtn" class="btn-primary" type="button">Kapat</button>
         `;
 
-        const msgType = passed ? 'success' : 'info';
+        const msgType = pointsEarned > 0 ? 'success' : 'info';
         const msg = serverScored
-            ? `${this.currentExam.name} tamamlandi. +${pointsEarned} puan sunucu tarafinda kaydedildi.`
+            ? `${this.currentExam.name} tamamlandi. Kasan ${effectiveSafeMilestone.cashLabel}, +${pointsEarned} puan kaydedildi.`
             : `${this.currentExam.name} tamamlandi. Puanin sunucuya yazilmasi icin altyapiyi kontrol et.`;
         app.showNotification(msg, msgType);
 

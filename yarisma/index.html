@@ -10,7 +10,7 @@
     <div class="app-container">
         <div class="top-strip">
             <a href="https://www.arkeoloji.biz/" target="_blank" rel="noopener noreferrer">arkeoloji.biz'i gez</a>
-            <span>Sorulari cevapla, aylik puan biriktir, odul sistemine katil</span>
+            <span>20 soruluk barajli yarisma, gunluk 5 hak ve aylik odul sistemi</span>
         </div>
         <!-- Header -->
         <header class="header">
@@ -40,8 +40,8 @@
                 <div class="intro-banner card arkeoloji-hero">
                     <div>
                         <p class="eyebrow">Bilgi Kazisi</p>
-                        <h2>Arkeoloji sorularini coz, puanlarini odule donustur</h2>
-                        <p class="intro-copy">Sorularin cevaplarini arkeoloji.biz'de bulabilirsin. Baraji gectiginde aldigin puan hesabina islenir. Ay sonunda puanlarini odul talebine donusturebilirsin.</p>
+                        <h2>20 soruluk yarismada barajlari gec, kasani buyut</h2>
+                        <p class="intro-copy">Ilk 3 soruda 15 kurus, 10 soruda 50 kurus, 15 soruda 75 kurus ve 20 soruda 1 TL kasa garantisi var. Sorularin cevap izlerini arkeoloji.biz iceriklerinde bulabilir, gunluk 5 hakkinla kasani buyutebilirsin.</p>
                     </div>
                     <div class="intro-actions">
                         <a class="btn-outline-link" href="https://www.arkeoloji.biz/" target="_blank" rel="noopener noreferrer">Siteyi Gez</a>
@@ -58,7 +58,13 @@
                     <div class="card">
                         <h2>Odul Degeri</h2>
                         <div class="big-number" id="rewardValue" style="color: #27ae60;">₺0.00</div>
-                        <p class="subtitle">1 puan = 10 kuruş</p>
+                        <p class="subtitle">1 puan = 5 kurus | Talep alt limiti: 500 TL</p>
+                    </div>
+
+                    <div class="card">
+                        <h2>Bugun Kalan Hak</h2>
+                        <div class="big-number" id="dailyQuotaRemaining">5</div>
+                        <p class="subtitle">Gunluk en fazla 5 yarisma oynayabilirsin</p>
                     </div>
                 </div>
 
@@ -66,13 +72,14 @@
                     <h3>Hizli Erisim</h3>
                     <button class="btn-primary" onclick="goToPage('exams')">Sorulari Cevapla</button>
                     <button class="btn-secondary" onclick="goToPage('rewards')">Odul Talep Et</button>
+                    <p class="subtitle">Odul talebi acmak icin en az 500 TL birikmis deger gerekir.</p>
                 </div>
             </section>
 
             <!-- Exams Page -->
             <section id="exams" class="page">
                 <h2>Odullu Quiz</h2>
-                <p class="section-lead">Bu alanda sadece arkeoloji quizleri gorunur. Cevaplarin izini arkeoloji.biz iceriklerinde surebilirsin.</p>
+                <p class="section-lead">Her oyun 20 sorudur. Yanlis yaptiginda bir onceki guvenli barajda kalirsin. Kaynak linkleriyle arkeoloji.biz'de daha fazla zaman gecirerek sonraki denemelere hazirlanabilirsin.</p>
                 <div class="exams-grid" id="examsGrid">
                     <!-- Dinamik olarak doldurulacak -->
                 </div>
@@ -104,6 +111,7 @@
                 <div class="reward-info card">
                     <p>Mevcut Puan: <strong id="currentPoints">0</strong></p>
                     <p>Kullanilabilir Odul: <strong id="availableReward" style="color: #27ae60;">₺0.00</strong></p>
+                    <p>Talep Acma Esigi: <strong>₺500.00</strong></p>
                 </div>
 
                 <form id="rewardRequestForm" class="reward-form">

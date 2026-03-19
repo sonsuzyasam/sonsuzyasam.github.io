@@ -1,4 +1,4 @@
-// ===== KOD.GS - Sonsuz Yasam Apps Script Backend =====
+﻿// ===== KOD.GS - Sonsuz Yasam Apps Script Backend =====
 // Deploy: Web App > Execute as Me > Anyone can access
 //
 // Script Properties (Proje Ayarları > Script Properties) buraya ekle:
@@ -21,7 +21,17 @@ var SHEET_NAMES = {
   LOGS:    'SecurityLogs'
 };
 
-var PASS_SCORE = 45;
+var QUIZ_QUESTION_COUNT = 20;
+var DAILY_EXAM_LIMIT = 5;
+var REWARD_POINT_VALUE_TL = 0.05;
+var MIN_REWARD_REQUEST_TL = 500;
+var MIN_REWARD_REQUEST_POINTS = Math.ceil(MIN_REWARD_REQUEST_TL / REWARD_POINT_VALUE_TL);
+var SAFE_MILESTONES = [
+  { correct: 3, points: 3, cashLabel: '15 kurus' },
+  { correct: 10, points: 10, cashLabel: '50 kurus' },
+  { correct: 15, points: 15, cashLabel: '75 kurus' },
+  { correct: 20, points: 20, cashLabel: '1 TL' }
+];
 
 var RATE_LIMITS = {
   createRewardRequest: { windowSec: 60, maxRequests: 10 },
@@ -30,6 +40,7 @@ var RATE_LIMITS = {
   listRewardRequests:  { windowSec: 60, maxRequests: 60 },
   getLeaderboard:      { windowSec: 60, maxRequests: 120 },
   getMonthlyPoints:    { windowSec: 60, maxRequests: 120 },
+  getExamQuota:        { windowSec: 60, maxRequests: 120 },
   upsertUser:          { windowSec: 60, maxRequests: 30 },
   recordScore:         { windowSec: 60, maxRequests: 30 }
 };
@@ -58,8 +69,30 @@ var ANSWER_KEYS = {
     'eng-1':1,'eng-2':1,'eng-3':0,'eng-4':0,'eng-5':1,
     'eng-6':2,'eng-7':1,'eng-8':1,'eng-9':2,'eng-10':0
   },
+
+
+
   arkeoloji: {
-    'ARK_04':0,'MIM_02':2,'NEOL_02':1,'ANT_02':2,'TAR_03':1,'ARK_05':2
+    'ARK_04':0,
+    'MIM_02':2,
+    'NEOL_02':1,
+    'ANT_02':2,
+    'TAR_03':1,
+    'ARK_05':2,
+    'SER_01':2,
+    'KAZ_01':0,
+    'ANT_03':1,
+    'HIT_01':2,
+    'ROM_01':1,
+    'MES_01':1,
+    'NEOL_03':2,
+    'EPI_01':1,
+    'NUM_01':2,
+    'CER_01':1,
+    'TAP_01':1,
+    'MOZ_01':0,
+    'KAL_01':1,
+    'URA_01':1
   }
 };
 
@@ -114,6 +147,9 @@ function doPost(e) {
         break;
       case 'getMonthlyPoints':
         result = handleGetMonthlyPoints_(auth, body);
+        break;
+      case 'getExamQuota':
+        result = handleGetExamQuota_(auth, body);
         break;
       case 'getLeaderboard':
         result = handleGetLeaderboard_(auth, body);
@@ -197,10 +233,16 @@ function handleCreateRewardRequest_(auth, body) {
   if (!details)    throw new Error('Missing details');
 
   var availablePoints = getMonthlyPointsByEmailMonth_(email, month);
+  if (availablePoints < MIN_REWARD_REQUEST_POINTS) {
+    throw new Error('Reward threshold not reached: minimum 500 TL deger gerekir');
+  }
+
   var requestedPoints = Math.max(0, Number(body.requestedPoints || 0));
   var acceptedPoints  = Math.min(requestedPoints, availablePoints);
 
-  if (acceptedPoints <= 0) throw new Error('Insufficient points');
+  if (acceptedPoints < MIN_REWARD_REQUEST_POINTS) {
+    throw new Error('Requested reward is below the minimum threshold');
+  }
 
   var detailsWithRid = '[RID:' + requestId + '] ' + details;
   var sh = getSheet_(SHEET_NAMES.REWARDS);
@@ -209,7 +251,9 @@ function handleCreateRewardRequest_(auth, body) {
   return {
     requestId:      requestId,
     acceptedPoints: acceptedPoints,
-    month:          month
+    month:          month,
+    minRewardPoints: MIN_REWARD_REQUEST_POINTS,
+    minRewardValueTl: MIN_REWARD_REQUEST_TL
   };
 }
 
@@ -301,32 +345,54 @@ function handleSubmitExamResult_(auth, body) {
   var month   = String(body.month || getCurrentMonth_());
 
   if (!examId) throw new Error('Missing examId');
+  if (answers.length !== QUIZ_QUESTION_COUNT) {
+    throw new Error('Each game must include exactly 20 questions');
+  }
 
   var answerMap = ANSWER_KEYS[examId];
   if (!answerMap || typeof answerMap !== 'object') {
     throw new Error('Answer key not found for exam: ' + examId);
   }
 
-  var total   = Object.keys(answerMap).length;
-  var correct = 0;
-  var wrong   = 0;
-
-  for (var i = 0; i < answers.length; i++) {
-    var item     = answers[i] || {};
-    var qid      = String(item.questionId || '').trim();
-    var selected = item.selectedIndex;
-
-    if (!qid || !answerMap.hasOwnProperty(qid)) continue;
-    if (selected === null || selected === undefined) continue;
-    if (Number(selected) === Number(answerMap[qid])) correct++;
-    else wrong++;
+  var dailyUsed = countDailyExamAttempts_(auth.email, getCurrentDayKey_());
+  if (dailyUsed >= DAILY_EXAM_LIMIT) {
+    throw new Error('Daily quiz limit reached');
   }
 
-  var blank  = total - correct - wrong;
-  var net    = correct - (wrong / 3);
-  var score  = Math.max(0, Math.min(100, ((net * 100) / (total || 1)) + 50));
-  var awarded = score >= PASS_SCORE ? Math.round(score) : 0;
+  var total = answers.length;
+  var correct = 0;
+  var wrong = 0;
+  var blank = 0;
+  var correctStreak = 0;
+  var failedAt = null;
 
+  for (var i = 0; i < answers.length; i++) {
+    var item = answers[i] || {};
+    var qid = String(item.questionId || '').trim();
+    var selected = item.selectedIndex;
+
+    if (!qid || !answerMap.hasOwnProperty(qid)) {
+      throw new Error('Unknown question in payload: ' + qid);
+    }
+
+    if (selected === null || selected === undefined) {
+      blank++;
+      if (failedAt === null && correctStreak === i) failedAt = i + 1;
+      continue;
+    }
+
+    if (Number(selected) === Number(answerMap[qid])) {
+      correct++;
+      if (failedAt === null && correctStreak === i) correctStreak++;
+    } else {
+      wrong++;
+      if (failedAt === null && correctStreak === i) failedAt = i + 1;
+    }
+  }
+
+  var safeMilestone = getSafeMilestone_(correctStreak);
+  var awarded = Number(safeMilestone.points || 0);
+  var net = correct - wrong;
   var shScores = getSheet_(SHEET_NAMES.SCORES);
   shScores.appendRow([
     new Date().toISOString(),
@@ -337,8 +403,8 @@ function handleSubmitExamResult_(auth, body) {
     correct,
     wrong,
     blank,
-    net.toFixed(2),
-    score.toFixed(2),
+    String(correctStreak),
+    String(awarded),
     month
   ]);
 
@@ -347,17 +413,24 @@ function handleSubmitExamResult_(auth, body) {
   }
 
   var monthlyPoints = getMonthlyPointsByEmailMonth_(auth.email, month);
+  var dailyAttemptsUsed = dailyUsed + 1;
 
   return {
-    examId:        examId,
-    total:         total,
-    correct:       correct,
-    wrong:         wrong,
-    blank:         blank,
-    net:           Number(net.toFixed(2)),
-    score:         Number(score.toFixed(2)),
+    examId: examId,
+    total: total,
+    correct: correct,
+    wrong: wrong,
+    blank: blank,
+    net: net,
+    score: awarded,
+    correctStreak: correctStreak,
+    failedAt: failedAt,
     awardedPoints: awarded,
-    monthlyPoints: monthlyPoints
+    safeMilestoneLabel: String(safeMilestone.cashLabel || '0 TL'),
+    monthlyPoints: monthlyPoints,
+    dailyAttemptLimit: DAILY_EXAM_LIMIT,
+    dailyAttemptsUsed: dailyAttemptsUsed,
+    dailyAttemptsRemaining: Math.max(0, DAILY_EXAM_LIMIT - dailyAttemptsUsed)
   };
 }
 
@@ -365,6 +438,15 @@ function handleGetMonthlyPoints_(auth, body) {
   var month  = String(body.month || getCurrentMonth_());
   var points = getMonthlyPointsByEmailMonth_(auth.email, month);
   return { month: month, points: points };
+}
+
+function handleGetExamQuota_(auth, body) {
+  var used = countDailyExamAttempts_(auth.email, getCurrentDayKey_());
+  return {
+    used: used,
+    remaining: Math.max(0, DAILY_EXAM_LIMIT - used),
+    limit: DAILY_EXAM_LIMIT
+  };
 }
 
 function handleGetLeaderboard_(auth, body) {
@@ -492,6 +574,37 @@ function adjustMonthlyPoints_(email, month, delta) {
   }
 
   return next;
+}
+
+function getSafeMilestone_(correctStreak) {
+  var safe = { correct: 0, points: 0, cashLabel: '0 TL' };
+  for (var i = 0; i < SAFE_MILESTONES.length; i++) {
+    if (Number(correctStreak) >= Number(SAFE_MILESTONES[i].correct || 0)) {
+      safe = SAFE_MILESTONES[i];
+    }
+  }
+  return safe;
+}
+
+function getCurrentDayKey_() {
+  return Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd');
+}
+
+function countDailyExamAttempts_(email, dayKey) {
+  var sh = getSheet_(SHEET_NAMES.SCORES);
+  var values = sh.getDataRange().getValues();
+  var targetEmail = normalizeEmail_(email);
+  var total = 0;
+
+  for (var i = 0; i < values.length; i++) {
+    var rowEmail = normalizeEmail_(values[i][1]);
+    var timestamp = String(values[i][0] || '');
+    if (!rowEmail || rowEmail !== targetEmail) continue;
+    if (timestamp.slice(0, 10) !== dayKey) continue;
+    total += 1;
+  }
+
+  return total;
 }
 
 // ============================================================

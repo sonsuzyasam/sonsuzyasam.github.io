@@ -1,0 +1,110 @@
+[
+  {
+    "id": "ARK_04",
+    "subject": "Arkeoloji - Tanim ve Yardimci Bilimler",
+    "difficulty": "Orta",
+    "question": "Arkeoloji bilimi, asagidaki disiplinlerden hangisinin 'yardimci bilimi' olarak kabul edilir?",
+    "options": {
+      "A": "Felsefe",
+      "B": "Sosyoloji",
+      "C": "Kimya (yalnizca)",
+      "D": "Tarih (yalnizca)",
+      "E": "Folklor (halkbilimi)"
+    },
+    "answer": "A",
+    "rationale": "Arkeoloji, maddi kultur kalintilari uzerinden gecmisi aydinlatir; bu soru setinde tanimlayici baglam arkeoloji.biz icerigine gore verilmistir.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Ana Sayfa ve Arkeoloji Icerikleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "MIM_02",
+    "subject": "Antik Mimari - Duzenler",
+    "difficulty": "Orta",
+    "question": "Asagidaki sutun duzenlerinden hangisi en sade ve en eski Yunan mimari duzeni olarak bilinir; frizinde triglif ve metoplar bulunur?",
+    "options": {
+      "A": "Ion Duzeni",
+      "B": "Korinth Duzeni",
+      "C": "Dor Duzeni",
+      "D": "Aiol Duzeni",
+      "E": "Kompozit Duzen"
+    },
+    "answer": "C",
+    "rationale": "Dor duzeni, triglif-metop frizi ve sade baslik yapisiyla ayirt edilir.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Antik Mimari Icerikleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "NEOL_02",
+    "subject": "Neolitik Cag - Ozellikler",
+    "difficulty": "Kolay",
+    "question": "Neolitik Cag'in en onemli donum noktalarindan biri asagidakilerden hangisidir?",
+    "options": {
+      "A": "Tunc aletlerin yayginlasmasi",
+      "B": "Yerlesik hayata ve tarima gecis",
+      "C": "Yazi sisteminin icadi",
+      "D": "Buyuk imparatorluklarin kurulmasi",
+      "E": "Demir Cagi teknolojileri"
+    },
+    "answer": "B",
+    "rationale": "Neolitik cag, tarim ve hayvancilikla birlikte yerlesik hayata gecisle tanimlanir.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Prehistorya Icerikleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ANT_02",
+    "subject": "Antik Kentler - Priene Ornegi",
+    "difficulty": "Orta",
+    "question": "Hellenistik donemde izgara plan (Hippodamos plani) en iyi sekilde korunmus antik kent asagidakilerden hangisidir?",
+    "options": {
+      "A": "Assos",
+      "B": "Tios",
+      "C": "Priene",
+      "D": "Miletos",
+      "E": "Efes"
+    },
+    "answer": "C",
+    "rationale": "Priene, planli kent dokusunun iyi korundugu en belirgin orneklerden biridir.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Antik Kentler Icerikleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "TAR_03",
+    "subject": "Tarih - Osmanli Olcu Birimleri",
+    "difficulty": "Kolay",
+    "question": "Osmanli'da kumas olcumunde kullanilan temel birim asagidakilerden hangisidir?",
+    "options": {
+      "A": "Okka",
+      "B": "Arsin",
+      "C": "Kantar",
+      "D": "Fersah",
+      "E": "Kulac"
+    },
+    "answer": "B",
+    "rationale": "Arsin, kumas olcumunde kullanilan temel birimlerden biridir.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Kultur Tarihi Icerikleri",
+    "reviewStatus": "approved"
+  },
+  {
+    "id": "ARK_05",
+    "subject": "Arkeoloji - Genel Bilgi",
+    "difficulty": "Orta",
+    "question": "Asagidakilerden hangisi arkeolojinin temel amaclarindan biri degildir?",
+    "options": {
+      "A": "Gecmis toplumlarin maddi kulturunu incelemek",
+      "B": "Kazi teknikleriyle buluntulari belgelemek",
+      "C": "Yazili kaynaklarin yalnizca ekonomik analizini yapmak",
+      "D": "Tarihin bosluklarini maddi kalintilarla doldurmak",
+      "E": "Laboratuvar yontemleriyle yorumlamak"
+    },
+    "answer": "C",
+    "rationale": "Arkeoloji, maddi kalintilar ve baglamlari uzerinden gecmisi yorumlar; salt ekonomik metin analizi kendi basina arkeolojinin ana amaci degildir.",
+    "sourceUrl": "https://www.arkeoloji.biz/",
+    "sourceTitle": "Arkeoloji.biz Arkeoloji Bilimi Icerikleri",
+    "reviewStatus": "approved"
+  }
+]

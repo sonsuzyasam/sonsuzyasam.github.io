@@ -1,0 +1,16 @@
+[
+  {
+    "sourceId": "arkbiz_0001",
+    "url": "https://www.arkeoloji.biz/ornek-yazi",
+    "title": "Kaynak yazi basligi",
+    "topic": "Antik Kentler",
+    "period": "Hellenistik",
+    "region": "Anadolu",
+    "difficultyHint": "Orta",
+    "facts": [
+      "Bilgi parcasi 1",
+      "Bilgi parcasi 2",
+      "Bilgi parcasi 3"
+    ]
+  }
+]

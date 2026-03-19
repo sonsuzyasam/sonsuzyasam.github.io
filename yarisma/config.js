@@ -42,8 +42,28 @@ const CONFIG = {
 
     // Puan Sistemi
     POINTS_SYSTEM: {
-        MULTIPLIER: 0.10, // 1 puan = 0.10 TL (10 kuruş)
-        PASS_SCORE: 45, // Baraj puanı (ÖSYM standardı)
+        MULTIPLIER: 0.05,
+        SAFE_MILESTONES: [
+            { correct: 3, points: 3, cashLabel: '15 kurus' },
+            { correct: 10, points: 10, cashLabel: '50 kurus' },
+            { correct: 15, points: 15, cashLabel: '75 kurus' },
+            { correct: 20, points: 20, cashLabel: '1 TL' }
+        ]
+    },
+
+    REWARD_POLICY: {
+        MIN_REQUEST_TL: 500,
+        MIN_REQUEST_POINTS: 10000
+    },
+
+    QUIZ_POLICY: {
+        QUESTIONS_PER_GAME: 20,
+        DAILY_ATTEMPT_LIMIT: 5,
+        ENGAGEMENT_PROMPTS: [
+            'Ipuclari icin arkeoloji.biz sekmesini acik tut.',
+            'Baraj sorularina gelmeden once arkeoloji.biz iceriklerinde hizli bir tur at.',
+            'Sorunun kaynagini inceleyip geri donmek kasani buyutme sansini artirir.'
+        ]
     },
 
     // Sınav Konfigurasyonu
@@ -51,9 +71,9 @@ const CONFIG = {
         {
             id: 'arkeoloji',
             name: 'Arkeoloji Biz Quiz',
-            description: 'Arkeoloji, antik dunya ve kultur tarihi',
+            description: '20 soruluk, barajli ve odullu arkeoloji yarismasi',
             duration: 30,
-            questions: 6,
+            questions: 20,
             difficulty: 'Orta',
             category: 'Odullu Quiz'
         }

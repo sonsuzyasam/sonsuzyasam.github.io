@@ -31,8 +31,14 @@ class Rewards {
             const rewardType = document.getElementById('rewardType').value;
             const details = document.getElementById('rewardDetails').value.trim();
             const points = app.getUserMonthlyPoints();
+            const rewardValue = points * Number(CONFIG.POINTS_SYSTEM.MULTIPLIER || 0);
             const requestId = this.createRequestId();
             const createdAt = new Date().toISOString();
+
+            if (rewardValue < Number(CONFIG.REWARD_POLICY.MIN_REQUEST_TL || 0)) {
+                app.showNotification(`Odul talebi icin en az ₺${Number(CONFIG.REWARD_POLICY.MIN_REQUEST_TL || 0).toFixed(2)} deger birikmeli.`, 'error');
+                return;
+            }
 
             const entry = {
                 requestId,
