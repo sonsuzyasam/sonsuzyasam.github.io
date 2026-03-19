@@ -9,6 +9,8 @@ class Quiz {
         this.timeLeft = 0;
         this.timerId = null;
         this.sessionStartedAt = null;
+        this.announcedMilestones = {};
+        this.streakBreakPrompted = false;
     }
 
     getMilestones() {
@@ -43,20 +45,6 @@ class Quiz {
         }).join('');
     }
 
-    getEngagementPrompt(question, questionNumber) {
-        const prompts = CONFIG.QUIZ_POLICY.ENGAGEMENT_PROMPTS || [];
-        const basePrompt = prompts[(questionNumber - 1) % Math.max(prompts.length, 1)] || 'Ipuclari icin arkeoloji.biz iceriklerine goz at.';
-        const sourceUrl = this.getSourceDestination(question);
-
-        return `
-            <div class="engagement-panel card">
-                <p class="eyebrow">Arkeoloji.biz Uyarani</p>
-                <p>${basePrompt}</p>
-                <a class="btn-outline-link" href="${sourceUrl}" target="_blank" rel="noopener noreferrer">${this.getSourceLabel(question)}</a>
-            </div>
-        `;
-    }
-
     getSourceDestination(question) {
         const rawUrl = String(question && question.sourceUrl || '').trim();
         if (rawUrl && rawUrl !== 'https://www.arkeoloji.biz/' && rawUrl !== 'https://arkeoloji.biz/') {
@@ -73,6 +61,36 @@ class Quiz {
             return question.sourceTitle || 'Ilgili kaynaga git';
         }
         return `Arkeoloji.biz'de ara: ${question.topic || question.sourceTitle || 'Ilgili konu'}`;
+    }
+
+    getSearchUrlByText(raw, fallbackQuestion) {
+        const queryText = String(raw || '').trim();
+        if (queryText) {
+            return `https://www.arkeoloji.biz/search?q=${encodeURIComponent(queryText)}`;
+        }
+        const question = fallbackQuestion || {};
+        const query = encodeURIComponent(String(question.sourceTitle || question.topic || question.text || 'arkeoloji').trim());
+        return `https://www.arkeoloji.biz/search?q=${query}`;
+    }
+
+    getContiguousStreak(maxIndex) {
+        const limit = Math.min(Number(maxIndex), this.questions.length - 1);
+        if (limit < 0) return 0;
+
+        let streak = 0;
+        for (let i = 0; i <= limit; i += 1) {
+            const answer = this.answers[i];
+            if (answer === undefined) break;
+            const q = this.questions[i];
+            if (!q) break;
+            if (Number(answer) === Number(q.correctIndex) && streak === i) {
+                streak += 1;
+            } else {
+                break;
+            }
+        }
+
+        return streak;
     }
 
     getLastOrderKey(examId) {
@@ -172,16 +190,22 @@ class Quiz {
     }
 
     buildShareActions(examName, correct, total, milestoneLabel) {
-        const text = `${examName} yarisinda ${correct}/${total} yaptim. Guvenli kasam: ${milestoneLabel}. Sen de dene!`;
-        const url = `${window.location.origin}${window.location.pathname}`;
+        const isArkeoloji = this.currentExam && this.currentExam.id === 'arkeoloji';
+        const text = isArkeoloji
+            ? `Arkeoloji Biz Quiz yarışında ${correct}/${total} yaptım. Güvenli kasam: ${milestoneLabel}. Sen de dene! Bir kişi 1 lira kazanırken, 1 milyon kişi bir fabrika kurar. Hem bilginizi sınayın, hem de linki sevdiklerinizle paylaşarak dijital imeceye katkıda bulunun.`
+            : `${examName} yarışında ${correct}/${total} yaptım. Güvenli kasam: ${milestoneLabel}. Sen de dene!`;
+        const url = isArkeoloji
+            ? 'https://www.arkeoloji.biz/2026/03/dunyayi-kurtarmak.html'
+            : `${window.location.origin}${window.location.pathname}`;
         const encodedText = encodeURIComponent(text);
         const encodedUrl = encodeURIComponent(url);
 
         return `
             <div class="exam-details" style="margin-top: 1rem; gap: 0.75rem; flex-wrap: wrap;">
-                <a class="btn-primary" href="https://wa.me/?text=${encodedText}%20${encodedUrl}" target="_blank" rel="noopener noreferrer">WhatsApp'ta Paylas</a>
-                <a class="btn-primary" href="https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}" target="_blank" rel="noopener noreferrer">X'te Paylas</a>
-                <button id="copyShareLinkBtn" class="btn-secondary" type="button">Baglantiyi Kopyala</button>
+                <a class="btn-primary" href="https://wa.me/?text=${encodedText}%20${encodedUrl}" target="_blank" rel="noopener noreferrer">WhatsApp'ta Paylaş</a>
+                <a class="btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}" target="_blank" rel="noopener noreferrer">Facebook'ta Paylaş</a>
+                <a class="btn-primary" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram'da Paylaş</a>
+                <button id="copyShareLinkBtn" class="btn-secondary" type="button">Paylaşım Metnini Kopyala</button>
             </div>
         `;
     }
@@ -215,6 +239,8 @@ class Quiz {
         this.currentIndex = 0;
         this.timeLeft = (Number(exam.duration) || 60) * 60;
         this.sessionStartedAt = new Date().toISOString();
+        this.announcedMilestones = {};
+        this.streakBreakPrompted = false;
 
         this.renderExamShell();
         this.renderQuestion();
@@ -230,7 +256,7 @@ class Quiz {
             <div class="exam-header">
                 <h2>${this.currentExam.name} Sinavi</h2>
                 <p>${this.currentExam.description} - ${this.questions.length} soru</p>
-                <div id="examTimer" class="exam-timer">Sure: 00:00</div>
+                <div id="examTimer" class="exam-timer">Süre: 00:00</div>
             </div>
 
             <div class="milestone-ladder">
@@ -255,6 +281,7 @@ class Quiz {
                 <button id="nextQuestionBtn" class="btn-next" type="button">Ileri</button>
                 <button id="finishExamBtn" class="btn-finish" type="button">Sinavi Bitir</button>
             </div>
+            <div id="examTimerBottom" class="exam-timer exam-timer-bottom">Süre: 00:00</div>
         `;
 
         document.getElementById('prevQuestionBtn').addEventListener('click', () => this.changeQuestion(-1));
@@ -290,6 +317,25 @@ class Quiz {
         metaEl.textContent = `${question.topic || '-'} | Zorluk: ${question.difficulty || '-'}`;
         if (engagementEl) {
             engagementEl.innerHTML = this.getEngagementPrompt(question, this.currentIndex + 1);
+
+            const searchInput = document.getElementById('engagementSearchInput');
+            const searchBtn = document.getElementById('engagementSearchBtn');
+            const openSearch = () => {
+                const url = this.getSearchUrlByText(searchInput ? searchInput.value : '', question);
+                window.open(url, '_blank', 'noopener');
+            };
+
+            if (searchBtn) {
+                searchBtn.addEventListener('click', openSearch);
+            }
+            if (searchInput) {
+                searchInput.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        openSearch();
+                    }
+                });
+            }
         }
         if (ladderEl) {
             ladderEl.innerHTML = this.buildMilestoneLadder(this.currentIndex);
@@ -353,13 +399,15 @@ class Quiz {
     }
 
     updateTimerText() {
-        const timerEl = document.getElementById('examTimer');
-        if (!timerEl) return;
+        const timerTop = document.getElementById('examTimer');
+        const timerBottom = document.getElementById('examTimerBottom');
+        if (!timerTop && !timerBottom) return;
 
         const safe = Math.max(0, this.timeLeft);
         const min = String(Math.floor(safe / 60)).padStart(2, '0');
         const sec = String(safe % 60).padStart(2, '0');
-        timerEl.textContent = `Sure: ${min}:${sec}`;
+        if (timerTop) timerTop.textContent = `Süre: ${min}:${sec}`;
+        if (timerBottom) timerBottom.textContent = `Süre: ${min}:${sec}`;
     }
 
     async finishExam(autoFinish) {
@@ -460,7 +508,7 @@ class Quiz {
         container.innerHTML = `
             <div class="exam-header">
                 <h2>${this.currentExam.name} Sonucu</h2>
-                <p>${autoFinish ? 'Sure doldu, sinav otomatik bitirildi.' : 'Sinav tamamlandi.'}</p>
+                <p>${autoFinish ? 'Süre doldu, sınav otomatik bitirildi.' : 'Sınav tamamlandı.'}</p>
             </div>
 
             <div class="milestone-ladder results-ladder">
@@ -500,15 +548,96 @@ class Quiz {
         const copyShareLinkBtn = document.getElementById('copyShareLinkBtn');
         if (copyShareLinkBtn) {
             copyShareLinkBtn.addEventListener('click', async () => {
-                const text = `${this.currentExam.name} yarisinda ${correct}/${total} yaptim. Guvenli kasam: ${effectiveSafeMilestone.cashLabel}. ${window.location.origin}${window.location.pathname}`;
+                const isArkeoloji = this.currentExam && this.currentExam.id === 'arkeoloji';
+                const text = isArkeoloji
+                    ? `Arkeoloji Biz Quiz yarışında ${correct}/${total} yaptım. Güvenli kasam: ${effectiveSafeMilestone.cashLabel}. Sen de dene! Bir kişi 1 lira kazanırken, 1 milyon kişi bir fabrika kurar. Hem bilginizi sınayın, hem de linki sevdiklerinizle paylaşarak dijital imeceye katkıda bulunun. https://www.arkeoloji.biz/2026/03/dunyayi-kurtarmak.html`
+                    : `${this.currentExam.name} yarışında ${correct}/${total} yaptım. Güvenli kasam: ${effectiveSafeMilestone.cashLabel}. ${window.location.origin}${window.location.pathname}`;
                 try {
                     await navigator.clipboard.writeText(text);
-                    app.showNotification('Paylasim metni panoya kopyalandi.', 'success');
+                    app.showNotification('Paylaşım metni panoya kopyalandı.', 'success');
                 } catch (_) {
-                    app.showNotification('Pano kopyalama basarisiz oldu.', 'error');
+                    app.showNotification('Pano kopyalama başarısız oldu.', 'error');
                 }
             });
         }
+    }
+
+    getEngagementPrompt(question, questionNumber) {
+        const prompts = CONFIG.QUIZ_POLICY.ENGAGEMENT_PROMPTS || [];
+        const basePrompt = prompts[(questionNumber - 1) % Math.max(prompts.length, 1)] || 'İpuçları için arkeoloji.biz içeriklerine göz at.';
+        const sourceUrl = this.getSourceDestination(question);
+
+        return `
+            <div class="engagement-panel card">
+                <p class="eyebrow">Arkeoloji.biz Uyarısı</p>
+                <p>${basePrompt}</p>
+                <a class="btn-outline-link" href="${sourceUrl}" target="_blank" rel="noopener noreferrer">${this.getSourceLabel(question)}</a>
+                <div class="engagement-search" style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.75rem;">
+                    <input id="engagementSearchInput" type="text" placeholder="Aramak istediğiniz kelime" style="flex:1; min-width:200px; padding:0.55rem 0.7rem; border-radius:8px; border:1px solid rgba(200,161,58,0.35); background:#111; color:#f3ebd5;">
+                    <button id="engagementSearchBtn" type="button" class="btn-secondary">Arkeoloji.biz'de Ara</button>
+                </div>
+            </div>
+        `;
+    }
+
+    submitAnswer() {
+        const selected = this.answers[this.currentIndex];
+        if (selected === undefined) {
+            app.showNotification('Lütfen bir seçenek işaretleyin.', 'error');
+            return;
+        }
+
+        const previousStreak = this.getContiguousStreak(this.currentIndex - 1);
+        const previousMilestone = this.getSafeMilestone(previousStreak);
+        const question = this.questions[this.currentIndex];
+        const isCorrect = Number(selected) === Number(question.correctIndex);
+
+        const optionsEl = document.getElementById('questionOptions');
+        if (optionsEl) {
+            optionsEl.querySelectorAll('.option').forEach((optEl) => {
+                const idx = Number(optEl.dataset.index);
+                optEl.classList.remove('correct', 'incorrect');
+                if (idx === Number(question.correctIndex)) {
+                    optEl.classList.add('correct');
+                }
+                if (idx === Number(selected) && !isCorrect) {
+                    optEl.classList.add('incorrect');
+                }
+            });
+        }
+
+        const currentStreak = this.getContiguousStreak(this.currentIndex);
+        const currentMilestone = this.getSafeMilestone(currentStreak);
+        const isLast = this.currentIndex >= this.questions.length - 1;
+
+        if (!isLast && currentMilestone.correct > previousMilestone.correct && !this.announcedMilestones[currentMilestone.correct]) {
+            this.announcedMilestones[currentMilestone.correct] = true;
+            const shouldContinue = window.confirm(
+                `Tebrikler! ${currentMilestone.correct}. barajı geçtiniz. Güvenli kasanız: ${currentMilestone.cashLabel}.\n\nDevam etmek için Tamam'a, yarışmayı bitirmek için İptal'e basın.`
+            );
+            if (!shouldContinue) {
+                this.finishExam(false);
+                return;
+            }
+        }
+
+        if (!isLast && previousStreak === this.currentIndex && !isCorrect && !this.streakBreakPrompted) {
+            this.streakBreakPrompted = true;
+            const shouldContinueAfterBreak = window.confirm(
+                `Seri bozuldu. Güvenli barajınız ${previousMilestone.cashLabel}.\n\nÖğrenme modunda devam etmek için Tamam'a, yarışmayı bitirmek için İptal'e basın.`
+            );
+            if (!shouldContinueAfterBreak) {
+                this.finishExam(false);
+                return;
+            }
+        }
+
+        if (isLast) {
+            this.finishExam(false);
+            return;
+        }
+
+        this.changeQuestion(1);
     }
 
     onModalClosed() {

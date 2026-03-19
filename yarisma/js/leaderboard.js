@@ -1,6 +1,26 @@
 // ===== LEADERBOARD.JS =====
 
 class Leaderboard {
+    getCacheKey(month) {
+        return `sonsuzyasam_leaderboard_cache_${month}`;
+    }
+
+    readCachedRows(month) {
+        try {
+            const raw = localStorage.getItem(this.getCacheKey(month));
+            const parsed = JSON.parse(raw || '[]');
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (_) {
+            return [];
+        }
+    }
+
+    writeCachedRows(month, rows) {
+        try {
+            localStorage.setItem(this.getCacheKey(month), JSON.stringify(Array.isArray(rows) ? rows : []));
+        } catch (_) {}
+    }
+
     withTimeout(promise, ms) {
         return Promise.race([
             promise,
@@ -19,6 +39,12 @@ class Leaderboard {
     }
 
     getFallbackRows() {
+        const month = CONFIG.getCurrentMonth();
+        const cached = this.readCachedRows(month);
+        if (cached.length) {
+            return cached;
+        }
+
         if (!window.app || !app.currentUser) {
             return [];
         }
@@ -50,6 +76,10 @@ class Leaderboard {
                     sheetsAPI.getLeaderboard(CONFIG.getCurrentMonth()),
                     8000
                 );
+            }
+
+            if (rows.length) {
+                this.writeCachedRows(CONFIG.getCurrentMonth(), rows);
             }
 
             if (!rows.length && app.currentUser) {

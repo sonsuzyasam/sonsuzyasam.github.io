@@ -745,6 +745,12 @@ body {
     margin-top: 1rem;
 }
 
+.exam-timer-bottom {
+    margin-top: 0.75rem;
+    margin-bottom: 0.25rem;
+    display: inline-block;
+}
+
 .question-container {
     margin-bottom: 2rem;
 }
@@ -927,8 +933,7 @@ body {
     text-decoration: underline;
 }
 
-    }
-
+@media (max-width: 768px) {
     .header {
         flex-direction: column;
         text-align: center;
