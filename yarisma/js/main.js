@@ -4,6 +4,7 @@ class App {
     constructor() {
         this.currentUser = null;
         this.currentMonth = CONFIG.getCurrentMonth();
+        this.pendingConsentUser = null;
         this.pointsCache = {};
         this.dailyQuota = {
             used: 0,
@@ -53,6 +54,20 @@ class App {
             });
         });
 
+        // Consent modal buttons
+        const consentConfirmBtn = document.getElementById('consentConfirmBtn');
+        if (consentConfirmBtn) {
+            consentConfirmBtn.addEventListener('click', () => this.submitConsent());
+        }
+        const consentDeclineBtn = document.getElementById('consentDeclineBtn');
+        if (consentDeclineBtn) {
+            consentDeclineBtn.addEventListener('click', () => {
+                this.pendingConsentUser = null;
+                this.closeModal('consentRequiredModal');
+                if (window.authManager && typeof authManager.logout === 'function') authManager.logout();
+            });
+        }
+
         // Settings
         const notificationToggle = document.getElementById('notificationToggle');
         if (notificationToggle) {
@@ -78,7 +93,12 @@ class App {
             localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
             if (window.sheetsAPI && typeof window.sheetsAPI.appendUser === 'function') {
                 Promise.resolve(sheetsAPI.appendUser(user)).catch((error) => {
-                    console.warn('User profile could not be synced:', error);
+                    const msg = String(error && error.message ? error.message : error);
+                    if (msg.toLowerCase().includes('consent required')) {
+                        this.handleConsentRequired(user);
+                    } else {
+                        console.warn('User profile could not be synced:', error);
+                    }
                 });
             }
             this.closeModal('loginModal');
@@ -275,6 +295,43 @@ class App {
         } catch (error) {
             console.warn('Daily quiz quota could not be loaded:', error);
             return this.dailyQuota;
+        }
+    }
+
+    // === Consent Flow ===
+    handleConsentRequired(user) {
+        this.pendingConsentUser = user;
+        const kvkk = document.getElementById('consentKvkk');
+        const terms = document.getElementById('consentTerms');
+        if (kvkk) kvkk.checked = false;
+        if (terms) terms.checked = false;
+        this.showModal('consentRequiredModal');
+    }
+
+    async submitConsent() {
+        const kvkk = document.getElementById('consentKvkk');
+        const terms = document.getElementById('consentTerms');
+        if (!kvkk || !kvkk.checked || !terms || !terms.checked) {
+            this.showNotification('Devam etmek için her iki onay kutusunu da işaretleyin.', 'error');
+            return;
+        }
+        const user = this.pendingConsentUser;
+        if (!user) return;
+        try {
+            await sheetsAPI.appendUser({
+                ...user,
+                consents: {
+                    kvkkNoticeApproved: true,
+                    termsAccepted: true,
+                    version: CONFIG.LEGAL.CONSENT_VERSION,
+                    approvedAt: new Date().toISOString()
+                }
+            });
+            this.pendingConsentUser = null;
+            this.closeModal('consentRequiredModal');
+            this.showNotification('Profiliniz başarıyla oluşturuldu.', 'success');
+        } catch (err) {
+            this.showNotification('Profil oluşturulamadı. Lütfen tekrar deneyin.', 'error');
         }
     }
 

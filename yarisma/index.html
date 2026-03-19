@@ -236,6 +236,26 @@
         </div>
     </div>
 
+    <!-- Modal: Consent Required (post-login KVKK) -->
+    <div id="consentRequiredModal" class="modal">
+        <div class="modal-content">
+            <h2>Üyelik Onayı Gerekiyor</h2>
+            <p>Hesabınızı sisteme kaydetmek için aşağıdaki metinleri onaylamanız gerekmektedir.</p>
+            <div style="text-align:left; margin: 1rem 0; font-size:0.92rem; color:#5a4230;">
+                <label style="display:flex; gap:0.6rem; align-items:flex-start; margin-bottom:0.75rem;">
+                    <input type="checkbox" id="consentKvkk">
+                    <span><a href="./kvkk-aydinlatma.html" target="_blank" rel="noopener">KVKK Aydınlatma Metni</a>'ni okudum ve kişisel verilerimin belirtilen kapsamda işleneceğini anladım.</span>
+                </label>
+                <label style="display:flex; gap:0.6rem; align-items:flex-start;">
+                    <input type="checkbox" id="consentTerms">
+                    <span><a href="./gizlilik-ve-kullanim-kosullari.html" target="_blank" rel="noopener">Gizlilik Politikası ve Kullanım Koşulları</a>'nı kabul ediyorum.</span>
+                </label>
+            </div>
+            <button id="consentConfirmBtn" class="btn-primary" style="width:100%; margin-bottom:0.5rem;">Onayla ve Devam Et</button>
+            <button id="consentDeclineBtn" class="btn-secondary" style="width:100%;">Vazgeç ve Çıkış Yap</button>
+        </div>
+    </div>
+
     <!-- Modal: Exam -->
     <div id="examModal" class="modal">
         <div class="modal-content large">
