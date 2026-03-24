@@ -395,12 +395,25 @@ class Quiz {
         const encodedUrl = encodeURIComponent(url);
 
         return `
-            <div class="exam-details" style="margin-top: 1rem; gap: 0.75rem; flex-wrap: wrap; align-items:flex-start;">
-                <a class="btn-primary" href="https://wa.me/?text=${encodedText}%20${encodedUrl}" target="_blank" rel="noopener noreferrer">WhatsApp'ta Paylaş</a>
-                <a class="btn-primary" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}" target="_blank" rel="noopener noreferrer">Facebook'ta Paylaş</a>
-                <a class="btn-primary" href="https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}" target="_blank" rel="noopener noreferrer">X'te Paylaş</a>
-                <a class="btn-primary" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram'da Paylaş</a>
-                <button id="copyShareLinkBtn" class="btn-secondary" type="button" style="flex-basis:100%; max-width: 320px;">Paylaşım Metnini Kopyala</button>
+            <div>
+                <h3 style="margin-bottom: 1rem;">Sonuçları Paylaş</h3>
+                <div class="share-buttons">
+                    <a class="share-btn" href="https://wa.me/?text=${encodedText}%20${encodedUrl}" target="_blank" rel="noopener noreferrer">
+                        <span>📱</span> WhatsApp
+                    </a>
+                    <a class="share-btn facebook" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}" target="_blank" rel="noopener noreferrer">
+                        <span>f</span> Facebook
+                    </a>
+                    <a class="share-btn twitter" href="https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}" target="_blank" rel="noopener noreferrer">
+                        <span>𝕏</span> X
+                    </a>
+                    <a class="share-btn linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}" target="_blank" rel="noopener noreferrer">
+                        <span>in</span> LinkedIn
+                    </a>
+                    <button id="copyShareLinkBtn" class="share-btn copy" type="button">
+                        <span>📋</span> Kopyala
+                    </button>
+                </div>
             </div>
         `;
     }
@@ -432,22 +445,29 @@ class Quiz {
         const pass = confirm(`${exam.name} baslatilsin mi?\n10 soruluk bu oyunda guvenli barajlar: 3/6/10.`);
         if (!pass) return;
 
-        this.resetSession();
+        // Show loading state during question preparation
+        this.showLoadingOverlay('Sorular yukleniyor...');
 
-        this.currentExam = exam;
-        this.questions = this.getQuestionSetWithVariedOrder(exam.id, bank, requiredQuestions);
-        this.currentIndex = 0;
-        this.timeLeft = (Number(exam.duration) || 60) * 60;
-        this.sessionStartedAt = new Date().toISOString();
-        this.announcedMilestones = {};
-        this.streakBreakPrompted = false;
-        this.isSubmitting = false;
-        this.isAnswerLocked = false;
+        // Use setTimeout to allow UI update before heavy processing
+        setTimeout(() => {
+            this.resetSession();
 
-        this.renderExamShell();
-        this.renderQuestion();
-        this.startTimer();
-        app.showModal('examModal');
+            this.currentExam = exam;
+            this.questions = this.getQuestionSetWithVariedOrder(exam.id, bank, requiredQuestions);
+            this.currentIndex = 0;
+            this.timeLeft = (Number(exam.duration) || 60) * 60;
+            this.sessionStartedAt = new Date().toISOString();
+            this.announcedMilestones = {};
+            this.streakBreakPrompted = false;
+            this.isSubmitting = false;
+            this.isAnswerLocked = false;
+
+            this.hideLoadingOverlay();
+            this.renderExamShell();
+            this.renderQuestion();
+            this.startTimer();
+            app.showModal('examModal');
+        }, 100);
     }
 
     renderExamShell() {
@@ -659,6 +679,9 @@ class Quiz {
         let serverScored = false;
         let dailyQuota = null;
 
+        // Show submitting state
+        this.showLoadingOverlay('Sonuçlar gönderiliyor...');
+
         if (window.sheetsAPI && typeof sheetsAPI.submitExamResult === 'function') {
             try {
                 const answersPayload = this.questions.map((q, idx) => ({
@@ -745,6 +768,8 @@ class Quiz {
 
             <button id="closeExamResultBtn" class="btn-primary" type="button">Kapat</button>
         `;
+
+        this.hideLoadingOverlay();
 
         const msgType = pointsEarned > 0 ? 'success' : 'info';
         const msg = serverScored
@@ -880,6 +905,34 @@ class Quiz {
             [list[i], list[j]] = [list[j], list[i]];
         }
         return list;
+    }
+
+    showLoadingOverlay(message = 'Yükleniyor...') {
+        let overlay = document.getElementById('loadingOverlay');
+        if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.id = 'loadingOverlay';
+            overlay.className = 'loading-overlay';
+            overlay.innerHTML = `
+                <div class="loading-spinner"></div>
+                <div class="loading-text">${message}</div>
+                <div class="loading-progress">
+                    <div class="loading-progress-bar"></div>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+        } else {
+            overlay.style.display = 'flex';
+            const textEl = overlay.querySelector('.loading-text');
+            if (textEl) textEl.textContent = message;
+        }
+    }
+
+    hideLoadingOverlay() {
+        const overlay = document.getElementById('loadingOverlay');
+        if (overlay) {
+            overlay.style.display = 'none';
+        }
     }
 }
 

@@ -142,6 +142,20 @@ class App {
             document.getElementById('profileName').textContent = '-';
             document.getElementById('profileEmail').textContent = '-';
         }
+        this.updateNavVisibility();
+    }
+
+    updateNavVisibility() {
+        const rewardsBtn = document.querySelector('.nav-btn[data-page="rewards"]');
+        const moreBtn = document.querySelector('.nav-btn[data-page="my-rewards"]');
+        
+        if (!this.currentUser) {
+            if (rewardsBtn) rewardsBtn.style.display = 'none';
+            if (moreBtn) moreBtn.style.display = 'none';
+        } else {
+            if (rewardsBtn) rewardsBtn.style.display = '';
+            if (moreBtn) moreBtn.style.display = '';
+        }
     }
 
     isAdminUser() {
@@ -152,6 +166,13 @@ class App {
 
     // === Navigation ===
     goToPage(pageName) {
+        // Giriş yapılmamışsa ödül sayfalarına erişim yasla
+        if (!this.currentUser && (pageName === 'rewards' || pageName === 'my-rewards')) {
+            this.showNotification('Ödül sayfalarına erişmek için lütfen giriş yapınız.', 'warning');
+            this.showModal('loginModal');
+            return;
+        }
+
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         
