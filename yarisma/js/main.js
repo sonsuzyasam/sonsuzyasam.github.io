@@ -220,7 +220,7 @@ class App {
                 <div class="exam-details">
                     <span>🎯 Gunluk hak: ${CONFIG.QUIZ_POLICY.DAILY_ATTEMPT_LIMIT}</span>
                 </div>
-                <button class="exam-button" onclick="app.startExam('${exam.id}')">Sorulari Cevapla</button>
+                <button class="exam-button" onclick="app.startExam('${exam.id}')">Soruları Cevapla</button>
             `;
             grid.appendChild(card);
         });
@@ -232,13 +232,28 @@ class App {
             return;
         }
 
-        const quota = await this.refreshDailyQuizQuota();
-        if (quota && Number(quota.remaining || 0) <= 0) {
-            this.showNotification('Bugunku 5 yarisma hakkin doldu. Yarin tekrar dene.', 'error');
-            return;
+        if (window.quiz && typeof window.quiz.showLoadingOverlay === 'function') {
+            window.quiz.showLoadingOverlay('Sorular yükleniyor...');
         }
 
-        quiz.startExam(examId);
+        try {
+            const quota = await this.refreshDailyQuizQuota();
+            if (quota && Number(quota.remaining || 0) <= 0) {
+                if (window.quiz && typeof window.quiz.hideLoadingOverlay === 'function') {
+                    window.quiz.hideLoadingOverlay();
+                }
+                this.showNotification('Bugünkü 5 yarışma hakkın doldu. Yarın tekrar dene.', 'error');
+                return;
+            }
+
+            quiz.startExam(examId);
+        } catch (error) {
+            if (window.quiz && typeof window.quiz.hideLoadingOverlay === 'function') {
+                window.quiz.hideLoadingOverlay();
+            }
+            this.showNotification('Yarışma başlatılamadı. Lütfen tekrar dene.', 'error');
+            console.error('startExam failed:', error);
+        }
     }
 
     // === Dashboard ===

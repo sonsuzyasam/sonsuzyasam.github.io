@@ -442,11 +442,8 @@ class Quiz {
             return;
         }
 
-        const pass = confirm(`${exam.name} baslatilsin mi?\n10 soruluk bu oyunda guvenli barajlar: 3/6/10.`);
-        if (!pass) return;
-
         // Show loading state during question preparation
-        this.showLoadingOverlay('Sorular yukleniyor...');
+        this.showLoadingOverlay('Sorular yükleniyor...');
 
         // Use setTimeout to allow UI update before heavy processing
         setTimeout(() => {
