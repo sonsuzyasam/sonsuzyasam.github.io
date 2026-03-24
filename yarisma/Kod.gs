@@ -21,7 +21,7 @@ var SHEET_NAMES = {
   LOGS:    'SecurityLogs'
 };
 
-var QUIZ_QUESTION_COUNT = 20;
+var QUIZ_QUESTION_COUNT = 10;
 var DAILY_EXAM_LIMIT = 5;
 var REWARD_POINT_VALUE_TL = 0.05;
 var MIN_REWARD_REQUEST_TL = 500;
@@ -29,9 +29,8 @@ var MIN_REWARD_REQUEST_POINTS = Math.ceil(MIN_REWARD_REQUEST_TL / REWARD_POINT_V
 var CONSENT_VERSION = '2026-03-19';
 var SAFE_MILESTONES = [
   { correct: 3, points: 3, cashLabel: '15 kurus' },
-  { correct: 10, points: 10, cashLabel: '50 kurus' },
-  { correct: 15, points: 15, cashLabel: '75 kurus' },
-  { correct: 20, points: 20, cashLabel: '1 TL' }
+  { correct: 6, points: 6, cashLabel: '30 kurus' },
+  { correct: 10, points: 10, cashLabel: '1 TL' }
 ];
 
 var RATE_LIMITS = {
@@ -477,7 +476,7 @@ function handleSubmitExamResult_(auth, body) {
 
   if (!examId) throw new Error('Missing examId');
   if (answers.length !== QUIZ_QUESTION_COUNT) {
-    throw new Error('Each game must include exactly 20 questions');
+    throw new Error('Each game must include exactly ' + QUIZ_QUESTION_COUNT + ' questions');
   }
 
   var answerMap = ANSWER_KEYS[examId];

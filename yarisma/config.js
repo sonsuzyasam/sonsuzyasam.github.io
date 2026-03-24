@@ -51,9 +51,8 @@ const CONFIG = {
         MULTIPLIER: 0.05,
         SAFE_MILESTONES: [
             { correct: 3, points: 3, cashLabel: '15 kurus' },
-            { correct: 10, points: 10, cashLabel: '50 kurus' },
-            { correct: 15, points: 15, cashLabel: '75 kurus' },
-            { correct: 20, points: 20, cashLabel: '1 TL' }
+            { correct: 6, points: 6, cashLabel: '30 kurus' },
+            { correct: 10, points: 10, cashLabel: '1 TL' }
         ]
     },
 
@@ -63,7 +62,7 @@ const CONFIG = {
     },
 
     QUIZ_POLICY: {
-        QUESTIONS_PER_GAME: 20,
+        QUESTIONS_PER_GAME: 10,
         DAILY_ATTEMPT_LIMIT: 5,
         ENGAGEMENT_PROMPTS: [
             'Ipuclari icin arkeoloji.biz sekmesini acik tut.',
@@ -77,9 +76,9 @@ const CONFIG = {
         {
             id: 'arkeoloji',
             name: 'Arkeoloji Biz Quiz',
-            description: '20 soruluk, barajli ve odullu arkeoloji yarismasi',
-            duration: 20,
-            questions: 20,
+            description: '10 soruluk, barajli ve odullu arkeoloji yarismasi',
+            duration: 12,
+            questions: 10,
             difficulty: 'Orta',
             category: 'Odullu Quiz'
         }

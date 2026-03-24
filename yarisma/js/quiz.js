@@ -11,6 +11,9 @@ class Quiz {
         this.sessionStartedAt = null;
         this.announcedMilestones = {};
         this.streakBreakPrompted = false;
+        this.isSubmitting = false;
+        this.isAnswerLocked = false;
+        this.startCooldownUntil = 0;
     }
 
     getMilestones() {
@@ -219,6 +222,29 @@ class Quiz {
         return this.toDisplayText(facts[index]);
     }
 
+    decorateOptionText(question, optionText, optionIndex) {
+        const base = this.toDisplayText(optionText);
+        if (!this.currentExam || this.currentExam.id !== 'arkeoloji') return base;
+        if (!question || Number(optionIndex) === Number(question.correctIndex)) return base;
+
+        const key = `${question.id || this.currentIndex}-${optionIndex}`;
+        const twists = [
+            ' (ama bu biraz Indiana Jones etkisi olabilir)',
+            ' (güzel tahmin ama kazı defteri ikna olmadı)',
+            ' (kulağa havalı geliyor, arkeoloji biraz nazlı davranıyor)',
+            ' (yaklaştın, fakat stratigrafi kaşlarını kaldırdı)'
+        ];
+        const useTwist = (this.hashString(key) % 5) === 0;
+        return useTwist ? `${base}${twists[this.hashString(`${key}:twist`) % twists.length]}` : base;
+    }
+
+    setExamInteractionDisabled(disabled) {
+        ['answerQuestionBtn', 'finishExamBtn', 'nextQuestionBtn', 'prevQuestionBtn'].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) el.disabled = Boolean(disabled);
+        });
+    }
+
     getSearchUrlByText(raw, fallbackQuestion) {
         const queryText = String(raw || '').trim();
         if (queryText) {
@@ -255,6 +281,10 @@ class Quiz {
 
     getDailyAttemptPlanKey(examId) {
         return `${this.getLastOrderKey(examId)}:daily-plan:${this.getCurrentDayKey()}`;
+    }
+
+    getDailyPlanSignatureKey(examId) {
+        return `${this.getLastOrderKey(examId)}:daily-signature:${this.getCurrentDayKey()}`;
     }
 
     getCurrentDayKey() {
@@ -297,7 +327,10 @@ class Quiz {
         if (bank.length >= neededForDailyUniqueRuns) {
             const attemptIndex = this.getPlannedAttemptIndex();
             const key = this.getDailyAttemptPlanKey(examId);
+            const signatureKey = this.getDailyPlanSignatureKey(examId);
             const seed = `${examId}:${this.getCurrentDayKey()}`;
+            const bankSignature = bank.map((item) => String(item.id || '')).join('|');
+            const storedSignature = localStorage.getItem(signatureKey) || '';
             let plannedIds = [];
 
             try {
@@ -306,10 +339,15 @@ class Quiz {
                 plannedIds = [];
             }
 
+            if (storedSignature !== bankSignature) {
+                plannedIds = [];
+            }
+
             if (!Array.isArray(plannedIds) || !plannedIds.length) {
                 const shuffled = this.seededShuffle(bank, seed);
                 plannedIds = shuffled.map((item) => item.id || '');
                 localStorage.setItem(key, JSON.stringify(plannedIds));
+                localStorage.setItem(signatureKey, bankSignature);
             }
 
             const orderedBank = plannedIds
@@ -368,6 +406,11 @@ class Quiz {
     }
 
     startExam(examId) {
+        if (Date.now() < this.startCooldownUntil) {
+            return;
+        }
+        this.startCooldownUntil = Date.now() + 1200;
+
         const exam = CONFIG.EXAMS.find((item) => item.id === examId);
         if (!exam) {
             app.showNotification('Sinav bulunamadi.', 'error');
@@ -380,13 +423,13 @@ class Quiz {
             return;
         }
 
-        const requiredQuestions = Number(exam.questions || CONFIG.QUIZ_POLICY.QUESTIONS_PER_GAME || 20);
+        const requiredQuestions = Number(exam.questions || CONFIG.QUIZ_POLICY.QUESTIONS_PER_GAME || 10);
         if (bank.length < requiredQuestions) {
             app.showNotification(`Bu yarisma icin en az ${requiredQuestions} onayli soru gerekli. Su an ${bank.length} soru var.`, 'error');
             return;
         }
 
-        const pass = confirm(`${exam.name} baslatilsin mi?\n20 soruluk bu oyunda guvenli barajlar: 3/10/15/20.`);
+        const pass = confirm(`${exam.name} baslatilsin mi?\n10 soruluk bu oyunda guvenli barajlar: 3/6/10.`);
         if (!pass) return;
 
         this.resetSession();
@@ -398,6 +441,8 @@ class Quiz {
         this.sessionStartedAt = new Date().toISOString();
         this.announcedMilestones = {};
         this.streakBreakPrompted = false;
+        this.isSubmitting = false;
+        this.isAnswerLocked = false;
 
         this.renderExamShell();
         this.renderQuestion();
@@ -434,7 +479,6 @@ class Quiz {
             </div>
 
             <div class="exam-navigation">
-                <button id="prevQuestionBtn" class="btn-prev" type="button">Geri</button>
                 <button id="answerQuestionBtn" class="btn-next" type="button">Cevabı Onayla</button>
                 <button id="nextQuestionBtn" class="btn-next" type="button" style="display:none;">Ileri</button>
                 <button id="finishExamBtn" class="btn-finish" type="button" style="display:none;">Sinavi Bitir</button>
@@ -442,7 +486,6 @@ class Quiz {
             <div id="examTimerBottom" class="exam-timer exam-timer-bottom">Süre: 00:00</div>
         `;
 
-        document.getElementById('prevQuestionBtn').addEventListener('click', () => this.changeQuestion(-1));
         document.getElementById('answerQuestionBtn').addEventListener('click', () => this.submitAnswer());
         document.getElementById('nextQuestionBtn').addEventListener('click', () => this.changeQuestion(1));
         document.getElementById('finishExamBtn').addEventListener('click', () => this.finishExam(false));
@@ -466,13 +509,13 @@ class Quiz {
 
         if (question.passage) {
             passageEl.style.display = 'block';
-            passageEl.textContent = question.passage;
+            passageEl.textContent = this.toDisplayText(question.passage);
         } else {
             passageEl.style.display = 'none';
             passageEl.textContent = '';
         }
 
-        textEl.textContent = this.toDisplayText(question.text);
+        textEl.textContent = `Soru ${this.currentIndex + 1}: ${this.toDisplayText(question.text)}`;
         metaEl.textContent = `${this.toDisplayText(question.topic || '-')} | Zorluk: ${this.toDisplayText(question.difficulty || '-')}`;
         if (engagementEl) {
             engagementEl.innerHTML = this.getEngagementPrompt(question, this.currentIndex + 1);
@@ -509,7 +552,7 @@ class Quiz {
             return `
                 <label class="option ${selectedClass}" data-index="${idx}">
                     <input type="radio" name="questionOption" value="${idx}" ${checked}>
-                    <strong>${labels[idx] || idx + 1})</strong> ${this.toDisplayText(opt)}
+                    <strong>${labels[idx] || idx + 1})</strong> ${this.decorateOptionText(question, opt, idx)}
                 </label>
             `;
         }).join('');
@@ -525,15 +568,13 @@ class Quiz {
         const percent = ((this.currentIndex + 1) / this.questions.length) * 100;
         progressEl.style.width = `${percent}%`;
 
-        const prevBtn = document.getElementById('prevQuestionBtn');
         const nextBtn = document.getElementById('nextQuestionBtn');
         const answerBtn = document.getElementById('answerQuestionBtn');
         const finishBtn = document.getElementById('finishExamBtn');
-        prevBtn.disabled = this.currentIndex === 0;
         nextBtn.style.display = 'none';
         finishBtn.style.display = 'none';
         answerBtn.style.display = 'inline-block';
-        answerBtn.disabled = selected === undefined;
+        answerBtn.disabled = selected === undefined || this.isSubmitting;
     }
 
     changeQuestion(step) {
@@ -575,7 +616,10 @@ class Quiz {
     }
 
     async finishExam(autoFinish) {
-        if (!this.currentExam || !this.questions.length) return;
+        if (!this.currentExam || !this.questions.length || this.isSubmitting) return;
+
+        this.isSubmitting = true;
+        this.setExamInteractionDisabled(true);
 
         this.stopTimer();
 
@@ -644,6 +688,9 @@ class Quiz {
 
                 if (typeof app.refreshMonthlyPointsFromServer === 'function') {
                     await app.refreshMonthlyPointsFromServer();
+                }
+                if (typeof app.refreshDailyQuizQuota === 'function') {
+                    await app.refreshDailyQuizQuota();
                 }
             } catch (error) {
                 app.showNotification(`Sunucu puan kaydi basarisiz: ${error.message}`, 'error');
@@ -747,11 +794,15 @@ class Quiz {
     }
 
     submitAnswer() {
+        if (this.isAnswerLocked || this.isSubmitting) return;
+
         const selected = this.answers[this.currentIndex];
         if (selected === undefined) {
             app.showNotification('Lütfen bir seçenek işaretleyin.', 'error');
             return;
         }
+
+        this.isAnswerLocked = true;
 
         const previousStreak = this.getContiguousStreak(this.currentIndex - 1);
         const previousMilestone = this.getSafeMilestone(previousStreak);
@@ -783,6 +834,7 @@ class Quiz {
             );
             if (!shouldContinue) {
                 this.finishExam(false);
+                this.isAnswerLocked = false;
                 return;
             }
         }
@@ -791,15 +843,18 @@ class Quiz {
             this.streakBreakPrompted = true;
             app.showNotification(`Yanlış cevap geldi. Yarışma ${previousMilestone.cashLabel} güvenli kasayla bitirildi.`, 'info');
             this.finishExam(false);
+            this.isAnswerLocked = false;
             return;
         }
 
         if (isLast) {
             this.finishExam(false);
+            this.isAnswerLocked = false;
             return;
         }
 
         this.changeQuestion(1);
+        this.isAnswerLocked = false;
     }
 
     onModalClosed() {
@@ -815,6 +870,8 @@ class Quiz {
         this.answers = {};
         this.timeLeft = 0;
         this.sessionStartedAt = null;
+        this.isSubmitting = false;
+        this.isAnswerLocked = false;
     }
 
     shuffle(list) {
