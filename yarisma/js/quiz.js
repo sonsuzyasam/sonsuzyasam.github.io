@@ -61,7 +61,7 @@ class Quiz {
     getSourceLabel(question) {
         const rawUrl = String(question && question.sourceUrl || '').trim();
         if (rawUrl && rawUrl !== 'https://www.arkeoloji.biz/' && rawUrl !== 'https://arkeoloji.biz/') {
-            return this.toDisplayText(question.sourceTitle || 'Ilgili kaynaga git');
+            return this.toDisplayText(question.sourceTitle || 'İlgili kaynağa git');
         }
         return this.toDisplayText(`Arkeoloji.biz'de ara: ${question.topic || question.sourceTitle || 'Ilgili konu'}`);
     }

@@ -126,19 +126,19 @@ class App {
                 this.onAuthUser(null);
             }
             this.goToPage('dashboard');
-            this.showNotification('Basariyla cikis yaptiniz!', 'success');
+            this.showNotification('Başarıyla çıkış yaptınız!', 'success');
         }
     }
 
     updateUserUI() {
         if (this.currentUser) {
             document.getElementById('userName').textContent = this.currentUser.name;
-            document.getElementById('loginBtn').textContent = 'Cikis Yap';
+            document.getElementById('loginBtn').textContent = 'Çıkış Yap';
             document.getElementById('profileName').textContent = this.currentUser.name;
             document.getElementById('profileEmail').textContent = this.currentUser.email;
         } else {
             document.getElementById('userName').textContent = 'Misafir';
-            document.getElementById('loginBtn').textContent = 'Giris Yap';
+            document.getElementById('loginBtn').textContent = 'Giriş Yap';
             document.getElementById('profileName').textContent = '-';
             document.getElementById('profileEmail').textContent = '-';
         }
