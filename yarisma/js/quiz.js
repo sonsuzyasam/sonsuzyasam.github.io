@@ -58,9 +58,165 @@ class Quiz {
     getSourceLabel(question) {
         const rawUrl = String(question && question.sourceUrl || '').trim();
         if (rawUrl && rawUrl !== 'https://www.arkeoloji.biz/' && rawUrl !== 'https://arkeoloji.biz/') {
-            return question.sourceTitle || 'Ilgili kaynaga git';
+            return this.toDisplayText(question.sourceTitle || 'Ilgili kaynaga git');
         }
-        return `Arkeoloji.biz'de ara: ${question.topic || question.sourceTitle || 'Ilgili konu'}`;
+        return this.toDisplayText(`Arkeoloji.biz'de ara: ${question.topic || question.sourceTitle || 'Ilgili konu'}`);
+    }
+
+    toDisplayText(value) {
+        const raw = String(value || '');
+        if (!this.currentExam || this.currentExam.id !== 'arkeoloji') {
+            return raw;
+        }
+        return this.restoreTurkishText(raw);
+    }
+
+    restoreTurkishText(text) {
+        if (!text) return '';
+
+        let out = String(text);
+        const dictionary = {
+            'asagidakilerden': 'aşağıdakilerden',
+            'asagidaki': 'aşağıdaki',
+            'asagi': 'aşağı',
+            'Asagidakilerden': 'Aşağıdakilerden',
+            'Asagidaki': 'Aşağıdaki',
+            'Asagi': 'Aşağı',
+            'cag': 'çağ',
+            'Cag': 'Çağ',
+            'cagi': 'çağı',
+            'Cagi': 'Çağı',
+            'donem': 'dönem',
+            'Donem': 'Dönem',
+            'donemi': 'dönemi',
+            'Donemi': 'Dönemi',
+            'donemde': 'dönemde',
+            'Donemde': 'Dönemde',
+            'yontem': 'yöntem',
+            'Yontem': 'Yöntem',
+            'yontemi': 'yöntemi',
+            'Yontemi': 'Yöntemi',
+            'yontemleri': 'yöntemleri',
+            'Yontemleri': 'Yöntemleri',
+            'yerlesik': 'yerleşik',
+            'Yerlesik': 'Yerleşik',
+            'yerlesim': 'yerleşim',
+            'Yerlesim': 'Yerleşim',
+            'yerlesimi': 'yerleşimi',
+            'Yerlesimi': 'Yerleşimi',
+            'kullanim': 'kullanım',
+            'Kullanim': 'Kullanım',
+            'kullanilan': 'kullanılan',
+            'Kullanilan': 'Kullanılan',
+            'kullanilir': 'kullanılır',
+            'Kullanilir': 'Kullanılır',
+            'kultur': 'kültür',
+            'Kultur': 'Kültür',
+            'olcum': 'ölçüm',
+            'Olcum': 'Ölçüm',
+            'olcu': 'ölçü',
+            'Olcu': 'Ölçü',
+            'baglam': 'bağlam',
+            'Baglam': 'Bağlam',
+            'cik': 'çık',
+            'Cik': 'Çık',
+            'cikis': 'çıkış',
+            'Cikis': 'Çıkış',
+            'giris': 'giriş',
+            'Giris': 'Giriş',
+            'saglar': 'sağlar',
+            'Saglar': 'Sağlar',
+            'degisim': 'değişim',
+            'Degisim': 'Değişim',
+            'ogesi': 'ögesi',
+            'Ogesi': 'Ögesi',
+            'ozellik': 'özellik',
+            'Ozellik': 'Özellik',
+            'ozelligi': 'özelliği',
+            'Ozelligi': 'Özelliği',
+            'ozel': 'özel',
+            'Ozel': 'Özel',
+            'ogren': 'öğren',
+            'Ogren': 'Öğren',
+            'soru': 'soru',
+            'Sinav': 'Sınav',
+            'sinav': 'sınav',
+            'yanlis': 'yanlış',
+            'Yanlis': 'Yanlış',
+            'dogru': 'doğru',
+            'Dogru': 'Doğru',
+            'yazi': 'yazı',
+            'Yazi': 'Yazı',
+            'yazit': 'yazıt',
+            'Yazit': 'Yazıt',
+            'agirlik': 'ağırlık',
+            'Agirlik': 'Ağırlık',
+            'cografi': 'coğrafi',
+            'Cografi': 'Coğrafi',
+            'ticari': 'ticari',
+            'yuksek': 'yüksek',
+            'Yuksek': 'Yüksek',
+            'kuzey-guney': 'kuzey-güney',
+            'dogu-bati': 'doğu-batı',
+            'gore': 'göre',
+            'Gore': 'Göre',
+            'uzerinden': 'üzerinden',
+            'Uzerinden': 'Üzerinden',
+            'uzeri': 'üzeri',
+            'Uzeri': 'Üzeri',
+            'guney': 'güney',
+            'Guney': 'Güney',
+            'dunya': 'dünya',
+            'Dunya': 'Dünya',
+            'surec': 'süreç',
+            'Surec': 'Süreç',
+            'olusturur': 'oluşturur',
+            'Olusturur': 'Oluşturur',
+            'olusturan': 'oluşturan',
+            'Olusturan': 'Oluşturan',
+            'ust': 'üst',
+            'Ust': 'Üst'
+        };
+
+        Object.keys(dictionary).forEach((key) => {
+            out = out.replace(new RegExp(`\\b${key}\\b`, 'g'), dictionary[key]);
+        });
+
+        return out
+            .replace(/\bcivi\b/g, 'çivi')
+            .replace(/\bCivi\b/g, 'Çivi')
+            .replace(/\bucgen\b/g, 'üçgen')
+            .replace(/\bucgensel\b/g, 'üçgensel')
+            .replace(/\bUcgen\b/g, 'Üçgen')
+            .replace(/\bkiyi\b/g, 'kıyı')
+            .replace(/\bKiyi\b/g, 'Kıyı')
+            .replace(/\bicerik\b/g, 'içerik')
+            .replace(/\bIcerik\b/g, 'İçerik')
+            .replace(/\bicerigine\b/g, 'içeriğine')
+            .replace(/\bozdeslesir\b/g, 'özdeşleşir')
+            .replace(/\bozdeslesmis\b/g, 'özdeşleşmiş')
+            .replace(/\bcogunlukla\b/g, 'çoğunlukla')
+            .replace(/\bcok\b/g, 'çok')
+            .replace(/\bCok\b/g, 'Çok')
+            .replace(/\bhangi\b/g, 'hangi');
+    }
+
+    getArkeolojiFunFact(questionNumber) {
+        const facts = [
+            'İlginç bilgi: Göbeklitepe, Stonehenge\'den binlerce yıl daha eskidir.',
+            'İlginç bilgi: Roma betonunun deniz suyuyla dayanıklılığı zamanla artabiliyor.',
+            'İlginç bilgi: Çatalhöyük\'te sokak yerine damdan girişli evler öne çıkar.',
+            'İlginç bilgi: Hattuşa tablet arşivi, Hitit diplomasisini okumamızı sağlar.',
+            'İlginç bilgi: Amphora kulpları, taşıma kadar mühürleme ve kimliklendirmede de işlevliydi.',
+            'İlginç bilgi: Bir mozaikteki tessera boyutu, atölye tekniğine dair ipucu verebilir.',
+            'İlginç bilgi: Stratigrafide en küçük karışma, tarihleme yorumunu tamamen değiştirebilir.',
+            'İlginç bilgi: Arkeobotanik, kömürleşmiş tohumlardan antik mutfağı yeniden kurabilir.',
+            'İlginç bilgi: Deneysel arkeoloji, eski teknikleri birebir deneyerek bilgi üretir.',
+            'İlginç bilgi: Bir sikkedeki darp izi, ekonomik kriz dönemlerini bile ele verebilir.'
+        ];
+
+        const index = Math.max(0, (Number(questionNumber) || 1) - 1) % facts.length;
+        return this.toDisplayText(facts[index]);
     }
 
     getSearchUrlByText(raw, fallbackQuestion) {
@@ -316,8 +472,8 @@ class Quiz {
             passageEl.textContent = '';
         }
 
-        textEl.textContent = question.text;
-        metaEl.textContent = `${question.topic || '-'} | Zorluk: ${question.difficulty || '-'}`;
+        textEl.textContent = this.toDisplayText(question.text);
+        metaEl.textContent = `${this.toDisplayText(question.topic || '-')} | Zorluk: ${this.toDisplayText(question.difficulty || '-')}`;
         if (engagementEl) {
             engagementEl.innerHTML = this.getEngagementPrompt(question, this.currentIndex + 1);
 
@@ -353,7 +509,7 @@ class Quiz {
             return `
                 <label class="option ${selectedClass}" data-index="${idx}">
                     <input type="radio" name="questionOption" value="${idx}" ${checked}>
-                    <strong>${labels[idx] || idx + 1})</strong> ${opt}
+                    <strong>${labels[idx] || idx + 1})</strong> ${this.toDisplayText(opt)}
                 </label>
             `;
         }).join('');
@@ -503,11 +659,11 @@ class Quiz {
             const labels = ['A', 'B', 'C', 'D', 'E'];
             return `
                 <div class="result-item ${isCorrect ? 'correct' : selected === undefined ? 'blank' : 'incorrect'}">
-                    <p><strong>${idx + 1}. soru:</strong> ${question.text}</p>
+                    <p><strong>${idx + 1}. soru:</strong> ${this.toDisplayText(question.text)}</p>
                     <p>Senin cevabin: ${selected === undefined ? '-' : labels[selected]}</p>
                     <p>Dogru cevap: ${labels[question.correctIndex]}</p>
-                    <p>${question.rationale || ''}</p>
-                    <a href="${question.sourceUrl || 'https://www.arkeoloji.biz/'}" target="_blank" rel="noopener noreferrer">${question.sourceTitle || 'Arkeoloji.biz kaynagina git'}</a>
+                    <p>${this.toDisplayText(question.rationale || '')}</p>
+                    <a href="${question.sourceUrl || 'https://www.arkeoloji.biz/'}" target="_blank" rel="noopener noreferrer">${this.toDisplayText(question.sourceTitle || 'Arkeoloji.biz kaynagina git')}</a>
                 </div>
             `;
         }).join('');
@@ -574,11 +730,13 @@ class Quiz {
         const prompts = CONFIG.QUIZ_POLICY.ENGAGEMENT_PROMPTS || [];
         const basePrompt = prompts[(questionNumber - 1) % Math.max(prompts.length, 1)] || 'İpuçları için arkeoloji.biz içeriklerine göz at.';
         const sourceUrl = this.getSourceDestination(question);
+        const fact = this.toDisplayText(question.funFact || this.getArkeolojiFunFact(questionNumber));
 
         return `
             <div class="engagement-panel card">
                 <p class="eyebrow">Arkeoloji.biz Uyarısı</p>
-                <p>${basePrompt}</p>
+                <p>${this.toDisplayText(basePrompt)}</p>
+                <p style="margin-top:0.5rem; padding:0.55rem 0.7rem; border-radius:8px; background:rgba(200,161,58,0.15); border:1px solid rgba(200,161,58,0.35);"><strong>İlginç Bilgi:</strong> ${fact}</p>
                 <a class="btn-outline-link" href="${sourceUrl}" target="_blank" rel="noopener noreferrer">${this.getSourceLabel(question)}</a>
                 <div class="engagement-search" style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.75rem;">
                     <input id="engagementSearchInput" type="text" placeholder="Aramak istediğiniz kelime" style="flex:1; min-width:200px; padding:0.55rem 0.7rem; border-radius:8px; border:1px solid rgba(200,161,58,0.35); background:#111; color:#f3ebd5;">
