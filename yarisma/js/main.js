@@ -19,6 +19,7 @@ class App {
         this.setupEventListeners();
         this.loadExams();
         this.updateDashboard();
+        this.reconcileStoredSession();
         if (this.currentUser) {
             this.refreshMonthlyPointsFromServer();
             this.refreshDailyQuizQuota();
@@ -84,6 +85,19 @@ class App {
             this.currentUser = JSON.parse(stored);
             this.updateUserUI();
         }
+    }
+
+    reconcileStoredSession() {
+        setTimeout(() => {
+            try {
+                const firebaseUser = Boolean(window.authManager && window.authManager.auth && window.authManager.auth.currentUser);
+                if (!firebaseUser && this.currentUser) {
+                    this.onAuthUser(null);
+                }
+            } catch (error) {
+                console.warn('Session reconciliation failed:', error);
+            }
+        }, 1200);
     }
 
     onAuthUser(user) {
@@ -198,8 +212,10 @@ class App {
     // === Exams ===
     loadExams() {
         const grid = document.getElementById('examsGrid');
+        if (!grid) return;
+
         grid.innerHTML = '';
-        
+
         CONFIG.EXAMS.forEach(exam => {
             const milestones = (CONFIG.POINTS_SYSTEM.SAFE_MILESTONES || []).map((item) => item.cashLabel).join(' / ');
             const card = document.createElement('div');
@@ -224,6 +240,18 @@ class App {
             `;
             grid.appendChild(card);
         });
+
+        const quickStartBtn = document.getElementById('examQuickStartBtn');
+        if (quickStartBtn) {
+            const primaryExam = CONFIG.EXAMS.find((item) => item.id === 'arkeoloji') || CONFIG.EXAMS[0] || null;
+            if (!primaryExam) {
+                quickStartBtn.style.display = 'none';
+                return;
+            }
+
+            quickStartBtn.style.display = '';
+            quickStartBtn.onclick = () => this.startExam(primaryExam.id);
+        }
     }
 
     async startExam(examId) {

@@ -263,6 +263,16 @@ body {
     color: var(--muted);
 }
 
+.exams-top-cta {
+    display: flex;
+    margin: -0.3rem 0 1rem;
+}
+
+.exams-top-cta .btn-primary {
+    margin-right: 0;
+    margin-bottom: 0;
+}
+
 /* ===== Dashboard Grid ===== */
 .dashboard-grid {
     display: grid;
