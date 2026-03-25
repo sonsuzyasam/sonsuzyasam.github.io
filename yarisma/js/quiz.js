@@ -410,7 +410,7 @@ class Quiz {
                     <a class="share-btn linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}" target="_blank" rel="noopener noreferrer">
                         <span>in</span> LinkedIn
                     </a>
-                    <button id="copyShareLinkBtn" class="share-btn copy" type="button">
+                    <button class="share-btn copy copy-share-link-btn" type="button">
                         <span>📋</span> Kopyala
                     </button>
                 </div>
@@ -763,6 +763,8 @@ class Quiz {
 
             <div class="result-review-list">${questionReview}</div>
 
+            ${this.buildShareActions(this.currentExam.name, correct, total, effectiveSafeMilestone.cashLabel)}
+
             <button id="closeExamResultBtn" class="btn-primary" type="button">Kapat</button>
         `;
 
@@ -778,9 +780,10 @@ class Quiz {
             app.closeModal('examModal');
             this.resetSession();
         });
-        const copyShareLinkBtn = document.getElementById('copyShareLinkBtn');
-        if (copyShareLinkBtn) {
-            copyShareLinkBtn.addEventListener('click', async () => {
+        const copyShareLinkButtons = document.querySelectorAll('.copy-share-link-btn');
+        if (copyShareLinkButtons.length) {
+            copyShareLinkButtons.forEach((copyShareLinkBtn) => {
+                copyShareLinkBtn.addEventListener('click', async () => {
                 const isArkeoloji = this.currentExam && this.currentExam.id === 'arkeoloji';
                 const text = isArkeoloji
                     ? `Arkeoloji Biz Quiz yarışında ${correct}/${total} yaptım. Güvenli kasam: ${effectiveSafeMilestone.cashLabel}. Sen de dene! Bir kişi 1 lira kazanırken, 1 milyon kişi bir fabrika kurar. Hem bilginizi sınayın, hem de linki sevdiklerinizle paylaşarak dijital imeceye katkıda bulunun. https://www.arkeoloji.biz/2026/03/dunyayi-kurtarmak.html`
@@ -791,6 +794,7 @@ class Quiz {
                 } catch (_) {
                     app.showNotification('Pano kopyalama başarısız oldu.', 'error');
                 }
+            });
             });
         }
     }

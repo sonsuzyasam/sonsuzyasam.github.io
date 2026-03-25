@@ -727,11 +727,11 @@
 
             <div class="ark-start-meta">
                 <div class="ark-start-meta-item">
-                    <strong>20</strong>
+                    <strong>10</strong>
                     <span>Soru</span>
                 </div>
                 <div class="ark-start-meta-item">
-                    <strong>20</strong>
+                    <strong>12</strong>
                     <span>Dakika</span>
                 </div>
                 <div class="ark-start-meta-item">
@@ -744,12 +744,12 @@
                 <strong style="color: var(--ark-dark); display: block; margin-bottom: 0.6rem;">🏆 Barajlı Ödül Sistemi Nasıl Çalışır?</strong>
                 <ul style="margin: 0; padding-left: 1.2rem;">
                     <li><strong>3 doğru soru</strong> → <span style="color: var(--ark-brown); font-weight:700;">15 kuruş</span></li>
-                    <li><strong>10 doğru soru</strong> → <span style="color: var(--ark-brown); font-weight:700;">50 kuruş</span></li>
-                    <li><strong>15 doğru soru</strong> → <span style="color: var(--ark-brown); font-weight:700;">75 kuruş</span></li>
-                    <li><strong>20 doğru soru</strong> → <span style="color: var(--ark-brown); font-weight:700;">1 TL</span></li>
+                    <li><strong>6 doğru soru</strong> → <span style="color: var(--ark-brown); font-weight:700;">30 kuruş</span></li>
+                    <li><strong>10 doğru soru</strong> → <span style="color: var(--ark-brown); font-weight:700;">1 TL</span></li>
+                    
                 </ul>
                 <p style="margin: 0.8rem 0 0 0; font-size: 0.88rem; opacity: 0.9;">
-                    ℹ️ <strong>Baraj Nedir?</strong> Her doğru soruya ulaştığınızda, o seviyedeki ödül garantidir. Yani 15 doğru yaparsanız 75 kuruş kazanırsınız (15 ve 20 soruluk barajları da açarsınız). <br>
+                    ℹ️ <strong>Baraj Nedir?</strong> Her doğru soruya ulaştığınızda, o seviyedeki ödül garantidir. Yani 10 doğru yaparsanız 1 TL kazanırsınız (3, 6 ve 10 soruluk barajları da açarsınız). <br>
                     Misafir modunda pratik yapabilirsiniz. Puan ve ödül talebi kaydi icin <a href="./index.html" style="color: var(--ark-brown); font-weight: 700; text-decoration: underline;">Sonsuz Yaşam platformuna</a> uye girisi gerekir.
                 </p>
             </div>
@@ -767,13 +767,13 @@
         <!-- Quiz Screen -->
         <div id="arkQuizScreen" style="display:none;">
 
-            <div id="arkTimer" class="ark-timer">⏱ 20:00</div>
+            <div id="arkTimer" class="ark-timer">⏱ 12:00</div>
 
             <div class="ark-progress-label">
-                <span id="arkProgressLabel">Soru 1 / 20</span>
+                <span id="arkProgressLabel">Soru 1 / 10</span>
             </div>
             <div class="ark-progress-wrap">
-                <div id="arkProgressBar" class="ark-progress-bar" style="width:16.7%"></div>
+                <div id="arkProgressBar" class="ark-progress-bar" style="width:10%"></div>
             </div>
 
             <div id="arkQuestionContainer"></div>
@@ -789,7 +789,7 @@
                     Sonuçları Gör
                 </button>
             </div>
-            <div id="arkTimerBottom" class="ark-timer ark-timer-bottom">⏱ 20:00</div>
+            <div id="arkTimerBottom" class="ark-timer ark-timer-bottom">⏱ 12:00</div>
         </div>
 
         <!-- Results Screen -->
@@ -797,7 +797,7 @@
 
             <div class="ark-score-card">
                 <div class="ark-score-label">Yarışma Tamamlandı!</div>
-                <div id="arkScoreBig" class="ark-score-big">0/20</div>
+                <div id="arkScoreBig" class="ark-score-big">0/10</div>
                 <div id="arkScorePercent" class="ark-score-label">%0 Başarı</div>
                 <div class="ark-score-detail">
                     <div class="ark-score-stat">
@@ -865,13 +865,12 @@
 
     // ===== Arkeoloji Quiz Controller =====
     const arkQuiz = (() => {
-        const TOTAL_SECONDS = 20 * 60;
+        const TOTAL_SECONDS = 12 * 60;
         const LABELS = ['A', 'B', 'C', 'D', 'E'];
         const SAFE_MILESTONES = [
             { correct: 3, points: 3, cashLabel: '15 kuruş' },
-            { correct: 10, points: 10, cashLabel: '50 kuruş' },
-            { correct: 15, points: 15, cashLabel: '75 kuruş' },
-            { correct: 20, points: 20, cashLabel: '1 TL' }
+            { correct: 6, points: 6, cashLabel: '30 kuruş' },
+            { correct: 10, points: 10, cashLabel: '1 TL' }
         ];
 
         let questions = [];
@@ -985,7 +984,7 @@
         }
 
         function pickVariedQuestionOrder() {
-            const requiredQuestions = 20;
+            const requiredQuestions = 10;
             const dailyLimit = 5;
             if (ARK_QUESTIONS.length >= requiredQuestions * dailyLimit) {
                 const now = new Date();
