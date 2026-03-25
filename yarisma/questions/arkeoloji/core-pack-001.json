@@ -3,61 +3,61 @@
     "id": "ARK_04",
     "subject": "Arkeoloji - Tanim ve Yardimci Bilimler",
     "difficulty": "Orta",
-    "question": "Arkeoloji bilimi, asagidaki disiplinlerden hangisinin 'yardimci bilimi' olarak kabul edilir?",
+    "question": "Arkeoloji bilimi, aşağıdaki disiplinlerden hangisinin 'yardımcı bilimi' olarak kabul edilir?",
     "options": {
       "A": "Felsefe",
       "B": "Sosyoloji",
-      "C": "Kimya (yalnizca)",
-      "D": "Tarih (yalnizca)",
+      "C": "Kimya (yalnızca)",
+      "D": "Tarih (yalnızca)",
       "E": "Folklor (halkbilimi)"
     },
     "answer": "A",
-    "rationale": "Arkeoloji, maddi kultur kalintilari uzerinden gecmisi aydinlatir; bu soru setinde tanimlayici baglam arkeoloji.biz icerigine gore verilmistir.",
+    "rationale": "Arkeoloji, maddi kültür kalıntıları üzerinden geçmişi aydınlatır; bu soru setinde tanımlayıcı bağlam arkeoloji.biz içeriğine göre verilmiştir.",
     "sourceUrl": "https://www.arkeoloji.biz/search?q=arkeoloji%20yardimci%20bilimler",
-    "sourceTitle": "Arkeoloji.biz aramasinda: arkeoloji ve yardimci bilimler",
+    "sourceTitle": "Arkeoloji.biz aramasında: arkeoloji ve yardımcı bilimler",
     "reviewStatus": "approved"
   },
   {
     "id": "MIM_02",
-    "subject": "Antik Mimari - Duzenler",
+    "subject": "Antik Mimari - Düzenler",
     "difficulty": "Orta",
-    "question": "Asagidaki sutun duzenlerinden hangisi en sade ve en eski Yunan mimari duzeni olarak bilinir; frizinde triglif ve metoplar bulunur?",
+    "question": "şağıdaki sütun düzenlerinden hangisi en sade ve en eski Yunan mimari düzeni olarak bilinir; frizinde triglif ve metoplar bulunur?",
     "options": {
-      "A": "Ion Duzeni",
-      "B": "Korinth Duzeni",
-      "C": "Dor Duzeni",
-      "D": "Aiol Duzeni",
-      "E": "Kompozit Duzen"
+      "A": "Ion Düzeni",
+      "B": "Korinth Düzeni",
+      "C": "Dor Düzeni",
+      "D": "Aiol Düzeni",
+      "E": "Kompozit Düzen"
     },
     "answer": "C",
-    "rationale": "Dor duzeni, triglif-metop frizi ve sade baslik yapisiyla ayirt edilir.",
+    "rationale": "Dor düzeni, triglif-metop frizi ve sade başlık yapısıyla ayırt edilir.",
     "sourceUrl": "https://www.arkeoloji.biz/search?q=dor%20duzeni%20triglif%20metop",
-    "sourceTitle": "Arkeoloji.biz aramasinda: Dor duzeni ve triglif-metop",
+    "sourceTitle": "Arkeoloji.biz aramasında: Dor düzeni ve triglif-metop",
     "reviewStatus": "approved"
   },
   {
     "id": "NEOL_02",
-    "subject": "Neolitik Cag - Ozellikler",
+    "subject": "Neolitik Cag - Özellikler",
     "difficulty": "Kolay",
-    "question": "Neolitik Cag'in en onemli donum noktalarindan biri asagidakilerden hangisidir?",
+    "question": "Neolitik Çağ'ın en önemli dönüm noktalarından biri aşağıdakilerden hangisidir?",
     "options": {
-      "A": "Tunc aletlerin yayginlasmasi",
-      "B": "Yerlesik hayata ve tarima gecis",
-      "C": "Yazi sisteminin icadi",
-      "D": "Buyuk imparatorluklarin kurulmasi",
-      "E": "Demir Cagi teknolojileri"
+      "A": "Tunç aletlerin yaygınlaşması",
+      "B": "Yerleşik hayata ve tarıma geçiş",
+      "C": "Yazı sisteminin icadı",
+      "D": "Büyük imparatorlukların kurulması",
+      "E": "Demir Çağı teknolojileri"
     },
     "answer": "B",
-    "rationale": "Neolitik cag, tarim ve hayvancilikla birlikte yerlesik hayata gecisle tanimlanir.",
+    "rationale": "Neolitik çağ, tarım ve hayvancılıkla birlikte yerleşik hayata geçişle tanımlanır.",
     "sourceUrl": "https://www.arkeoloji.biz/2026/01/gobeklitepe-nedir-tarihin-sifir-noktasi.html#gobeklitepe-nedir",
-    "sourceTitle": "Gobeklitepe ve Neolitik donusum",
+    "sourceTitle": "Gobeklitepe ve Neolitik dönüşüm",
     "reviewStatus": "approved"
   },
   {
     "id": "ANT_02",
-    "subject": "Antik Kentler - Priene Ornegi",
+    "subject": "Antik Kentler - Priene Örneği",
     "difficulty": "Orta",
-    "question": "Hellenistik donemde izgara plan (Hippodamos plani) en iyi sekilde korunmus antik kent asagidakilerden hangisidir?",
+    "question": "Hellenistik dönemde ızgara plan (Hippodamos planı) en iyi şekilde korunmuş antik kent aşağıdakilerden hangisidir?",
     "options": {
       "A": "Assos",
       "B": "Tios",
@@ -66,16 +66,16 @@
       "E": "Efes"
     },
     "answer": "C",
-    "rationale": "Priene, planli kent dokusunun iyi korundugu en belirgin orneklerden biridir.",
+    "rationale": "Priene, planlı kent dokusunun iyi korunduğu en belirgin örneklerden biridir.",
     "sourceUrl": "https://www.arkeoloji.biz/search?q=Priene%20Hippodamos%20plani",
-    "sourceTitle": "Arkeoloji.biz aramasinda: Priene ve Hippodamos plani",
+    "sourceTitle": "Arkeoloji.biz aramasında: Priene ve Hippodamos planı",
     "reviewStatus": "approved"
   },
   {
     "id": "TAR_03",
-    "subject": "Tarih - Osmanli Olcu Birimleri",
+    "subject": "Tarih - Osmanlı Ölçü Birimleri",
     "difficulty": "Kolay",
-    "question": "Osmanli'da kumas olcumunde kullanilan temel birim asagidakilerden hangisidir?",
+    "question": "Osmanlı'da kumaş ölçümünde kullanılan temel birim aşağıdakilerden hangisidir?",
     "options": {
       "A": "Okka",
       "B": "Arsin",
@@ -84,27 +84,27 @@
       "E": "Kulac"
     },
     "answer": "B",
-    "rationale": "Arsin, kumas olcumunde kullanilan temel birimlerden biridir.",
+    "rationale": "Arsin, kumaş ölçümünde kullanılan temel birimlerden biridir.",
     "sourceUrl": "https://www.arkeoloji.biz/search?q=arsin%20okka%20kantar%20osmanli",
-    "sourceTitle": "Arkeoloji.biz aramasinda: Osmanli olcu birimleri",
+    "sourceTitle": "Arkeoloji.biz aramasında: Osmanlı ölçü birimleri",
     "reviewStatus": "approved"
   },
   {
     "id": "ARK_05",
     "subject": "Arkeoloji - Genel Bilgi",
     "difficulty": "Orta",
-    "question": "Asagidakilerden hangisi arkeolojinin temel amaclarindan biri degildir?",
+    "question": "şağıdakilerden hangisi arkeolojinin temel amaçlarından biri değildir?",
     "options": {
-      "A": "Gecmis toplumlarin maddi kulturunu incelemek",
-      "B": "Kazi teknikleriyle buluntulari belgelemek",
-      "C": "Yazili kaynaklarin yalnizca ekonomik analizini yapmak",
-      "D": "Tarihin bosluklarini maddi kalintilarla doldurmak",
-      "E": "Laboratuvar yontemleriyle yorumlamak"
+      "A": "Geçmiş toplumların maddi kültürünü incelemek",
+      "B": "Kazı teknikleriyle buluntuları belgelemek",
+      "C": "Yazılı kaynakların yalnızca ekonomik analizini yapmak",
+      "D": "Tarihin boşluklarını maddi kalıntılarla doldurmak",
+      "E": "Laboratuvar yöntemleriyle yorumlamak"
     },
     "answer": "C",
-    "rationale": "Arkeoloji, maddi kalintilar ve baglamlari uzerinden gecmisi yorumlar; salt ekonomik metin analizi kendi basina arkeolojinin ana amaci degildir.",
+    "rationale": "Arkeoloji, maddi kalıntılar ve bağlamları üzerinden geçmişi yorumlar; salt ekonomik metin analizi kendi başına arkeolojinin ana amacı değildir.",
     "sourceUrl": "https://www.arkeoloji.biz/search?q=arkeoloji%20nedir%20kazi%20yontemleri",
-    "sourceTitle": "Arkeoloji.biz aramasinda: arkeolojinin amaci ve kazi yontemleri",
+    "sourceTitle": "Arkeoloji.biz aramasında: arkeolojinin amacı ve kazı yöntemleri",
     "reviewStatus": "approved"
   }
 ]

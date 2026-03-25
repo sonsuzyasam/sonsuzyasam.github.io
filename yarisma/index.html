@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arkeoloji Biz - Odullu Quiz Platformu</title>
+    <title>Arkeoloji Biz - Ödüllü Quiz Platformu</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="app-container">
         <div class="top-strip">
             <a href="https://www.arkeoloji.biz/" target="_blank" rel="noopener noreferrer">arkeoloji.biz'i gez</a>
-            <span>10 soruluk barajli yarisma, gunluk 5 hak ve aylik odul sistemi</span>
+            <span>10 soruluk barajlı yarışma, günlük 5 hak ve aylık ödül sistemi</span>
         </div>
         <!-- Header -->
         <header class="header">
             <div class="header-content">
                 <h1>ARKEOLOJI.BIZ</h1>
-                <p>Odullu Quiz</p>
+                <p>Ödüllü Quiz</p>
             </div>
             <div class="user-section">
-                <span id="userName">Misafir</span>
-                <button id="loginBtn" class="btn-login">Giris Yap</button>
+                <span id="userName" role="button" tabindex="0" aria-label="Misafir deneme sayfasını aç">Misafir</span>
+                <button id="loginBtn" class="btn-login">Giriş Yap</button>
             </div>
         </header>
 
@@ -39,9 +39,9 @@
             <section id="dashboard" class="page active">
                 <div class="intro-banner card arkeoloji-hero">
                     <div>
-                        <p class="eyebrow">Bilgi Kazisi</p>
-                        <h2>10 soruluk yarismada barajlari gec, kasani buyut</h2>
-                        <p class="intro-copy">Ilk 3 soruda 15 kurus, 6 soruda 30 kurus ve 10 soruda 1 TL kasa garantisi var. Sorularin cevap izlerini arkeoloji.biz iceriklerinde bulabilir, gunluk 5 hakkinla kasani buyutebilirsin.</p>
+                        <p class="eyebrow">Bilgi Kazısı</p>
+                        <h2>10 soruluk yarışmada barajları geç, kasanı büyüt</h2>
+                        <p class="intro-copy">İlk 3 soruda 15 kuruş, 6 soruda 30 kuruş ve 10 soruda 1 TL kasa garantisi var. Soruların cevap izlerini arkeoloji.biz içeriklerinde bulabilir, günlük 5 hakkınla kasanı büyütebilirsin.</p>
                     </div>
                     <div class="intro-actions">
                         <a class="btn-outline-link" href="https://www.arkeoloji.biz/" target="_blank" rel="noopener noreferrer">Siteyi Gez</a>
@@ -60,50 +60,50 @@
                     <div class="card">
                         <h3>Kurallar</h3>
                         <p>Her oyun 10 sorudur.</p>
-                        <p>Barajlar: 3, 6 ve 10 dogru.</p>
-                        <p>Yanlis cevapta guvenli barajda kalinir ve tur kapanir.</p>
-                        <p>Gunluk en fazla 5 yarisma oynanir.</p>
+                        <p>Barajlar: 3, 6 ve 10 doğru.</p>
+                        <p>Yanlış cevapta güvenli barajda kalınır ve tur kapanır.</p>
+                        <p>Günlük en fazla 5 yarışma oynanır.</p>
                     </div>
                     <div class="card">
-                        <h3>Puan Siralamasi</h3>
-                        <p>Puanlar aylik olarak siralanir.</p>
-                        <p>Lider tahtasi maskeli kimlik ile herkese aciktir.</p>
-                        <p>Uyeler kendi puan/durum panelini dashboard'da gorur.</p>
+                        <h3>Puan Sıralaması</h3>
+                        <p>Puanlar aylık olarak sıralanır.</p>
+                        <p>Lider tahtası maskeli kimlik ile herkese açıktır.</p>
+                        <p>Üyeler kendi puan/durum panelini dashboard'da görür.</p>
                     </div>
                 </div>
 
                 <div class="dashboard-grid">
                     <div class="card">
-                        <h2>Aylik Puanim</h2>
+                        <h2>Aylık Puanım</h2>
                         <div class="big-number" id="monthPoints">0</div>
-                        <p class="subtitle">Baraji gectigin quizlerden kazanilan puan</p>
+                        <p class="subtitle">Barajı geçtiğin quizlerden kazanılan puan</p>
                     </div>
 
                     <div class="card">
-                        <h2>Odul Degeri</h2>
+                        <h2>Ödül Değeri</h2>
                         <div class="big-number" id="rewardValue" style="color: #27ae60;">₺0.00</div>
-                        <p class="subtitle">1 puan = 5 kurus | Talep alt limiti: 500 TL</p>
+                        <p class="subtitle">1 puan = 5 kuruş | Talep alt limiti: 500 TL</p>
                     </div>
 
                     <div class="card">
-                        <h2>Bugun Kalan Hak</h2>
+                        <h2>Bugün Kalan Hak</h2>
                         <div class="big-number" id="dailyQuotaRemaining">5</div>
-                        <p class="subtitle">Gunluk en fazla 5 yarisma oynayabilirsin</p>
+                        <p class="subtitle">Günlük en fazla 5 yarışma oynayabilirsin</p>
                     </div>
                 </div>
 
                 <div class="quick-access">
-                    <h3>Hizli Erisim</h3>
-                    <button class="btn-primary" onclick="goToPage('exams')">Sorulari Cevapla</button>
-                    <button class="btn-secondary" onclick="goToPage('rewards')">Odul Talep Et</button>
-                    <p class="subtitle">Odul talebi acmak icin en az 500 TL birikmis deger gerekir.</p>
+                    <h3>Hızlı Erişim</h3>
+                    <button class="btn-primary" onclick="goToPage('exams')">Soruları Cevapla</button>
+                    <button class="btn-secondary" onclick="goToPage('rewards')">Ödül Talep Et</button>
+                    <p class="subtitle">Ödül talebi açmak için en az 500 TL birikmiş değer gerekir.</p>
                 </div>
             </section>
 
             <!-- Exams Page -->
             <section id="exams" class="page">
-                <h2>Odullu Quiz</h2>
-                <p class="section-lead">Her oyun 10 sorudur. Yanlis yaptiginda bir onceki guvenli barajda kalirsin. Kaynak linkleriyle arkeoloji.biz'de daha fazla zaman gecirerek sonraki denemelere hazirlanabilirsin.</p>
+                <h2>Ödüllü Quiz</h2>
+                <p class="section-lead">Her oyun 10 sorudur. Yanlış yaptığında bir önceki güvenli barajda kalırsın. Kaynak linkleriyle arkeoloji.biz'de daha fazla zaman geçirerek sonraki denemelere hazırlanabilirsin.</p>
                 <div class="exams-top-cta">
                     <button id="examQuickStartBtn" class="btn-primary" type="button">Sorulari Cevapla</button>
                 </div>
@@ -114,8 +114,8 @@
 
             <!-- Leaderboard Page -->
             <section id="leaderboard" class="page">
-                <h2>Aylik Puan Tablosu</h2>
-                <p class="section-lead">Bu ay puan toplayan kullanicilarin maskelenmis kimlikleri ve odul karsiliklari.</p>
+                <h2>Aylık Puan Tablosu</h2>
+                <p class="section-lead">Bu ay puan toplayan kullanıcıların maskelenmiş kimlikleri ve ödül karşılıkları.</p>
                 <table class="leaderboard-table">
                     <thead>
                         <tr>
@@ -133,24 +133,24 @@
 
             <!-- Rewards Page -->
             <section id="rewards" class="page">
-                <h2>Odul Talebinde Bulun</h2>
+                <h2>Ödül Talebinde Bulun</h2>
                 
                 <div class="reward-info card">
                     <p>Mevcut Puan: <strong id="currentPoints">0</strong></p>
-                    <p>Kullanilabilir Odul: <strong id="availableReward" style="color: #27ae60;">₺0.00</strong></p>
-                    <p>Talep Acma Esigi: <strong>₺500.00</strong></p>
+                    <p>Kullanılabilir Ödül: <strong id="availableReward" style="color: #27ae60;">₺0.00</strong></p>
+                    <p>Talep Açma Eşiği: <strong>₺500.00</strong></p>
                 </div>
 
                 <form id="rewardRequestForm" class="reward-form">
                     <div class="form-group">
-                        <label>Odul Turu</label>
+                        <label>Ödül Türü</label>
                         <select id="rewardType" required>
-                            <option value="">-- Secin --</option>
-                            <option value="gift-card">Dijital Hediye Karti</option>
-                            <option value="subscription">Streaming Aboneligi</option>
-                            <option value="donation">Hayir Kurumuna Bagis</option>
-                            <option value="book">Kitap / Egitim Destegi</option>
-                            <option value="custom">Diger</option>
+                            <option value="">-- Seçin --</option>
+                            <option value="gift-card">Dijital Hediye Kartı</option>
+                            <option value="subscription">Streaming Aboneliği</option>
+                            <option value="donation">Hayır Kurumuna Bağış</option>
+                            <option value="book">Kitap / Eğitim Desteği</option>
+                            <option value="custom">Diğer</option>
                         </select>
                     </div>
 
@@ -179,8 +179,8 @@
                         <h3>Profil Bilgilerim</h3>
                         <p>Ad: <span id="profileName">-</span></p>
                         <p>Email: <span id="profileEmail">-</span></p>
-                        <p>Telefon alinmiyor. Gereksiz veri islememek icin kayit sadece ad ve e-posta ile tutulur.</p>
-                        <button class="btn-secondary" onclick="editProfile()">Duzenle</button>
+                        <p>Telefon alınmıyor. Gereksiz veri işlememek için kayıt sadece ad ve e-posta ile tutulur.</p>
+                        <button class="btn-secondary" onclick="editProfile()">Düzenle</button>
                     </div>
 
                     <div class="card">
@@ -195,15 +195,23 @@
 
                     <div class="card">
                         <h3>Arkeoloji Biz</h3>
-                        <p>Sorularin cevaplarini arkeoloji.biz'deki iceriklerde bulabilirsin.</p>
-                        <p>Her ay sifirlanan puanlarla odul sistemine katilirsin.</p>
-                        <p>Yeni quizler eklendikce burada gorunur.</p>
+                        <p>Soruların cevaplarını arkeoloji.biz'deki içeriklerde bulabilirsin.</p>
+                        <p>Her ay sıfırlanan puanlarla ödül sistemine katılırsın.</p>
+                        <p>Yeni quizler eklendikçe burada görünür.</p>
                     </div>
                 </div>
 
-                <button class="btn-danger" onclick="logout()">Cikis Yap</button>
+                <button class="btn-danger" onclick="logout()">Çıkış Yap</button>
             </section>
         </main>
+
+        <nav class="mobile-bottom-nav" aria-label="Mobil gezinme">
+            <button class="nav-btn active" data-page="dashboard" type="button">Ana Sayfa</button>
+            <button class="nav-btn" data-page="exams" type="button">Quiz</button>
+            <button class="nav-btn" data-page="leaderboard" type="button">Puan</button>
+            <button class="nav-btn" data-page="rewards" type="button">Ödül</button>
+            <button class="nav-btn" data-page="my-rewards" type="button">Daha Fazla</button>
+        </nav>
     </div>
 
     <!-- Modal: Login -->
@@ -211,9 +219,13 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('loginModal')">&times;</span>
             <h2 id="authTitle">Giriş Yap</h2>
-            <p id="authHint">Parola ile giris yapabilir veya yeni hesap olusturabilirsin.</p>
+            <p id="authHint">Parola ile giriş yapabilir veya yeni hesap oluşturabilirsin.</p>
+            <div class="guest-login-box">
+                <p>Misafir olarak deneyebilirsiniz.</p>
+                <a href="./arkeoloji.html">Misafir girişi için buraya tıkla</a>
+            </div>
             <form id="loginForm" data-mode="login">
-                <input type="text" id="loginName" placeholder="Adiniz Soyadiniz" required>
+                <input type="text" id="loginName" placeholder="Adınız Soyadınız" required>
                 <input type="email" id="loginEmail" placeholder="E-posta" required>
                 <input type="password" id="loginPassword" placeholder="Parola" required minlength="6">
                 <input type="password" id="loginPasswordConfirm" placeholder="Parola (Tekrar)">

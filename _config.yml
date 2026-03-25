@@ -22,3 +22,8 @@ adsense:
   client: ca-pub-7309845525285029
   manual:
     inarticle_slot: "7620333395"   # Provided in-article slot ID
+
+# Privacy Messaging / Offerwall
+privacy_messaging:
+  offerwall:
+    enabled: false   # Set to true after you create the Offerwall in AdSense and paste tag

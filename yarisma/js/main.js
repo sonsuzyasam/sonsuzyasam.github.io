@@ -47,6 +47,21 @@ class App {
             this.showModal('loginModal');
         });
 
+        const userNameEl = document.getElementById('userName');
+        if (userNameEl) {
+            userNameEl.addEventListener('click', () => {
+                if (!this.currentUser) {
+                    window.location.href = './arkeoloji.html';
+                }
+            });
+            userNameEl.addEventListener('keydown', (e) => {
+                if ((e.key === 'Enter' || e.key === ' ') && !this.currentUser) {
+                    e.preventDefault();
+                    window.location.href = './arkeoloji.html';
+                }
+            });
+        }
+
         // Modal Close
         document.querySelectorAll('.close').forEach(closeBtn => {
             closeBtn.addEventListener('click', (e) => {
@@ -145,30 +160,41 @@ class App {
     }
 
     updateUserUI() {
+        const userNameEl = document.getElementById('userName');
         if (this.currentUser) {
             document.getElementById('userName').textContent = this.currentUser.name;
             document.getElementById('loginBtn').textContent = 'Çıkış Yap';
             document.getElementById('profileName').textContent = this.currentUser.name;
             document.getElementById('profileEmail').textContent = this.currentUser.email;
+            if (userNameEl) userNameEl.classList.remove('guest-entry');
         } else {
             document.getElementById('userName').textContent = 'Misafir';
             document.getElementById('loginBtn').textContent = 'Giriş Yap';
             document.getElementById('profileName').textContent = '-';
             document.getElementById('profileEmail').textContent = '-';
+            if (userNameEl) userNameEl.classList.add('guest-entry');
         }
         this.updateNavVisibility();
     }
 
     updateNavVisibility() {
-        const rewardsBtn = document.querySelector('.nav-btn[data-page="rewards"]');
-        const moreBtn = document.querySelector('.nav-btn[data-page="my-rewards"]');
+        const rewardsButtons = document.querySelectorAll('.nav-btn[data-page="rewards"]');
+        const moreButtons = document.querySelectorAll('.nav-btn[data-page="my-rewards"]');
         
         if (!this.currentUser) {
-            if (rewardsBtn) rewardsBtn.style.display = 'none';
-            if (moreBtn) moreBtn.style.display = 'none';
+            rewardsButtons.forEach((btn) => {
+                btn.style.display = 'none';
+            });
+            moreButtons.forEach((btn) => {
+                btn.style.display = 'none';
+            });
         } else {
-            if (rewardsBtn) rewardsBtn.style.display = '';
-            if (moreBtn) moreBtn.style.display = '';
+            rewardsButtons.forEach((btn) => {
+                btn.style.display = '';
+            });
+            moreButtons.forEach((btn) => {
+                btn.style.display = '';
+            });
         }
     }
 
@@ -192,10 +218,10 @@ class App {
         
         document.getElementById(pageName).classList.add('active');
 
-        const activeButton = document.querySelector(`.nav-btn[data-page="${pageName}"]`);
-        if (activeButton) {
-            activeButton.classList.add('active');
-        }
+        const activeButtons = document.querySelectorAll(`.nav-btn[data-page="${pageName}"]`);
+        activeButtons.forEach((button) => {
+            button.classList.add('active');
+        });
 
         // Sayfa yüklendiğinde verileri güncelle
         if (pageName === 'leaderboard') {
@@ -327,6 +353,15 @@ class App {
             return 0;
         }
 
+        // Firebase auth state can be restored slightly later than local UI state.
+        // Skip server calls until a valid idToken is available.
+        if (window.authManager && typeof window.authManager.getAuthContext === 'function') {
+            const authContext = await window.authManager.getAuthContext(false);
+            if (!authContext || !authContext.idToken) {
+                return Number(this.pointsCache[this.currentMonth] || 0);
+            }
+        }
+
         try {
             const points = await sheetsAPI.getMonthlyPoints(this.currentMonth);
             this.pointsCache[this.currentMonth] = Number(points || 0);
@@ -345,6 +380,14 @@ class App {
     async refreshDailyQuizQuota() {
         if (!this.currentUser || !window.sheetsAPI || typeof sheetsAPI.getExamQuota !== 'function') {
             return this.dailyQuota;
+        }
+
+        // Avoid noisy Missing idToken errors while auth session is still hydrating.
+        if (window.authManager && typeof window.authManager.getAuthContext === 'function') {
+            const authContext = await window.authManager.getAuthContext(false);
+            if (!authContext || !authContext.idToken) {
+                return this.dailyQuota;
+            }
         }
 
         try {
